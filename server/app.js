@@ -12,10 +12,18 @@ app.use(express.json()); // parse json
 app.use(cors()); // allow cors
 
 //! Routes
+//? Users
 app.use("/users", require("./api/users/user.router.js")); // import user data
 
+//? Quiz
+app.use("/quiz", require("./api/quiz/quiz.router.js")); // import quiz data'
+
+//? Questions
+app.use("/questions", require("./api/question/question.router.js")); // import question data
+
+
 // Main
-app.use("/", (req, res) => {
+app.use("/", (req, res) => { 
     res.writeHead(200, {"Content-Type": "text/json"});
     res.write("By Daniel Kertsmik");
 })

@@ -8,6 +8,8 @@ npm install mysql
 npm install dotenv
 npm install nodemon --save-dev
 npm install cors
+npm install bcrypt
+npm install jsonwebtoken
 
 scrpits:
 "start": "nodemon"
