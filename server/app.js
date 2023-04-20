@@ -21,6 +21,8 @@ app.use("/quiz", require("./api/quiz/quiz.router.js")); // import quiz data'
 //? Questions
 app.use("/questions", require("./api/question/question.router.js")); // import question data
 
+//? Choices
+app.use("/choices", require("./api/choices/choices.router.js")); // import choice data
 
 // Main
 app.use("/", (req, res) => { 

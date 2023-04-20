@@ -1,3 +1,5 @@
+- So that you can play (Without creating or changing anything. And no user system yet.)'
+
 ## Server setup
 
 ### Node Modules
