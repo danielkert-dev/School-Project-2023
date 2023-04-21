@@ -2,6 +2,7 @@ const {
   allQuestions,
   questionByID,
   questionByQuizID,
+  questionAmount
 } = require("./question.service");
 
 module.exports = {
@@ -11,6 +12,12 @@ module.exports = {
         res.status(500).json({
           success: false,
           message: error.message,
+        });
+      }
+      if (!results) {
+        return res.status(404).json({
+          success: false,
+          message: "Questions not found",
         });
       }
       return res.status(200).json({
@@ -31,7 +38,7 @@ module.exports = {
       if (!results) {
         return res.status(404).json({
           success: false,
-          message: "Question not found",
+          message: "Question id not found",
         });
       }
 
@@ -55,7 +62,7 @@ module.exports = {
         console.log(req.params);
         return res.status(404).json({
           success: false,
-          message: "Question not found",
+          message: "Question quiz not found",
         });
       }
       
@@ -66,5 +73,25 @@ module.exports = {
     });
   },
 
+  questionAmount: (req, res) => {
+    questionAmount(req.params.id, (error, results) => {
+      if (error) {
+        res.status(500).json({
+          success: false,
+          message: error.message,
+        });
+      }
+      if (!results) {
+        return res.status(404).json({
+          success: false,
+          message: "Question amount not found",
+        });
+      }
+      return res.status(200).json({
+        success: true,
+        data: results,
+      })
+    })
+  }
   
 };
