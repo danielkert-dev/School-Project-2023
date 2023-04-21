@@ -9,3 +9,55 @@ body {
     position: relative;
     background: #363636;
 }
+
+main {
+    margin-top: 20px;
+    background-color: #1e1e1e;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+}
+
+.question-box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+h1 {
+    text-align: center;
+    padding: 20px;}
+
+.question-image {
+    height: 400px;
+    object-fit: cover;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto ;
+    border-radius: 15px;
+}
+
+button {
+	border: none;
+	padding: 10px;
+    margin: 10px;
+    min-width: 300px;
+	font: inherit;
+    cursor: pointer;
+    background-color: #262626;
+    border-radius: 10px;
+}
+
+.buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}

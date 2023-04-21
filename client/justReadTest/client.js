@@ -31,5 +31,6 @@ function getQuiz() {
 
 function quizLink(quizID) {
     document.cookie = "quizID=" + quizID;
+    document.cookie = "question=1" + ";path=/";
     window.open("./questions/questions.html", "_self");
 }

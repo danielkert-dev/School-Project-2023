@@ -30,10 +30,10 @@ module.exports = {
         )
     },
 
-    questionByQuizID: (quizID, callBack) => {
+    questionByQuizID: (quizID, question, callBack) => {
         pool.query(
-            `select * from questions where quiz_ID = ?`,
-            [quizID],
+            `select * from questions where quiz_ID = ? and question = ?`,
+            [quizID, question],
             (error, results, fields) => {
                 // Check the result of the query
                 if (error) {

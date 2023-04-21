@@ -43,7 +43,7 @@ module.exports = {
   },
 
   questionByQuizID: (req, res) => {
-    questionByQuizID(req.params.id, (error, results) => {
+    questionByQuizID(req.params.id, req.params.q, (error, results) => {
       if (error) {
         res.status(500).json({
           success: false,
@@ -52,6 +52,7 @@ module.exports = {
       }
 
       if (!results) {
+        console.log(req.params);
         return res.status(404).json({
           success: false,
           message: "Question not found",
