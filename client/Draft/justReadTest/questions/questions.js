@@ -2,19 +2,20 @@ window.API_URL = "http://localhost:8000";
 
 function cookieQuestion() {
   let quizID = document.cookie
-    .split(";")
+    .split("; ")
     .find((row) => row.startsWith("quizID="))
     ?.split("=")[1];
 
   let question = document.cookie
-    .split(";")
-    .find((row) => row.startsWith(" question="))
+    .split("; ")
+    .find((row) => row.startsWith("question="))
     ?.split("=")[1];
 
   return `${quizID}/${question}`;
 }
 
 function getQuestion() {
+  console.log(document.cookie);
   let question = cookieQuestion();
   let quizID = question.split("/")[0];
 
@@ -35,7 +36,6 @@ function getQuestion() {
       fetch(window.API_URL + `/questions/amount/amount/${quizID}`)
       .then((response) => response.json())
       .then((amount) => {
-          console.log(amount.data.c);
 
       document.querySelector("main").innerHTML += `<div class='question-box'>
             <br>
@@ -126,11 +126,13 @@ function nextQuestion(user_choice, correct_answer) {
   }
 
   let question = document.cookie
-    .split(";")
-    .find((row) => row.startsWith(" question="))
+    .split("; ")
+    .find((row) => row.startsWith("question="))
     ?.split("=")[1];
 
   document.cookie = "question=" + (parseInt(question) + 1) + ";path=/";
+
+  localStorage.setItem("points", Number(localStorage.getItem("points")) + 1);
 
   setTimeout(() => {
     window.location.reload();
