@@ -1,6 +1,7 @@
 const pool = require("../../conf/db");
 
 module.exports = {
+  /*
   allQuestions: (callBack) => {
     pool.query(`select * from questions`, [], (error, results, fields) => {
       // Check the result of the query
@@ -9,8 +10,9 @@ module.exports = {
       }
       return callBack(null, results); // Callback result.
     });
-  },
+  },*/
 
+  /*
   questionByID: (id, callBack) => {
     pool.query(
       `select * from questions where ID = ?`,
@@ -23,8 +25,8 @@ module.exports = {
         return callBack(null, results[0]); // Callback result.
       }
     );
-  },
-
+  }, */
+  
   questionByQuizID: (quizID, question, callBack) => {
     pool.query(
       `select * from questions where quiz_ID = ? and question = ?`,
@@ -38,7 +40,7 @@ module.exports = {
       }
     );
   },
-
+  /*
   questionAmount: (quizID, callBack) => {
     pool.query(
       `SELECT quiz_ID,
@@ -55,4 +57,5 @@ module.exports = {
       }
     );
   },
+  */
 };

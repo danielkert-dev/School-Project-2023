@@ -1,6 +1,7 @@
 const pool = require("../../conf/db");
 
 module.exports = {
+    /*
     // User read
     allUsers: (callBack) => {
         pool.query(
@@ -14,11 +15,11 @@ module.exports = {
             return callBack(null, results); // Callback result.
           }
         );
-      },
+      },*/
     //? User read by id
     userByID: (id, callBack) => {
         pool.query(
-          `select ID,first_name,last_name,email,last_login,done_quiz from user where ID = ?`,
+          `select * from user where ID = ?`,
           [id],
           (error, results, fields) => {
             // Check the result of the query
@@ -44,6 +45,7 @@ module.exports = {
           }
         );
     },
+    /*
     // User delete
     deleteUser: (data, callBack) => {
       pool.query(
@@ -60,7 +62,7 @@ module.exports = {
           return callBack(null, results); // Callback result.
         }
       )
-    },
+    },*/
     // User update
     updateUser: (data, callBack) => {
       pool.query(

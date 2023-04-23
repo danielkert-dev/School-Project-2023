@@ -1,11 +1,12 @@
 const {
-  allQuestions,
-  questionByID,
+  // allQuestions,
+  // questionByID,
   questionByQuizID,
-  questionAmount
+  // questionAmount
 } = require("./question.service");
 
 module.exports = {
+  /*
   allQuestions: (req, res) => {
     allQuestions((error, results) => {
       if (error) {
@@ -25,8 +26,8 @@ module.exports = {
         data: results,
       });
     });
-  },
-
+  }, */
+  /*
   questionByID: (req, res) => {
     questionByID(req.params.id, (error, results) => {
       if (error) {
@@ -47,7 +48,7 @@ module.exports = {
         data: results,
       });
     });
-  },
+  }, */
 
   questionByQuizID: (req, res) => {
     questionByQuizID(req.params.id, req.params.q, (error, results) => {
@@ -72,7 +73,7 @@ module.exports = {
       });
     });
   },
-
+  /*
   questionAmount: (req, res) => {
     questionAmount(req.params.id, (error, results) => {
       if (error) {
@@ -93,5 +94,5 @@ module.exports = {
       })
     })
   }
-  
+  */
 };

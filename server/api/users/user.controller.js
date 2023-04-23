@@ -1,12 +1,13 @@
-const { allUsers,
+const { // allUsers,
         userByID,
         createUser,
-        deleteUser,
+        // deleteUser,
         updateUser
                 } = require("./user.service");
 const { genSaltSync, hashSync, compareSync } = require("bcrypt");
 
 module.exports = {
+    /*
     allUsers: (req, res) => {
         allUsers((error, results) => {
             if (error) {
@@ -20,7 +21,7 @@ module.exports = {
                 data: results
             })
         })
-    },
+    },*/
 
     userByID: (req, res) => {
         const id = req.params.id;
@@ -64,7 +65,7 @@ module.exports = {
             })
         })
     },
-
+    /*
     deleteUser: (req, res) => {
         
         const data = req.body;
@@ -86,7 +87,7 @@ module.exports = {
                 data: "Deleted successfully"
             })
         })
-    },
+    },*/
 
     updateUser: (req, res) => {
         
