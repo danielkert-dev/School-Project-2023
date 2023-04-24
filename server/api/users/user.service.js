@@ -30,12 +30,38 @@ module.exports = {
           }
         );
     },
-    //? User read by email
+    //? User read by username
+    userByUsername: (username, callBack) => {
+        pool.query(
+          `select password from user where username = ?`,
+          [username],
+          (error, results, fields) => {
+            // Check the result of the query
+            if (error) {
+              return callBack(error); // Callback error
+            }
+            return callBack(null, results[0]); // Callback result.
+          }
+        );
+    },
+
+    authUser: (username, password, callBack) => {
+        pool.query(
+            `select * from user where username = ? and password = ?`,
+            [username, password],
+            (error, results, fields) => {
+                if (error) {
+                    return callBack(error);
+                }
+                return callBack(null, results[0]);
+            }
+        );
+    },
     // User create
     createUser: (user, callBack) => {
         pool.query(
-          `insert into user(first_name,last_name,email,password) values (?,?,?,?)`,
-          [user.first_name,user.last_name,user.email,user.password],
+          `insert into user(username,email,password) values (?,?,?,?)`,
+          [user.username,user.email,user.password],
           (error, results, fields) => {
             // Check the result of the query
             if (error) {
