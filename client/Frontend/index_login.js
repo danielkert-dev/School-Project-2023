@@ -18,24 +18,7 @@ function login() {
       localStorage.setItem("token", data.token);
 
       setTimeout(() => {
-        const myHeaders = new Headers();
-        console.log(localStorage.getItem("token"));
-        myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer "+localStorage.getItem("token"));
-      
-        fetch(`${window.API}/user/298`, {
-          method: "GET",
-          headers: myHeaders,
-        })
-          .then((response) => {
-            return response.json();
-          })
-          .then((data) => {
-            console.log(data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        window.open("./quiz/quiz.html", "_self");
       },1000)
       
     });

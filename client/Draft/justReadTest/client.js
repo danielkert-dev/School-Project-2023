@@ -9,8 +9,6 @@ function set_cookie(name, value) {
 }
 
 function getQuiz() {
-
-
   fetch(window.API_URL + `/quiz`)
     .then((response) => response.json())
     .then((data) => {
@@ -39,12 +37,11 @@ function getQuiz() {
 }
 
 function setPoints() {
-
-    let points = 0;
-    if (localStorage.getItem("points") !== null) {
-        points = parseInt(localStorage.getItem("points"));
-    }
-    document.querySelector(".points").innerHTML = points;
+  let points = 0;
+  if (localStorage.getItem("points") !== null) {
+    points = parseInt(localStorage.getItem("points"));
+  }
+  document.querySelector(".points").innerHTML = points;
 }
 
 function quizLink(quizID) {

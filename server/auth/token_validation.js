@@ -9,7 +9,7 @@ module.exports = {
                 verify(token, process.env.SIGN_KEY, (error, decoded) => {
                     if (error) {
                         res.json({
-                            success: 0,
+                            success: false,
                             message: "Invalid token"  
                         })
                     } else {
@@ -21,7 +21,7 @@ module.exports = {
             } else {
             // If token provided
             return res.status(401).json({
-                success: 0,
+                success: false,
                 message: "Token not provided. Unauthorized"
             });
         }
