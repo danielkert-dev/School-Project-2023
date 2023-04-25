@@ -2,7 +2,7 @@ const {
   // allQuestions,
   // questionByID,
   questionByQuizID,
-  // questionAmount
+  questionAmount,
 } = require("./question.service");
 
 module.exports = {
@@ -73,9 +73,8 @@ module.exports = {
       });
     });
   },
-  /*
   questionAmount: (req, res) => {
-    questionAmount(req.params.id, (error, results) => {
+    questionAmount(req.params.quizID, (error, results) => {
       if (error) {
         res.status(500).json({
           success: false,
@@ -85,7 +84,7 @@ module.exports = {
       if (!results) {
         return res.status(404).json({
           success: false,
-          message: "Question amount not found",
+          message: "Amount not found",
         });
       }
       return res.status(200).json({
@@ -94,5 +93,4 @@ module.exports = {
       })
     })
   }
-  */
 };

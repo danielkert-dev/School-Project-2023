@@ -15,12 +15,12 @@ function login() {
     .then((data) => {
       document.querySelector(".response").innerHTML = data.message;
       document.querySelector(".response").style.color = "green";
-      localStorage.setItem("token", data.token);
 
+      localStorage.setItem("username", username);
+      localStorage.setItem("password", password);
+      localStorage.setItem("token", data.token);
       setTimeout(() => {
         window.open("./quiz/quiz.html", "_self");
-      },1000)
-      
+      }, 1000);
     });
-
 }

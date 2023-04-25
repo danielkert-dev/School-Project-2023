@@ -40,7 +40,8 @@ module.exports = {
       }
     );
   },
-  /*
+
+
   questionAmount: (quizID, callBack) => {
     pool.query(
       `SELECT quiz_ID,
@@ -56,6 +57,5 @@ module.exports = {
         return callBack(null, results[0]); // Callback result.
       }
     );
-  },
-  */
+  }
 };

@@ -5,7 +5,9 @@ const {
   userByUsername,
   authUser,
   // deleteUser,
-  updateUser
+  updateUser,
+  userPoints,
+  userPointsRead
 } = require("./user.controller");
 
 const { checkToken } = require("../../auth/token_validation");
@@ -19,5 +21,7 @@ router.get("/auth/:username/:password", authUser);
 router.post("/create/", createUser);
 // router.delete("/", deleteUser);
 router.patch("/update/", updateUser);
+router.patch("/points/:userID/:questionID", userPoints);
+router.get("/points/:userID/", userPointsRead);
 
 module.exports = router;

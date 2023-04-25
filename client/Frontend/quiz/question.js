@@ -1,18 +1,17 @@
 window.API = "http://localhost:8000";
 
 function getQuestion() {
+  if (!localStorage.getItem("token")) {
+    window.open("../index.html", "_self");
+  }
 
-    if (!localStorage.getItem("token")) {
-        window.open("../index.html", "_self");
-    }
+  let question = localStorage.getItem("question");
+  let quizID = localStorage.getItem("quizID");
 
-    let question = localStorage.getItem("question");
-    let quizID = localStorage.getItem("quizID");
-
-    const myHeaders = new Headers();
-    console.log(localStorage.getItem("token"));
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
+  const myHeaders = new Headers();
+  console.log(localStorage.getItem("token"));
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
 
   fetch(window.API + `/question/${quizID}/${question}`, {
     method: "GET",
@@ -29,52 +28,49 @@ function getQuestion() {
     })
     .then((data) => {
 
+      fetch(window.API + `/question/amount/amount/${quizID}`).then((response) => {return response.json();})
+      .then((amount) => {
+        
+
+
+
+      localStorage.setItem("questionID", data.data.ID);
       if (data.data.last === 1) {
-       window.open("./quiz.html", "_self");
+        window.open("./quiz.html", "_self");
       }
-            console.log(data);
-          document.querySelector(
-            "main"
-          ).innerHTML += `<div class='question-box'>
+      console.log(data);
+      document.querySelector("main").innerHTML += `<div class='question-box'>
             <br>
-            <p>Question : ${data.data.question}</p>
+            <p>Question : ${data.data.question} / ${amount.data.c -1} </p>
             <h1>${data.data.description}</h1> <br>
             <img class='question-image' src='${data.data.image}'> <br>
             <div class='buttons'>
-            <button id='choice1' onclick='correctAnswer(1)'>${
-              data.data.choice1
-            }</button>
-            <button id='choice2' onclick='correctAnswer(2)'>${
-              data.data.choice2
-            }</button>
-            <button id='choice3' onclick='correctAnswer(3)'>${
-              data.data.choice3
-            }</button>
-            <button id='choice4' onclick='correctAnswer(4)'>${
-              data.data.choice4
-            }</button>
+            <button id='choice1' onclick='correctAnswer(1)'>${data.data.choice1}</button>
+            <button id='choice2' onclick='correctAnswer(2)'>${data.data.choice2}</button>
+            <button id='choice3' onclick='correctAnswer(3)'>${data.data.choice3}</button>
+            <button id='choice4' onclick='correctAnswer(4)'>${data.data.choice4}</button>
             </div></div>`;
+          });
     });
 }
 
 function correctAnswer(selectedAnswer) {
+  if (!localStorage.getItem("token")) {
+    window.open("../index.html", "_self");
+  }
 
-    if (!localStorage.getItem("token")) {
-        window.open("../index.html", "_self");
-    }
+  let question = localStorage.getItem("question");
+  let quizID = localStorage.getItem("quizID");
 
-    let question = localStorage.getItem("question");
-    let quizID = localStorage.getItem("quizID");
+  const myHeaders = new Headers();
+  console.log(localStorage.getItem("token"));
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
 
-    const myHeaders = new Headers();
-    console.log(localStorage.getItem("token"));
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
-
-    fetch(window.API + `/question/${quizID}/${question}/`, {
-        method: "GET",
-        headers: myHeaders,
-      })
+  fetch(window.API + `/question/${quizID}/${question}/`, {
+    method: "GET",
+    headers: myHeaders,
+  })
     .then((response) => response.json())
     .then((data) => {
       let correct_answer = data.data.correct_answer;
@@ -121,10 +117,9 @@ function correctAnswer(selectedAnswer) {
 }
 
 function nextQuestion(user_choice, correct_answer) {
-
-    if (!localStorage.getItem("token")) {
-        window.open("../index.html", "_self");
-    }
+  if (!localStorage.getItem("token")) {
+    window.open("../index.html", "_self");
+  }
 
   let choice1 = document.querySelector("#choice1");
   let choice2 = document.querySelector("#choice2");
@@ -150,12 +145,25 @@ function nextQuestion(user_choice, correct_answer) {
     document.querySelector("main").innerHTML += "<h1>Wrong!</h1>";
   }
 
+  let questionID = localStorage.getItem("questionID");
+  let username = localStorage.getItem("username");
+
+  console.log(window.API + `/user/points/${username}/${questionID}`);
+
+  fetch(window.API + `/user/points/${username}/${questionID}/`, {
+    method: "PATCH",
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data);
+  })
+
+
   let question = localStorage.getItem("question");
 
-    localStorage.setItem("question", parseInt(question)+1);
-    
-    setTimeout(() => {
-        window.location.reload();
-    }, 1000);
+  localStorage.setItem("question", parseInt(question) + 1);
 
+  setTimeout(() => {
+    window.location.reload();
+  }, 1000);
 }

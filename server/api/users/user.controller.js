@@ -5,6 +5,8 @@ const {
   userByUsername,
   // deleteUser,
   updateUser,
+  userPoints,
+  userPointsRead,
 } = require("./user.service");
 const { genSaltSync, hashSync, compareSync } = require("bcrypt");
 const { sign } = require("jsonwebtoken");
@@ -88,7 +90,6 @@ module.exports = {
           message: "User not found",
         });
       }
-
        const compare = compareSync(password, results.password);
        if (compare) {
         results.password = undefined;
@@ -101,7 +102,7 @@ module.exports = {
         return res.status(200).json({
           success: true,
           message: "Login successful",
-          token: jsontoken
+          token: jsontoken,
         });
        } else {
         return res.status(401).json({
@@ -177,4 +178,49 @@ module.exports = {
       });
     });
   },
+
+  userPoints: (req, res) => {
+    const userID = req.params.userID;
+    const questionID = req.params.questionID;
+    userPoints(userID, questionID, (error, results) => {
+      if (error) {
+        res.status(500).json({
+          success: false,
+          message: error.message,
+        });
+      }
+      if (!results) {
+        return res.status(404).json({
+          success: false,
+          message: "User not found",
+        });
+      }
+      return res.status(200).json({
+        success: true,
+        data: results,
+      });
+    });
+  },
+
+  userPointsRead: (req, res) => {
+    const userID = req.params.userID;
+    userPointsRead(userID, (error, results) => {
+      if (error) {
+        res.status(500).json({
+          success: false,
+          message: error.message,
+        });
+      }
+      if (!results) {
+        return res.status(404).json({
+          success: false,
+          message: "User not found",
+        });
+      }
+      return res.status(200).json({
+        success: true,
+        data: results,
+      });
+    });
+  }
 };
