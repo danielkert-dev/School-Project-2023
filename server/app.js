@@ -22,6 +22,10 @@ app.use("/quiz", require("./api/quiz/quiz.router.js")); // import quiz data'
 //? Questions
 app.use("/question", require("./api/quiz/question.router.js")); // import question data
 
+//? Leaderboard
+
+app.use("/leaderboard", require("./api/leaderboard/leaderboard.router.js")); // import leaderboard data
+
 //? Admin
 
 //? Main (API guide)

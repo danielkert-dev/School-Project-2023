@@ -57,5 +57,21 @@ module.exports = {
         return callBack(null, results[0]); // Callback result.
       }
     );
-  }
+  },
+
+  questionPlayed: (quizID, callBack) => {
+    pool.query(
+      `UPDATE quiz as q
+        SET amount_done = amount_done + 1
+        Where q.ID = ?`,
+      [quizID],
+      (error, results, fields) => {
+        // Check the result of the query
+        if (error) {
+          return callBack(error); // Callback error
+        }
+        return callBack(null, results); // Callback result.
+      }
+    );
+  },
 };

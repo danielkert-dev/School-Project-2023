@@ -38,6 +38,19 @@ h1 {
     z-index: 3;
 }
 
+.points {
+    padding-right: 2.2rem;
+    padding-left: 1rem;
+}
+
+.header_buttons {
+    opacity: .4; 
+    outline: .1rem solid var(--third-color); 
+    padding: .3rem;
+    margin-right: 1rem;
+    cursor: pointer;
+}
+
 main {
     display: flex;
     flex-direction: row;
@@ -61,6 +74,7 @@ main {
     padding: 10px;
     text-align: center;
     font-size: larger;
+    cursor: pointer;
 }
 
 .quiz-box:hover {

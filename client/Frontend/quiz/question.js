@@ -33,10 +33,20 @@ function getQuestion() {
         
 
 
-
       localStorage.setItem("questionID", data.data.ID);
+
       if (data.data.last === 1) {
         window.open("./quiz.html", "_self");
+
+        fetch(window.API + `/question/played/${localStorage.getItem("quizID")}`, {
+          method: "PATCH",
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((played) => {
+            console.log(played);
+          })
       }
       console.log(data);
       document.querySelector("main").innerHTML += `<div class='question-box'>
@@ -58,6 +68,8 @@ function correctAnswer(selectedAnswer) {
   if (!localStorage.getItem("token")) {
     window.open("../index.html", "_self");
   }
+
+  document.querySelector("main").style.pointerEvents = "none";
 
   let question = localStorage.getItem("question");
   let quizID = localStorage.getItem("quizID");

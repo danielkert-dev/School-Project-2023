@@ -25,8 +25,10 @@ function getQuiz() {
         window.open("../index.html", "_self");
       }
 
+      let username = localStorage.getItem("username");
 
       for (let i = 0; i < data.data.length; i++) {
+        let amount = i
         document.querySelector(
           "main"
         ).innerHTML += `<div class='quiz-box' id='quiz${data.data[i].ID}' onclick='quizLink(${data.data[i].ID})'>
@@ -41,16 +43,15 @@ function getQuiz() {
               </div>`;
       }
 
-      let username = localStorage.getItem("username");
-
       fetch(`${window.API}/user/points/${username}`)
-      .then((response) => {
-        return response.json();
-      })
-      .then((user) => {
-        let points = user.data.points;
-        document.querySelector(".points").innerHTML = points;  
-      });
+        .then((response) => {
+          return response.json();
+        })
+        .then((user) => {
+          let points = user.data.points;
+          document.querySelector(".points").innerHTML =
+            "" + username + " : " + points;
+        });
     });
 
   // Just temp boxes
@@ -67,4 +68,13 @@ function quizLink(quizID) {
   localStorage.setItem("quizID", quizID);
   localStorage.setItem("question", 1);
   window.open("./question.html", "_self");
+}
+
+function logOut() {
+  localStorage.clear();
+  window.open("../index.html", "_self");
+}
+
+function leaderBoard() {
+  window.open("../leaderboard/leaderboard.html", "_self");
 }
