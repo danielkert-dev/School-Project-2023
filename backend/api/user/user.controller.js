@@ -114,8 +114,16 @@ module.exports = {
 
   userCreate: (req, res) => {
     const body = req.body;
-    const salt = genSaltSync(10);
-    body.password = hashSync(body.password, salt);
+    try {
+      const salt = genSaltSync(10);
+      body.password = hashSync(body.password, salt);
+  } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+          success: false,
+          message: error.message,
+      });
+  }
     if (!body) {
       // Validate input
       return res.status(400).json({
@@ -204,8 +212,16 @@ module.exports = {
 
   userUpdate: (req, res) => {
     const body = req.body;
-    const salt = genSaltSync(10);
-    body.password = hashSync(body.password, salt);
+    try {
+      const salt = genSaltSync(10);
+      body.password = hashSync(body.password, salt);
+  } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+          success: false,
+          message: error.message,
+      });
+  }
     if (!body) {
       // Validate input
       return res.status(400).json({
