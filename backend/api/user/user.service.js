@@ -18,12 +18,14 @@ module.exports = {
   
   userSearchAll: (page, pageSize, callBack) => {
     const offset = (page - 1) * pageSize;
+    console.log(pageSize);
+    console.log(offset);
     pool.query(`
     SELECT * 
     FROM user 
     LIMIT ? 
     OFFSET ?`, 
-    [parseInt(page), parseInt(pageSize)], 
+    [parseInt(page), parseInt(offset)], 
     (error, results) => {
       if (error) {
         console.error(error);
