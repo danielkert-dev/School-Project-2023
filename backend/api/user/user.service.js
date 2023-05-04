@@ -15,31 +15,18 @@ module.exports = {
       }
     );
   },
-  
+
   userSearchAll: (page, pageSize, callBack) => {
     const offset = (page - 1) * pageSize;
     console.log(pageSize);
     console.log(offset);
-    pool.query(`
+    pool.query(
+      `
     SELECT * 
     FROM user 
     LIMIT ? 
-    OFFSET ?`, 
-    [parseInt(page), parseInt(offset)], 
-    (error, results) => {
-      if (error) {
-        console.error(error);
-        callBack(error, null);
-      } else {
-        callBack(null, results[0]);
-      }
-    });
-  },
-
-  userSearchById: (id, callBack) => {
-    pool.query(
-      "SELECT * FROM user WHERE id = ?",
-      [id],
+    OFFSET ?`,
+      [parseInt(page), parseInt(offset)],
       (error, results) => {
         if (error) {
           console.error(error);
@@ -51,10 +38,8 @@ module.exports = {
     );
   },
 
-  userCreate: (input, callBack) => {
-    pool.query("INSERT INTO `user`(`username`, `email`, `password`) VALUES (?,?,?)", 
-    [input.username, input.email, input.password], 
-    (error, results) => {
+  userSearchById: (id, callBack) => {
+    pool.query("SELECT * FROM user WHERE id = ?", [id], (error, results) => {
       if (error) {
         console.error(error);
         callBack(error, null);
@@ -62,6 +47,21 @@ module.exports = {
         callBack(null, results);
       }
     });
+  },
+
+  userCreate: (input, callBack) => {
+    pool.query(
+      "INSERT INTO `user`(`username`, `email`, `password`) VALUES (?,?,?)",
+      [input.username, input.email, input.password],
+      (error, results) => {
+        if (error) {
+          console.error(error);
+          callBack(error, null);
+        } else {
+          callBack(null, results);
+        }
+      }
+    );
   },
 
   userAuth: (input, callBack) => {
@@ -123,5 +123,4 @@ module.exports = {
       }
     );
   },
-
 };

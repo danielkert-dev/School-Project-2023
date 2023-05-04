@@ -117,13 +117,13 @@ module.exports = {
     try {
       const salt = genSaltSync(10);
       body.password = hashSync(body.password, salt);
-  } catch (error) {
+    } catch (error) {
       console.error(error);
       return res.status(500).json({
-          success: false,
-          message: error.message,
+        success: false,
+        message: error.message,
       });
-  }
+    }
     if (!body) {
       // Validate input
       return res.status(400).json({
@@ -215,13 +215,13 @@ module.exports = {
     try {
       const salt = genSaltSync(10);
       body.password = hashSync(body.password, salt);
-  } catch (error) {
+    } catch (error) {
       console.error(error);
       return res.status(500).json({
-          success: false,
-          message: error.message,
+        success: false,
+        message: error.message,
       });
-  }
+    }
     if (!body) {
       // Validate input
       return res.status(400).json({

@@ -16,7 +16,7 @@ module.exports = {
           console.error(error);
           callBack(error, null);
         } else {
-          callBack(null, results[0]);
+          callBack(null, results);
         }
       });
     },
@@ -40,8 +40,11 @@ module.exports = {
     // quizSearch
     quizSearch: (input, callBack) => {
       pool.query(
-        "SELECT * FROM quiz WHERE title LIKE ?",
-        [`${input}`],
+        `SELECT q.title, u.username
+        FROM quiz q
+        INNER JOIN user u ON q.user_ID = u.ID
+        WHERE q.title LIKE ? OR u.username LIKE ?;`,
+        [`%${input}%`, `%${input}%`],
         (error, results) => {
           if (error) {
             console.error(error);
@@ -57,7 +60,7 @@ module.exports = {
     quizAmountAdd: (input, callBack) => {
       pool.query(
         "UPDATE quiz SET amount_done = amount_done + 1 WHERE id = ?",
-        [input],
+        [input.id],
         (error, results) => {
           if (error) {
             console.error(error);
@@ -70,10 +73,12 @@ module.exports = {
     },
 
     // questionById
-    questionSearchById: (id, callBack) => {
+    questionSearch: (quiz_id, question_num, callBack) => {
       pool.query(
-        "SELECT * FROM questions WHERE id = ?",
-        [id],
+        `SELECT *
+        FROM questions
+        WHERE quiz_ID = ? AND question_num = ?`,
+        [quiz_id, question_num],
         (error, results) => {
           if (error) {
             console.error(error);
@@ -100,7 +105,7 @@ module.exports = {
           console.error(error);
           callBack(error, null);
         } else {
-          callBack(null, results[0]);
+          callBack(null, results);
         }
       });
     },

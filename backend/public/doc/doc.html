@@ -16,8 +16,8 @@
     <table>
         <tr>
             <th width="30%">Request method | URI</th>
-            <th width="30%">Description</th>
-            <th width="40%">Awnser</th>
+            <th width="50%">Description</th>
+            <th width="20%">Awnser</th>
         </tr>
         <tbody>
             <tr>
@@ -49,7 +49,7 @@
                 <td>[POST] &ensp; user/Auth</td>
                 <td>Authorize by providing details in body, username, password and recive a bearer-token </td>
                 <td style="padding: 0"><div class="awnser">[400] <br>{success: false, <br>message: "Input is required"}<hr>[500] <br>{success: false, <br>message: error.message}<hr> [404] <br>{success: false, <br>message: "User not found"}<hr> 
-                    [401]<br>{success: false,<br> message: "Invalid password"}<hr>[200]  <br>{success: true, <br>message: "Login successful"<br>token: token,} </div></td>
+                    [401]<br>{success: false,<br> message: "Invalid password"}<hr>[200]  <br>{success: true, <br>message: "Login successful",<br>token: token,} </div></td>
             </tr>
             <tr class="put">
                 <td>[PUT] &ensp; user/Update</td>
@@ -71,15 +71,43 @@
                 <th colspan="3" class="table-title">QUIZ</th>
             </tr>
 
-            <tr>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
+            <tr class="get">
+                <td>[GET] &ensp; quiz/SearchAll/:page/:pageSize</td>
+                <td>Search for all quizzes, first parameter is page, second parameter is page size</td>
+                <td style="padding: 0"><div class="awnser">[400] <br>{success: false, <br>message: "Input is required"}<hr>[500] <br>{success: false, <br>message: error.message}<hr> [404] <br>{success: false, <br>message: "Quiz not found"}<hr>[200]  <br>{success: true, <br>data: results,} </div></td>
             </tr>
-            <tr>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
+            <tr class="get">
+                <td>[GET] &ensp; quiz/SearchById/:id</td>
+                <td>Search a quiz by id</td>
+                <td style="padding: 0"><div class="awnser">[400] <br>{success: false, <br>message: "Input is required"}<hr>[500] <br>{success: false, <br>message: error.message}<hr> [404] <br>{success: false, <br>message: "Quiz not found"}<hr>[200]  <br>{success: true, <br>data: results,} </div></td>
+            </tr>
+            <tr class="get">
+                <td>[GET] &ensp; quiz/Search/:input</td>
+                <td>
+                    Search for quizzes by input parameter
+                </td>
+                <td style="padding: 0"><div class="awnser">[400] <br>{success: false, <br>message: "Input is required"}<hr>[500] <br>{success: false, <br>message: error.message}<hr> [404] <br>{success: false, <br>message: "Quiz not found"}<hr>[200]  <br>{success: true, <br>data: results,} </div></td>
+            </tr>
+            <tr class="post">
+                <td>[POST] &ensp; quiz/AmountAdd</td>
+                <td>
+                    Add a quiz by providing id detail in body
+                </td>
+                <td style="padding: 0"><div class="awnser">[400] <br>{success: false, <br>message: "Input is required"}<hr>[500] <br>{success: false, <br>message: error.message}<hr> [404] <br>{success: false, <br>message: "Quiz not found"}<hr>[200]  <br>{success: true, <br>data: results,} </div></td>
+            </tr>
+            <tr class="get">
+                <td>[GET] &ensp; quiz/QuestionSearch/:quiz_id/:question_num</td>
+                <td>
+                    Search for a question in a quiz by providing quiz id and question number
+                </td>
+                <td style="padding: 0"><div class="awnser">[400] <br>{success: false, <br>message: "Input is required"}<hr>[500] <br>{success: false, <br>message: error.message}<hr> [404] <br>{success: false, <br>message: "Question not found"}<hr>[200]  <br>{success: true, <br>data: results,} </div></td>
+            </tr>
+            <tr class="get">
+                <td>[GET] &ensp; quiz/LeaderboardSearchAll/:page/:pageSize</td>
+                <td>
+                    Search for all quizzes, first parameter is page, second parameter is page size
+                </td>
+                <td style="padding: 0"><div class="awnser">[400] <br>{success: false, <br>message: "Input is required"}<hr>[500] <br>{success: false, <br>message: error.message}<hr> [404] <br>{success: false, <br>message: "Users not found"}<hr>[200]  <br>{success: true, <br>data: results,} </div></td>
             </tr>
         </tbody>
     </table>

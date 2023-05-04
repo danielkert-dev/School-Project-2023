@@ -34,7 +34,7 @@ table {
     width: 95%;
     margin: 0 auto;
     text-align: left;
-    font-size: .8rem;
+    font-size: .7rem;
     line-height: .8rem;
 }
 
@@ -82,7 +82,7 @@ td {
     color: var(--icon-color);
     overflow-y: scroll;
     margin: 0;
-    max-height: 5rem;
+    max-height: 2rem;
     padding: 1rem;
 }
 

@@ -3,7 +3,7 @@ const {
   quizSearchById,
   quizSearch,
   quizAmountAdd,
-  questionSearchById,
+  questionSearch,
   leaderboardSearchAll,
 } = require("./quiz.service");
 const { sign } = require("jsonwebtoken");
@@ -106,7 +106,7 @@ module.exports = {
         success: true,
         data: results,
       });
-    })
+    });
   },
 
   quizAmountAdd: (req, res) => {
@@ -142,16 +142,18 @@ module.exports = {
     });
   },
 
-  questionSearchById: (req, res) => {
-    const id = req.params.id;
-    if (!id) {
+  questionSearch: (req, res) => {
+    const quiz_id = req.params.quiz_id;
+    const question_num = req.params.question_num;
+
+    if (!quiz_id || !question_num) {
       // Validate input
       return res.status(400).json({
         success: false,
         message: "Input is required",
       });
     }
-    questionSearchById(id, (error, results) => {
+    questionSearch(quiz_id, question_num, (error, results) => {
       if (error) {
         // Error handling
         console.error(error);
@@ -198,7 +200,7 @@ module.exports = {
         // Missing results
         return res.status(404).json({
           success: false,
-          message: "Leaderboard not found",
+          message: "Users not found",
         });
       }
       return res.status(200).json({
@@ -206,6 +208,6 @@ module.exports = {
         success: true,
         data: results,
       });
-    })
+    });
   },
 };
