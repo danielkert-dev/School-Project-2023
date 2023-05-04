@@ -1,3 +1,4 @@
+
 const { verify } = require("jsonwebtoken");
 
 module.exports = {
@@ -7,7 +8,7 @@ module.exports = {
       token = token.slice(7);
       verify(token, process.env.SIGN_KEY, (error, decoded) => {
         if (error) {
-          res.json({
+          res.status(498).json({
             success: false,
             message: "Invalid token",
           });
@@ -17,7 +18,7 @@ module.exports = {
         }
       });
     } else {
-      res.json({
+      res.status(498).json({
         success: false,
         message: "Invalid token",
       });

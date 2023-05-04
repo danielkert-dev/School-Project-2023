@@ -1,6 +1,5 @@
 const {
   userSearch,
-  userSearchAll,
   userSearchById,
   userCreate,
   userAuth,
@@ -9,11 +8,9 @@ const {
   userPointsAdd,
 } = require("./user.controller");
 const { checkToken } = require("../../auth/bearer.token.auth"); // Works
-// const { adminSearch } = require("../admin/admin.controller");
 const router = require("express").Router();
 
 router.get("/Search/:input", checkToken, userSearch); // Works
-router.get("/SearchAll/:page/:pageSize", checkToken, userSearchAll); // Works
 router.get("/SearchById/:id", checkToken, userSearchById); // Works
 router.post("/Create", checkToken, userCreate); // Request body, Works
 router.post("/Auth", userAuth); // Request body, Works

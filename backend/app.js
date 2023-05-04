@@ -20,6 +20,7 @@ app.use("/user", require("./api/user/user.router"));
 app.use("/quiz", require("./api/quiz/quiz.router"));
 
 //? Admin
+app.use("/admin", require("./api/admin/admin.router"));
 
 //? Default
 app.get("*", function (req, res) {

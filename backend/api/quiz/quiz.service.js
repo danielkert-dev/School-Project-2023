@@ -109,4 +109,16 @@ module.exports = {
         }
       });
     },
+
+
+    // quizCreate
+
+    // questionCreate
+
+    // quizUpdate
+
+    // questionUpdate
+
+    // quizDelete
+
 }
