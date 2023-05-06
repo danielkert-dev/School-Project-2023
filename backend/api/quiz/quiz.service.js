@@ -159,7 +159,7 @@ module.exports = {
   questionUpdate: (input, callBack) => {
     pool.query(
       "UPDATE `questions` SET `quiz_ID`= ? ,`question`= ? ,`desctiption`= ? ,`choice1`= ? ,`choice2`= ? ,`choice3`= ? ,`choice4`= ? ,`correct_answer`= ? WHERE ?",
-      [input.quiz_ID, input.question, input.desctiption, input.choice1, input.choice2, input.choice3, input.choice4, input.correct_answer, input.question_num],
+      [input.quiz_ID, input.question, input.desctiption, input.choice1, input.choice2, input.choice3, input.choice4, input.correct_answer, input.id],
       (error, results) => {
         if (error) {
           console.error(error);
@@ -172,7 +172,7 @@ module.exports = {
   },
 
   // quizDelete
-  quizDisabled: (input, callBack) => {
+  quizDelete: (input, callBack) => {
     "UPDATE `quiz` SET `disabled`= 1 WHERE id = ?",
     [input.id],
     (error, results) => {

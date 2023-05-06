@@ -5,6 +5,11 @@ const {
   quizAmountAdd,
   questionSearch,
   leaderboardSearchAll,
+  quizCreate,
+  questionCreate,
+  quizUpdate,
+  questionUpdate,
+  quizDelete,
 } = require("./quiz.service");
 const {
   response200,
@@ -113,4 +118,86 @@ module.exports = {
       return response200(res, results);
     });
   },
+
+  quizCreate: (req, res) => {
+    const body = req.body;
+    if (!body) {
+      return error400(res);
+    }
+    quizCreate(body, (error, results) => {
+      if (error) {
+        return error500(res, error);
+      }
+      if (!results || results.length === 0) {
+        return error404(res, results);
+      }
+      return response200(res, results);
+    })
+  },
+
+  questionCreate: (req, res) => {
+    const body = req.body;
+    if (!body) {
+      return error400(res);
+    }
+    questionCreate(body, (error, results) => {
+      if (error) {
+        return error500(res, error);
+      }
+      if (!results || results.length === 0) {
+        return error404(res, results);
+      }
+      return response200(res, results);
+    })
+  },
+
+  quizUpdate: (req, res) => {
+    const body = req.body;
+    if (!body) {
+      return error400(res);
+    }
+    quizUpdate(body, (error, results) => {
+      if (error) {
+        return error500(res, error);
+      }
+      if (!results || results.length === 0) {
+        return error404(res, results);
+      }
+      return response200(res, results);
+    })
+  },
+
+  questionUpdate: (req, res) => {
+    const body = req.body;
+    if (!body) {
+      return error400(res);
+    }
+    questionUpdate(body,  (error, results) => {
+      if (error) {
+        return error500(res, error);
+      }
+      if (!results || results.length === 0) {
+        return error404(res, results);
+      }
+      return response200(res, results);
+    })
+  },
+
+  quizDelete: (req, res) => {
+    const body = req.body;
+    if (!body) {
+      return error400(res);
+    }
+    quizDelete(body, (error, results) => {
+      if (error) {
+        return error500(res, error);
+      }
+      if (!results || results.length === 0) {
+        return error404(res, results);
+      }
+      return response200(res, results);
+    })
+  }
+
+
 };

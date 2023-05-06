@@ -12,7 +12,8 @@
 <body>
 
     <h1>GUESS RIGHT - API Documentation</h1>
-    <h3>: in a endpoint is a parameter. Everything needs a token authentication and admin needs extra authentication such as ip address</h3>
+    <h3>: in a endpoint is a URL parameter. Everything needs a bearer-token authentication and admin needs extra
+        authentication.</h3>
 
     <table>
         <tr>
@@ -24,166 +25,388 @@
             <tr>
                 <th colspan="3" class="table-title">USER</th>
             </tr>
-            <tr class="get">
+            <tr class="get"> <!--Search by username-->
                 <td>[GET] &ensp; user/SearchByUsername/:username</td>
                 <td>Search for username with parameters </td>
-                <td style="padding: 0"><div class="awnser">
-                    [498] <br>{success: false, <br>message: "Invalid token"}<hr><br> 
-                    [400] <br>{success: false, <br>message: "Input is required"}<hr>
-                    [500] <br>{success: false, <br>message: error.message}<hr> 
-                    [404] <br>{success: false, <br>message: "User not found"}<hr> 
-                    [200] <br>{success: true, <br>data: results} </div></td>
+                <td style="padding: 0">
+                    <div class="awnser">
+                        [498] <br>{success: false, <br>message: "Invalid token"}
+                        <hr><br>
+                        [400] <br>{success: false, <br>message: "Input is required"}
+                        <hr>
+                        [500] <br>{success: false, <br>message: error.message}
+                        <hr>
+                        [404] <br>{success: false, <br>message: "Object not found"}
+                        <hr>
+                        [200] <br>{success: true, <br>data: results}
+                    </div>
+                </td>
             </tr>
-            <tr class="get">
+            <tr class="get"> <!--Search by id-->
                 <td>[GET] &ensp; user/SearchById/:id</td>
                 <td>Search a user by id parameter</td>
-                <td style="padding: 0"><div class="awnser">
-                    [498] <br>{success: false, <br>message: "Invalid token"}<hr>
-                    [400] <br>{success: false, <br>message: "Input is required"}<hr>
-                    [500] <br>{success: false, <br>message: error.message}<hr> 
-                    [404] <br>{success: false, <br>message: "User not found"}<hr> 
-                    [200] <br>{success: true, <br>data: results} </div></td>
+                <td style="padding: 0">
+                    <div class="awnser">
+                        [498] <br>{success: false, <br>message: "Invalid token"}
+                        <hr>
+                        [400] <br>{success: false, <br>message: "Input is required"}
+                        <hr>
+                        [500] <br>{success: false, <br>message: error.message}
+                        <hr>
+                        [404] <br>{success: false, <br>message: "Object not found"}
+                        <hr>
+                        [200] <br>{success: true, <br>data: results}
+                    </div>
+                </td>
 
             </tr>
-            <tr class="post">
+            <tr class="post"> <!--Create-->
                 <td>[POST] &ensp; user/Create</td>
                 <td>Create a user by providing details in body, username, email, password</td>
-                <td style="padding: 0"><div class="awnser">
-                    [498] <br>{success: false, <br>message: "Invalid token"}<hr>
-                    [400] <br>{success: false, <br>message: "Input is required"}<hr>
-                    [500] <br>{success: false, <br>message: error.message}<hr> 
-                    [404] <br>{success: false, <br>message: "User not found"}<hr> 
-                    [200] <br>{success: true, <br>data: results} </div></td>
+                <td style="padding: 0">
+                    <div class="awnser">
+                        [498] <br>{success: false, <br>message: "Invalid token"}
+                        <hr>
+                        [400] <br>{success: false, <br>message: "Input is required"}
+                        <hr>
+                        [500] <br>{success: false, <br>message: error.message}
+                        <hr>
+                        [404] <br>{success: false, <br>message: "Object not found"}
+                        <hr>
+                        [200] <br>{success: true, <br>data: results}
+                    </div>
+                </td>
             </tr>
-            <tr class="post">
+            <tr class="post"> <!--Auth-->
                 <td>[POST] &ensp; user/Auth</td>
                 <td>Authorize by providing details in body, username, password and recive a bearer-token </td>
-                <td style="padding: 0"><div class="awnser">
-                    [498] <br>{success: false, <br>message: "Invalid token"}<hr>
-                    [400] <br>{success: false, <br>message: "Input is required"}<hr>
-                    [500] <br>{success: false, <br>message: error.message}<hr> 
-                    [404] <br>{success: false, <br>message: "User not found"}<hr> 
-                    [401]<br>{success: false,<br> message: "Invalid password"}<hr>
-                    [200] <br>{success: true, <br>message: "Login successful",<br>token: token,} </div></td>
+                <td style="padding: 0">
+                    <div class="awnser">
+                        [498] <br>{success: false, <br>message: "Invalid token"}
+                        <hr>
+                        [400] <br>{success: false, <br>message: "Input is required"}
+                        <hr>
+                        [500] <br>{success: false, <br>message: error.message}
+                        <hr>
+                        [404] <br>{success: false, <br>message: "User not found"}
+                        <hr>
+                        [401]<br>{success: false,<br> message: "Invalid password"}
+                        <hr>
+                        [200] <br>{success: true, <br>message: "Login successful",<br>token: token,}
+                    </div>
+                </td>
             </tr>
-            <tr class="put">
+            <tr class="put"> <!--Update-->
                 <td>[PUT] &ensp; user/Update</td>
                 <td>Update by searching with user id detail in body and changing username, email, password</td>
-                <td style="padding: 0"><div class="awnser">
-                    [498] <br>{success: false, <br>message: "Invalid token"}<hr>
-                    [400] <br>{success: false, <br>message: "Input is required"}<hr>
-                    [500] <br>{success: false, <br>message: error.message}<hr> 
-                    [404] <br>{success: false, <br>message: "User not found"}<hr> 
-                    [200] <br>{success: true, <br>data: results} </div></td>
+                <td style="padding: 0">
+                    <div class="awnser">
+                        [498] <br>{success: false, <br>message: "Invalid token"}
+                        <hr>
+                        [400] <br>{success: false, <br>message: "Input is required"}
+                        <hr>
+                        [500] <br>{success: false, <br>message: error.message}
+                        <hr>
+                        [404] <br>{success: false, <br>message: "Object not found"}
+                        <hr>
+                        [200] <br>{success: true, <br>data: results}
+                    </div>
+                </td>
             </tr>
-            <tr class="delete">
+            <tr class="delete"> <!--Delete-->
                 <td>[DELETE] &ensp; user/Delete</td>
                 <td>Disable a user by providing user id in body</td>
-                <td style="padding: 0"><div class="awnser">
-                    [498] <br>{success: false, <br>message: "Invalid token"}<hr>
-                    [400] <br>{success: false, <br>message: "Input is required"}<hr>
-                    [500] <br>{success: false, <br>message: error.message}<hr> 
-                    [404] <br>{success: false, <br>message: "User not found"}<hr> 
-                    [200] <br>{success: true, <br>message: "Deleted successfully",} </div></td>
+                <td style="padding: 0">
+                    <div class="awnser">
+                        [498] <br>{success: false, <br>message: "Invalid token"}
+                        <hr>
+                        [400] <br>{success: false, <br>message: "Input is required"}
+                        <hr>
+                        [500] <br>{success: false, <br>message: error.message}
+                        <hr>
+                        [404] <br>{success: false, <br>message: "Object not found"}
+                        <hr>
+                        [200] <br>{success: true, <br>message: "Deleted successfully",}
+                    </div>
+                </td>
             </tr>
-            <tr class="post">
+            <tr class="post"> <!--Points-->
                 <td>[POST] &ensp; user/PointsAdd</td>
                 <td>Add a point to a user by providing user id in body</td>
-                <td style="padding: 0"><div class="awnser">
-                    [498] <br>{success: false, <br>message: "Invalid token"}<hr>
-                    [400] <br>{success: false, <br>message: "Input is required"}<hr>
-                    [500] <br>{success: false, <br>message: error.message}<hr> 
-                    [404] <br>{success: false, <br>message: "User not found"}<hr> 
-                    [200] <br>{success: true, <br>message: "Points added successfully", } </div></td>
+                <td style="padding: 0">
+                    <div class="awnser">
+                        [498] <br>{success: false, <br>message: "Invalid token"}
+                        <hr>
+                        [400] <br>{success: false, <br>message: "Input is required"}
+                        <hr>
+                        [500] <br>{success: false, <br>message: error.message}
+                        <hr>
+                        [404] <br>{success: false, <br>message: "Object not found"}
+                        <hr>
+                        [200] <br>{success: true, <br>message: "Points added successfully", }
+                    </div>
+                </td>
             </tr>
 
             <tr>
                 <th colspan="3" class="table-title">QUIZ</th>
             </tr>
 
-            <tr class="get">
+            <tr class="get"> <!--Search all-->
                 <td>[GET] &ensp; quiz/SearchAll/:page/:pageSize</td>
-                <td>Search for all quizzes, first parameter is page size, second parameter is page offset</td>
-                <td style="padding: 0"><div class="awnser">
-                    [498] <br>{success: false, <br>message: "Invalid token"}<hr>
-                    [400] <br>{success: false, <br>message: "Input is required"}<hr>
-                    [500] <br>{success: false, <br>message: error.message}<hr> 
-                    [404] <br>{success: false, <br>message: "Quiz not found"}<hr>
-                    [200] <br>{success: true, <br>data: results,} </div></td>
+                <td>Search for all quizzes, Search for all quizzes, first parameter is page, second parameter is page
+                    size</td>
+                <td style="padding: 0">
+                    <div class="awnser">
+                        [498] <br>{success: false, <br>message: "Invalid token"}
+                        <hr>
+                        [400] <br>{success: false, <br>message: "Input is required"}
+                        <hr>
+                        [500] <br>{success: false, <br>message: error.message}
+                        <hr>
+                        [404] <br>{success: false, <br>message: "Object not found"}
+                        <hr>
+                        [200] <br>{success: true, <br>data: results,}
+                    </div>
+                </td>
             </tr>
-            <tr class="get">
+            <tr class="get"> <!--Search by id-->
                 <td>[GET] &ensp; quiz/SearchById/:id</td>
                 <td>Search a quiz by id</td>
-                <td style="padding: 0"><div class="awnser">
-                    [498] <br>{success: false, <br>message: "Invalid token"}<hr>
-                    [400] <br>{success: false, <br>message: "Input is required"}<hr>
-                    [500] <br>{success: false, <br>message: error.message}<hr> 
-                    [404] <br>{success: false, <br>message: "Quiz not found"}<hr>
-                    [200] <br>{success: true, <br>data: results,} </div></td>
+                <td style="padding: 0">
+                    <div class="awnser">
+                        [498] <br>{success: false, <br>message: "Invalid token"}
+                        <hr>
+                        [400] <br>{success: false, <br>message: "Input is required"}
+                        <hr>
+                        [500] <br>{success: false, <br>message: error.message}
+                        <hr>
+                        [404] <br>{success: false, <br>message: "Object not found"}
+                        <hr>
+                        [200] <br>{success: true, <br>data: results,}
+                    </div>
+                </td>
             </tr>
-            <tr class="get">
+            <tr class="get"> <!--Search by input-->
                 <td>[GET] &ensp; quiz/Search/:input</td>
                 <td>
                     Search for quizzes by input parameter
                 </td>
-                <td style="padding: 0"><div class="awnser">
-                    [498] <br>{success: false, <br>message: "Invalid token"}<hr>
-                    [400] <br>{success: false, <br>message: "Input is required"}<hr>
-                    [500] <br>{success: false, <br>message: error.message}<hr> 
-                    [404] <br>{success: false, <br>message: "Quiz not found"}<hr>
-                    [200] <br>{success: true, <br>data: results,} </div></td>
+                <td style="padding: 0">
+                    <div class="awnser">
+                        [498] <br>{success: false, <br>message: "Invalid token"}
+                        <hr>
+                        [400] <br>{success: false, <br>message: "Input is required"}
+                        <hr>
+                        [500] <br>{success: false, <br>message: error.message}
+                        <hr>
+                        [404] <br>{success: false, <br>message: "Object not found"}
+                        <hr>
+                        [200] <br>{success: true, <br>data: results,}
+                    </div>
+                </td>
             </tr>
-            <tr class="post">
+            <tr class="post"> <!--Add-->
                 <td>[POST] &ensp; quiz/AmountAdd</td>
                 <td>
                     Add a quiz by providing id detail in body
                 </td>
-                <td style="padding: 0"><div class="awnser">
-                    [498] <br>{success: false, <br>message: "Invalid token"}<hr>
-                    [400] <br>{success: false, <br>message: "Input is required"}<hr>
-                    [500] <br>{success: false, <br>message: error.message}<hr> 
-                    [404] <br>{success: false, <br>message: "Quiz not found"}<hr>
-                    [200] <br>{success: true, <br>data: results,} </div></td>
+                <td style="padding: 0">
+                    <div class="awnser">
+                        [498] <br>{success: false, <br>message: "Invalid token"}
+                        <hr>
+                        [400] <br>{success: false, <br>message: "Input is required"}
+                        <hr>
+                        [500] <br>{success: false, <br>message: error.message}
+                        <hr>
+                        [404] <br>{success: false, <br>message: "Object not found"}
+                        <hr>
+                        [200] <br>{success: true, <br>data: results,}
+                    </div>
+                </td>
             </tr>
-            <tr class="get">
+            <tr class="get"> <!--Question search by id-->
                 <td>[GET] &ensp; quiz/QuestionSearch/:quiz_id/:question_num</td>
                 <td>
                     Search for a question in a quiz by providing quiz id and question number
                 </td>
-                <td style="padding: 0"><div class="awnser">
-                    [498] <br>{success: false, <br>message: "Invalid token"}<hr>
-                    [400] <br>{success: false, <br>message: "Input is required"}<hr>
-                    [500] <br>{success: false, <br>message: error.message}<hr> 
-                    [404] <br>{success: false, <br>message: "Question not found"}<hr>
-                    [200] <br>{success: true, <br>data: results,} </div></td>
+                <td style="padding: 0">
+                    <div class="awnser">
+                        [498] <br>{success: false, <br>message: "Invalid token"}
+                        <hr>
+                        [400] <br>{success: false, <br>message: "Input is required"}
+                        <hr>
+                        [500] <br>{success: false, <br>message: error.message}
+                        <hr>
+                        [404] <br>{success: false, <br>message: "Object not found"}
+                        <hr>
+                        [200] <br>{success: true, <br>data: results,}
+                    </div>
+                </td>
             </tr>
-            <tr class="get">
+            <tr class="get"> <!--Leaderboard-->
                 <td>[GET] &ensp; quiz/LeaderboardSearchAll/:page/:pageSize</td>
                 <td>
                     Search for all quizzes, first parameter is page, second parameter is page size
                 </td>
-                <td style="padding: 0"><div class="awnser">
-                    [498] <br>{success: false, <br>message: "Invalid token"}<hr>
-                    [400] <br>{success: false, <br>message: "Input is required"}<hr>
-                    [500] <br>{success: false, <br>message: error.message}<hr> 
-                    [404] <br>{success: false, <br>message: "Users not found"}<hr>
-                    [200] <br>{success: true, <br>data: results,} </div></td>
+                <td style="padding: 0">
+                    <div class="awnser">
+                        [498] <br>{success: false, <br>message: "Invalid token"}
+                        <hr>
+                        [400] <br>{success: false, <br>message: "Input is required"}
+                        <hr>
+                        [500] <br>{success: false, <br>message: error.message}
+                        <hr>
+                        [404] <br>{success: false, <br>message: "Object not found"}
+                        <hr>
+                        [200] <br>{success: true, <br>data: results,}
+                    </div>
+                </td>
             </tr>
-            <tr>
-                <th colspan="3" class="table-title">ADMIN</th>
+
+            <tr class="post">
+                <td>[POST] &ensp; quiz/Create</td>
+                <td>
+                    Create a new quiz. Insert data in the body, title, description, user_ID, image
+                </td>
+                <td style="padding: 0">
+                    <div class="awnser">
+                        [498] <br>{success: false, <br>message: "Invalid token"}
+                        <hr>
+                        [400] <br>{success: false, <br>message: "Input is required"}
+                        <hr>
+                        [500] <br>{success: false, <br>message: error.message}
+                        <hr>
+                        [404] <br>{success: false, <br>message: "Object not found"}
+                        <hr>
+                        [200] <br>{success: true, <br>data: results,}
+                    </div>
+                </td>
             </tr>
-            <tr class="get">
+
+            <tr class="post">
+                <td>[POST] &ensp; quiz/QuestionCreate </td>
+                <td>
+                    Create a new question. Insert data in the body, quiz_ID, question, question_num, description,
+                    choice1, choice2, choice3, choice4, correct_awnser, last
+                </td>
+                <td style="padding: 0">
+                    <div class="awnser">
+                        [498] <br>{success: false, <br>message: "Invalid token"}
+                        <hr>
+                        [400] <br>{success: false, <br>message: "Input is required"}
+                        <hr>
+                        [500] <br>{success: false, <br>message: error.message}
+                        <hr>
+                        [404] <br>{success: false, <br>message: "Object not found"}
+                        <hr>
+                        [200] <br>{success: true, <br>data: results,}
+                    </div>
+                </td>
+            </tr>
+
+            <tr class="put">
+                <td>[PUT] &ensp; quiz/Update </td>
+                <td>
+                    Update a quiz. Update data in the body, title, description, image, id
+                </td>
+                <td style="padding: 0">
+                    <div class="awnser">
+                        [498] <br>{success: false, <br>message: "Invalid token"}
+                        <hr>
+                        [400] <br>{success: false, <br>message: "Input is required"}
+                        <hr>
+                        [500] <br>{success: false, <br>message: error.message}
+                        <hr>
+                        [404] <br>{success: false, <br>message: "Object not found"}
+                        <hr>
+                        [200] <br>{success: true, <br>data: results,}
+                    </div>
+                </td>
+            </tr>
+
+            <tr class="put">
+                <td>[PUT] &ensp; quiz/QuestionUpdate</td>
+                <td>
+                    Update a question. Update data in the body, quiz_ID, question, description, choice1, choice2,
+                    choice3, choice4, correct_awnser, id
+                </td>
+                <td style="padding: 0">
+                    <div class="awnser">
+                        [498] <br>{success: false, <br>message: "Invalid token"}
+                        <hr>
+                        [400] <br>{success: false, <br>message: "Input is required"}
+                        <hr>
+                        [500] <br>{success: false, <br>message: error.message}
+                        <hr>
+                        [404] <br>{success: false, <br>message: "Object not found"}
+                        <hr>
+                        [200] <br>{success: true, <br>data: results,}
+                    </div>
+            </tr>
+            <tr class="delete">
+                <td>[DELETE] &ensp; quiz/Delete</td>
+                <td>
+                    Disable a quiz by body id
+                </td>
+                <td style="padding: 0">
+                    <div class="awnser">
+                        [498] <br>{success: false, <br>message: "Invalid token"}
+                        <hr>
+                        [400] <br>{success: false, <br>message: "Input is required"}
+                        <hr>
+                        [500] <br>{success: false, <br>message: error.message}
+                        <hr>
+                        [404] <br>{success: false, <br>message: "Object not found"}
+                        <hr>
+                        [200] <br>{success: true, <br>data: results,}
+                    </div>
+                </td>
+            </tr>
+            <th colspan="3" class="table-title">ADMIN</th>
+            </tr>
+
+            <tr class="get"> <!--Search all-->
                 <td>[GET] &ensp; admin/SearchAll/:page/pageSize</td>
                 <td>
-                    To list all users, first parameter is page size, second parameter is page offset
+                    To list all users, first parameter is page size, second parameter is page offset. Needs IP
+                    authentication
                 </td>
-                <td style="padding: 0"><div class="awnser">
-                    [498] <br>{success: false, <br>message: "Invalid token"}<hr> 
-                    [403] <br>{success: false, <br>message: "Forbiden"}<hr>
-                    [400] <br>{success: false, <br>message: "Input is required"}<hr>
-                    [500] <br>{success: false, <br>message: error.message}<hr> 
-                    [404] <br>{success: false, <br>message: "Users not found"}<hr>
-                    [200] <br>{success: true, <br>data: results,} </div></td>
+                <td style="padding: 0">
+                    <div class="awnser">
+                        [498] <br>{success: false, <br>message: "Invalid token"}
+                        <hr>
+                        [403] <br>{success: false, <br>message: "Forbiden"}
+                        <hr>
+                        [400] <br>{success: false, <br>message: "Input is required"}
+                        <hr>
+                        [500] <br>{success: false, <br>message: error.message}
+                        <hr>
+                        [404] <br>{success: false, <br>message: "Users not found"}
+                        <hr>
+                        [200] <br>{success: true, <br>data: results,}
+                    </div>
+                </td>
+            </tr>
+            <tr class="delete">
+                <td>[DELETE] &ensp; admin/Delete</td>
+                <td>
+                    Delete user by body id
+                </td>
+                <td style="padding: 0">
+                    <div class="awnser">
+                        [498] <br>{success: false, <br>message: "Invalid token"}
+                        <hr>
+                        [403] <br>{success: false, <br>message: "Forbiden"}
+                        <hr>
+                        [400] <br>{success: false, <br>message: "Input is required"}
+                        <hr>
+                        [500] <br>{success: false, <br>message: error.message}
+                        <hr>
+                        [404] <br>{success: false, <br>message: "Users not found"}
+                        <hr>
+                        [200] <br>{success: true, <br>data: results,}
+                    </div>
             </tr>
         </tbody>
     </table>
