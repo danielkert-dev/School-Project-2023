@@ -4,8 +4,6 @@ module.exports = {
     
     adminSearchAll: (page, pageSize, callBack) => {
         const offset = (page - 1) * pageSize;
-        console.log(pageSize);
-        console.log(offset);
         pool.query(
           `
         SELECT * 

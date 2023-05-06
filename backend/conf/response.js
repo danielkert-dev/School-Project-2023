@@ -20,6 +20,12 @@ module.exports = {
       message: "Unauthorized",
     });
   },
+  error403(res) {
+    return res.status(403).json({
+      success: false,
+      message: "Forbidden",
+  });
+  },
   error404(res) {
     // Missing results
     return res.status(404).json({

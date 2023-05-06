@@ -1,7 +1,7 @@
 const pool = require("../../conf/db.conf");
 
 module.exports = {
-  userSearch: (input, callBack) => {
+  userSearchByUsername: (input, callBack) => {
     pool.query(
       "SELECT * FROM user WHERE username LIKE ?",
       [`${input}`],

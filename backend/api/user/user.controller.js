@@ -1,5 +1,5 @@
 const {
-  userSearch,
+  userSearchByUsername,
   userSearchById,
   userCreate,
   userAuth,
@@ -18,12 +18,12 @@ const { genSaltSync, hashSync, compareSync } = require("bcrypt");
 const { sign } = require("jsonwebtoken");
 
 module.exports = {
-  userSearch: (req, res) => {
+  userSearchByUsername: (req, res) => {
     const input = req.params.input;
     if (!input) {
       return error400(res);
     }
-    userSearch(input, (error, results) => {
+    userSearchByUsername(input, (error, results) => {
       if (error) {
         return error500(res, error);
       }

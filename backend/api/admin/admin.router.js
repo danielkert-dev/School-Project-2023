@@ -6,6 +6,6 @@ const { checkToken } = require("../../auth/bearer.token.auth"); // Works
 const { checkIp } = require("../../auth/ip.auth");
 
 router.get("/SearchAll/:page/:pageSize", checkToken, checkIp, adminSearchAll); // Works
-router.delete("/Delete", checkToken, checkIp, adminDelete); // Works
+router.delete("/Delete", checkToken, checkIp, adminDelete); //
 
 module.exports = router;
