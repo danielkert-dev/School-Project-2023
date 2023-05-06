@@ -7,6 +7,13 @@ const {
   userDelete,
   userPointsAdd,
 } = require("./user.service");
+const {
+  response200,
+  error400,
+  error404,
+  error500,
+  error401,
+} = require("../../conf/response");
 const { genSaltSync, hashSync, compareSync } = require("bcrypt");
 const { sign } = require("jsonwebtoken");
 
@@ -14,66 +21,31 @@ module.exports = {
   userSearch: (req, res) => {
     const input = req.params.input;
     if (!input) {
-      // Validate input
-      return res.status(400).json({
-        success: false,
-        message: "Input is required",
-      });
+      return error400(res);
     }
     userSearch(input, (error, results) => {
       if (error) {
-        // Error handling
-        console.error(error);
-        return res.status(500).json({
-          success: false,
-          message: error.message,
-        });
+        return error500(res, error);
       }
       if (!results || results.length === 0) {
-        // Missing results
-        return res.status(404).json({
-          success: false,
-          message: "User not found",
-        });
+        return error404(res, results);
       }
-      return res.status(200).json({
-        // Return results
-        success: true,
-        data: results,
-      });
+      return response200(res, results);
     });
   },
-
   userSearchById: (req, res) => {
     const id = req.params.id;
     if (!id) {
-      // Validate input
-      return res.status(400).json({
-        success: false,
-        message: "Input is required",
-      });
+      return error400(res);
     }
     userSearchById(id, (error, results) => {
       if (error) {
-        // Error handling
-        console.error(error);
-        return res.status(500).json({
-          success: false,
-          message: error.message,
-        });
+        return error500(res, error);
       }
       if (!results || results.length === 0) {
-        // Missing results
-        return res.status(404).json({
-          success: false,
-          message: "User not found",
-        });
+        return error404(res);
       }
-      return res.status(200).json({
-        // Return results
-        success: true,
-        data: results,
-      });
+      return response200(res, results);
     });
   },
 
@@ -83,40 +55,19 @@ module.exports = {
       const salt = genSaltSync(10);
       body.password = hashSync(body.password, salt);
     } catch (error) {
-      console.error(error);
-      return res.status(500).json({
-        success: false,
-        message: error.message,
-      });
+      return error500(res, error);
     }
     if (!body) {
-      // Validate input
-      return res.status(400).json({
-        success: false,
-        message: "Input is required",
-      });
+      return error400(res);
     }
     userCreate(body, (error, results) => {
       if (error) {
-        // Error handling
-        console.error(error);
-        return res.status(500).json({
-          success: false,
-          message: error.message,
-        });
+        return error500(res, error);
       }
       if (!results || results.length === 0) {
-        // Missing results
-        return res.status(404).json({
-          success: false,
-          message: "User not found",
-        });
+        return error404(res, results);
       }
-      return res.status(200).json({
-        // Return results
-        success: true,
-        data: results,
-      });
+      return response200(res, results);
     });
   },
 
@@ -124,30 +75,17 @@ module.exports = {
     const body = req.body;
     if (!body.username || !body.password) {
       // Validate input
-      return res.status(400).json({
-        success: false,
-        message: "Input is required",
-      });
+      return error400(res);
     }
     userAuth(body, (error, results) => {
       if (error) {
-        // Error handling
-        console.error(error);
-        return res.status(500).json({
-          success: false,
-          message: error.message,
-        });
+        return error500(res, error);
       }
       if (!results || results.length === 0) {
-        // Missing results
-        return res.status(404).json({
-          success: false,
-          message: "User not found",
-        });
+        return error404(res, results);
       }
       const compare = compareSync(body.password, results.password);
       if (compare) {
-        // Compare passwords
         results.password = undefined;
         const token = sign(
           {
@@ -166,11 +104,7 @@ module.exports = {
           token: token,
         });
       } else {
-        return res.status(401).json({
-          // Return results
-          success: false,
-          message: "Invalid password",
-        });
+        return error401(res);
       }
     });
   },
@@ -181,105 +115,51 @@ module.exports = {
       const salt = genSaltSync(10);
       body.password = hashSync(body.password, salt);
     } catch (error) {
-      console.error(error);
-      return res.status(500).json({
-        success: false,
-        message: error.message,
-      });
+      return error500(res, error);
     }
     if (!body) {
-      // Validate input
-      return res.status(400).json({
-        success: false,
-        message: "Input is required",
-      });
+      return error400(res);
     }
     userUpdate(body, (error, results) => {
       if (error) {
-        // Error handling
-        console.error(error);
-        return res.status(500).json({
-          success: false,
-          message: error.message,
-        });
+        return error500(res, error);
       }
       if (!results || results.length === 0) {
-        // Missing results
-        return res.status(404).json({
-          success: false,
-          message: "User not found",
-        });
+        return error404(res, results);
       }
-      return res.status(200).json({
-        // Return results
-        success: true,
-        data: results,
-      });
+      return response200(res, results);
     });
   },
 
   userDelete: (req, res) => {
     const body = req.body;
     if (!body.id) {
-      // Validate input
-      return res.status(400).json({
-        success: false,
-        message: "Input is required",
-      });
+      return error400(res);
     }
     userDelete(body, (error, results) => {
       if (error) {
-        // Error handling
-        console.error(error);
-        return res.status(500).json({
-          success: false,
-          message: error.message,
-        });
+        return error500(res, error);
       }
-      if (results.affectedRows === 0) {
-        // Missing results
-        return res.status(404).json({
-          success: false,
-          message: "User not found",
-        });
+      if (!results || results.length === 0) {
+        return error404(res, results);
       }
-      return res.status(200).json({
-        // Return results
-        success: true,
-        message: "Deleted successfully",
-      });
+      return response200(res, results);
     });
   },
 
   userPointsAdd: (req, res) => {
     const input = req.body;
     if (!input) {
-      // Validate input
-      return res.status(400).json({
-        success: false,
-        message: "Input is required",
-      });
+      return error400(res);
     }
     userPointsAdd(input, (error, results) => {
       if (error) {
-        // Error handling
-        console.error(error);
-        return res.status(500).json({
-          success: false,
-          message: error.message,
-        });
+        return error500(res, error);
       }
       if (!results || results.length === 0) {
-        // Missing results
-        return res.status(404).json({
-          success: false,
-          message: "User not found",
-        });
+        return error404(res, results);
       }
-      return res.status(200).json({
-        success: true,
-        message: "Points added successfully",
-      });
+      return response200(res, results);
     });
   },
 };

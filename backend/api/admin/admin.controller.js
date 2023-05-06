@@ -1,38 +1,42 @@
-const { adminSearchAll } = require("../admin/admin.service");
-
+const { adminSearchAll, adminDelete } = require("../admin/admin.service");
+const {
+  response200,
+  error400,
+  error404,
+  error500,
+} = require("../../conf/response");
 
 module.exports = {
-    adminSearchAll: (req, res) => {
-        const page = req.params.page;
-        const pageSize = req.params.pageSize;
-        if (!page || !pageSize) {
-          // Validate input
-          return res.status(400).json({
-            success: false,
-            message: "Input is required",
-          });
-        }
-        adminSearchAll(page, pageSize, (error, results) => {
-          if (error) {
-            // Error handling
-            console.error(error);
-            return res.status(500).json({
-              success: false,
-              message: error.message,
-            });
-          }
-          if (!results || results.length === 0) {
-            // Missing results
-            return res.status(404).json({
-              success: false,
-              message: "User not found",
-            });
-          }
-          return res.status(200).json({
-            // Return results
-            success: true,
-            data: results,
-          });
-        });
-      },
-}
+  adminSearchAll: (req, res) => {
+    const page = req.params.page;
+    const pageSize = req.params.pageSize;
+    if (!page || !pageSize) {
+      return error400(res);
+    }
+    adminSearchAll(page, pageSize, (error, results) => {
+      if (error) {
+        return error500(res, error);
+      }
+      if (!results || results.length === 0) {
+        return error404(res, results);
+      }
+      return response200(res, results);
+    });
+  },
+
+  adminDelete: (req, res) => {
+    const body = req.body;
+    if (!body.id) {
+      return error400(res);
+    }
+    adminDelete(body, (error, results) => {
+      if (error) {
+        return error500(res, error);
+      }
+      if (!results || results.length === 0) {
+        return error404(res, results);
+      }
+      return response200(res, results);
+    });
+  },
+};

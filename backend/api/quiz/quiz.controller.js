@@ -6,139 +6,76 @@ const {
   questionSearch,
   leaderboardSearchAll,
 } = require("./quiz.service");
-const { sign } = require("jsonwebtoken");
+const {
+  response200,
+  error400,
+  error404,
+  error500,
+} = require("../../conf/response");
 
 module.exports = {
   quizSearchAll: (req, res) => {
     const page = req.params.page;
     const pageSize = req.params.pageSize;
     if (!page || !pageSize) {
-      // Validate input
-      return res.status(400).json({
-        success: false,
-        message: "Input is required",
-      });
+      return error400(res);
     }
     quizSearchAll(page, pageSize, (error, results) => {
       if (error) {
-        // Error handling
-        console.error(error);
-        return res.status(500).json({
-          success: false,
-          message: error.message,
-        });
+        return error500(res, error);
       }
       if (!results || results.length === 0) {
-        // Missing results
-        return res.status(404).json({
-          success: false,
-          message: "Quiz not found",
-        });
+        return error404(res, results);
       }
-      return res.status(200).json({
-        // Return results
-        success: true,
-        data: results,
-      });
+      return response200(res, results);
     });
   },
 
   quizSearchById: (req, res) => {
     const id = req.params.id;
     if (!id) {
-      // Validate input
-      return res.status(400).json({
-        success: false,
-        message: "Input is required",
-      });
+      return error400(res);
     }
     quizSearchById(id, (error, results) => {
       if (error) {
-        // Error handling
-        console.error(error);
-        return res.status(500).json({
-          success: false,
-          message: error.message,
-        });
+        return error500(res, error);
       }
       if (!results || results.length === 0) {
-        // Missing results
-        return res.status(404).json({
-          success: false,
-          message: "Quiz not found",
-        });
+        return error404(res, results);
       }
-      return res.status(200).json({
-        // Return results
-        success: true,
-        data: results,
-      });
+      return response200(res, results);
     });
   },
 
   quizSearch: (req, res) => {
     const input = req.params.input;
     if (!input) {
-      // Validate input
-      return res.status(400).json({
-        success: false,
-        message: "Input is required",
-      });
+      return error400(res);
     }
     quizSearch(input, (error, results) => {
       if (error) {
-        // Error handling
-        console.error(error);
-        return res.status(500).json({
-          success: false,
-          message: error.message,
-        });
+        return error500(res, error);
       }
       if (!results || results.length === 0) {
-        // Missing results
-        return res.status(404).json({
-          success: false,
-          message: "Quiz not found",
-        });
+        return error404(res, results);
       }
-      return res.status(200).json({
-        // Return results
-        success: true,
-        data: results,
-      });
+      return response200(res, results);
     });
   },
 
   quizAmountAdd: (req, res) => {
     const input = req.body;
     if (!input) {
-      // Validate input
-      return res.status(400).json({
-        success: false,
-        message: "Input is required",
-      });
+      return error400(res);
     }
     quizAmountAdd(input, (error, results) => {
       if (error) {
-        // Error handling
-        console.error(error);
-        return res.status(500).json({
-          success: false,
-          message: error.message,
-        });
+        return error500(res, error);
       }
       if (!results || results.length === 0) {
-        // Missing results
-        return res.status(404).json({
-          success: false,
-          message: "Quiz not found",
-        });
+        return error404(res, results);
       }
-      return res.status(200).json({
-        // Return results
-        success: true,
-        data: results,
-      });
+      return response200(res, results);
     });
   },
 
@@ -147,33 +84,16 @@ module.exports = {
     const question_num = req.params.question_num;
 
     if (!quiz_id || !question_num) {
-      // Validate input
-      return res.status(400).json({
-        success: false,
-        message: "Input is required",
-      });
+      return error400(res);
     }
     questionSearch(quiz_id, question_num, (error, results) => {
       if (error) {
-        // Error handling
-        console.error(error);
-        return res.status(500).json({
-          success: false,
-          message: error.message,
-        });
+        return error500(res, error);
       }
       if (!results || results.length === 0) {
-        // Missing results
-        return res.status(404).json({
-          success: false,
-          message: "Question not found",
-        });
+        return error404(res, results);
       }
-      return res.status(200).json({
-        // Return results
-        success: true,
-        data: results,
-      });
+      return response200(res, results);
     });
   },
 
@@ -181,33 +101,16 @@ module.exports = {
     const page = req.params.page;
     const pageSize = req.params.pageSize;
     if (!page || !pageSize) {
-      // Validate input
-      return res.status(400).json({
-        success: false,
-        message: "Input is required",
-      });
+      return error400(res);
     }
     leaderboardSearchAll(page, pageSize, (error, results) => {
       if (error) {
-        // Error handling
-        console.error(error);
-        return res.status(500).json({
-          success: false,
-          message: error.message,
-        });
+        return error500(res, error);
       }
       if (!results || results.length === 0) {
-        // Missing results
-        return res.status(404).json({
-          success: false,
-          message: "Users not found",
-        });
+        return error404(res, results);
       }
-      return res.status(200).json({
-        // Return results
-        success: true,
-        data: results,
-      });
+      return response200(res, results);
     });
   },
 };
