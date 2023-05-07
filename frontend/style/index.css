@@ -1,0 +1,63 @@
+@import url("auth.css");
+@import url("question.css");
+@import url("answer.css");
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+:root {
+    --first-color: #1e1e1e;
+    --second-color: #262626;
+    --third-color: #363636;
+    --fourth-color: #4c4c4c;
+    --fifth-color: #595959;
+    --sixth-color: #737373;
+
+    --icon-color: #A4A4A4;
+    --text-color: #DADADA;
+    --blue: #61AFFE;
+    --green: #5ED3A3;
+    --yellow: #F7A131;
+    --red:#F13D3E;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: var(--second-color);
+    color: var(--text-color);
+}
+
+header {
+    background-color: var(--first-color);
+
+    position: fixed;
+    display: flex;
+    width: 100vw;
+    height: 5rem;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+header h1 {
+    color: var(--sixth-color);
+}
+
+footer {
+    background-color: var(--first-color);
+    color: var(--fourth-color);
+
+    position: fixed;
+    display: flex;
+    width: 100vw;
+    height: 5rem;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    bottom: 0;
+}
