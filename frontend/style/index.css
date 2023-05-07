@@ -1,6 +1,6 @@
 @import url("auth.css");
 @import url("question.css");
-@import url("answer.css");
+@import url("auth.css");
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
@@ -30,7 +30,14 @@
 body {
     background-color: var(--second-color);
     color: var(--text-color);
+
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
+
+body::-webkit-scrollbar {
+    display: none;
+  }
 
 header {
     background-color: var(--first-color);
@@ -39,13 +46,35 @@ header {
     display: flex;
     width: 100vw;
     height: 5rem;
-    justify-content: center;
+    justify-content:space-between;
     align-items: center;
     z-index: 2;
+    top: 0;
 }
 
-header h1 {
+.header-objects {
+    display: flex;
+    align-items: center;
+}
+
+header h1, .points {
     color: var(--sixth-color);
+    margin: 2rem;
+}
+
+button, input {
+    background-color: var(--second-color);
+    color: var(--text-color);
+    outline: .2rem solid var(--third-color);
+    border: none;
+    padding: .5rem;
+    border-radius: .1rem;
+    margin-right: 2rem;
+}
+
+main {
+    width: 100vw;
+    height: 100vh;
 }
 
 footer {
