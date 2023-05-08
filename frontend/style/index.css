@@ -1,6 +1,8 @@
 @import url("auth.css");
 @import url("question.css");
+@import url("quiz.css");
 @import url("auth.css");
+@import url("main.css");
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
@@ -57,6 +59,10 @@ header {
     align-items: center;
 }
 
+.user-info {
+    margin-right: 1rem;
+}
+
 header h1 {
     cursor: pointer;
 }
@@ -105,4 +111,11 @@ footer {
     align-items: center;
     z-index: 2;
     bottom: 0;
+}
+
+hr {
+    width: 100%;
+    height: .2rem;
+    background-color: var(--third-color);
+    border: none;
 }

@@ -1,0 +1,19 @@
+.main-page {
+    margin-top: 5rem;
+    height: 10rem;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-page input {
+    padding: 1rem;
+    width: 40rem;
+}
+
+.main-page button {
+    padding: 1rem;
+    margin-left: -1rem;
+}

@@ -1,0 +1,9 @@
+.quiz-container {
+    background-color: var(--third-color);
+    min-height: 100vh;
+}
+
+.quiz-container h1 {
+    padding-top: 5rem;
+    text-align: center;
+}
