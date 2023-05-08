@@ -57,6 +57,10 @@ header {
     align-items: center;
 }
 
+header h1 {
+    cursor: pointer;
+}
+
 header h1, .points {
     color: var(--sixth-color);
     margin: 2rem;
@@ -70,6 +74,18 @@ button, input {
     padding: .5rem;
     border-radius: .1rem;
     margin-right: 2rem;
+    cursor: pointer;
+}
+
+button {
+    background-color: var(--third-color);
+    transition: all .3s ease-in-out;
+}
+
+button:hover, input:hover {
+    background-color: var(--third-color);
+    opacity: .5;
+    transition: all .3s ease-in-out;
 }
 
 main {

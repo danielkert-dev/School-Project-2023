@@ -1,5 +1,7 @@
 import { authPage,
+         validate,
 } from "./auth/auth.js";
+
 
 document.addEventListener("DOMContentLoaded", () => {
     header();
@@ -18,10 +20,13 @@ function header() {
         <button class="login-signup"'>Log-in / Sign-up</button>
     </div>
 
+    <button class="validate">Validate</button>
+
     </div>
     `;
 
     document.querySelector(".login-signup").addEventListener("click", authPage);
+    document.querySelector(".validate").addEventListener("click", validate);
 }
 
 function footer() {
@@ -34,4 +39,8 @@ function titleClick() {
     document.querySelector(".title").addEventListener("click", () => {
         document.querySelector("main").innerHTML = ``
     })
+}
+
+function logout() {
+
 }

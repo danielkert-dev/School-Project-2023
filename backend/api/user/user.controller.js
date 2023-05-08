@@ -15,7 +15,8 @@ const {
   error401,
 } = require("../../conf/response");
 const { genSaltSync, hashSync, compareSync } = require("bcrypt");
-const { sign } = require("jsonwebtoken");
+const { sign, verify } = require("jsonwebtoken");
+
 
 module.exports = {
   userSearchByUsername: (req, res) => {
@@ -162,4 +163,6 @@ module.exports = {
       return response200(res, results);
     });
   },
+
+
 };

@@ -1,4 +1,3 @@
-
 const { verify } = require("jsonwebtoken");
 
 module.exports = {

@@ -2,18 +2,20 @@ function authPage() {
   document.querySelector("main").innerHTML = `
       <div class="login-signup-container">
         <div class="login">
-          <h2>Login</h2>
+          <h2>Log-in</h2>
           <input type="text" placeholder="Username" class="login-username">
           <input type="password" placeholder="Password" class="login-password">
           <button class="login-button">Log-in</button>
+          <div class="login-response"></div>
         </div>
   
         <div class="signup">
-          <h2>Signup</h2>
+          <h2>Sign-up</h2>
           <input type="text" placeholder="Username" class="signup-username">
           <input type="password" placeholder="Password" class="signup-password">
           <input type="email" placeholder="Email" class="signup-email">
           <button class="signup-button">Sign-up</button>
+          <div class="signup-response"></div>
         </div>
       </div>
     `;
@@ -33,11 +35,115 @@ function authPage() {
 }
 
 function login(username, password) {
-  alert("Welcome " + username);
+
+  if (username === "" || password === "") {
+    return (document.querySelector(".login-response").innerHTML =
+      "All fields are required");
+  }
+
+
+
+  fetch(`${window.API}/user/Auth`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username: username,
+      password: password,
+    }),
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        document.querySelector(".login-response").innerHTML =
+          "Wrong username or password";
+        throw new Error("Wrong username or password"); // Important
+      }
+    })
+    .then((data) => {
+      // let token = data.token;
+      // localStorage.setItem("token", token);
+      localStorage.setItem("username", username);
+      localStorage.setItem("password", password);
+
+      document.querySelector("main").innerHTML = ``;
+    });
 }
 
 function signup(username, password, email) {
-  alert("Welcome " + username);
+  if (username === "" || password === "" || email === "") {
+    return (document.querySelector(".signup-response").innerHTML =
+      "All fields are required");
+  }
+
+  if (username.length < 4) {
+    return (document.querySelector(".signup-response").innerHTML =
+      "Username must be at least 4 characters long");
+  }
+
+  if (password.length < 8) {
+    return (document.querySelector(".signup-response").innerHTML =
+      "Password must be at least 8 characters long");
+  }
+
+  if (!email.includes("@") || !email.includes(".")) {
+    return (document.querySelector(".signup-response").innerHTML =
+      "Invalid email");
+  }
+
+  fetch(`${window.API}/user/Create`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username: username,
+      password: password,
+      email: email,
+    }),
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        document.querySelector(".signup-response").innerHTML =
+          "User already exists";
+        throw new Error("Wrong username or password"); // Important
+      }
+    })
+    .then((data) => {
+      console.log(data);
+      alert("User created");
+    });
 }
 
-export { authPage };
+function validate() {
+  let username = localStorage.getItem("username");
+  let password = localStorage.getItem("password");
+  
+  fetch(`${window.API}/user/Auth`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username: username,
+      password: password,
+    }),
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        authPage();
+        throw new Error("Wrong username or password"); // Important
+      }
+    })
+    .then((data) => {
+      console.log(data);
+    });
+}
+
+export { authPage, validate };

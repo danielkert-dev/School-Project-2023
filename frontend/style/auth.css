@@ -18,8 +18,11 @@
     border-radius: .1rem;
 }
 
-.login input, button {
-    margin: 1rem;
+.login input {
+    margin: .8rem;
+}
+.login button {
+    margin: .8rem;
 }
 
 .signup {
@@ -34,6 +37,22 @@
     border-radius: .1rem;
 }
 
-.signup input, button {
-    margin: 1rem;
+.signup input{
+    margin: .8rem;
+}
+.signup button {
+    margin: .8rem;
+}
+
+
+.login-response {   
+    color: var(--red);
+    text-align: center;
+    font-size: .8rem;
+}
+
+.signup-response {
+    color: var(--red);
+    text-align: center;
+    font-size: .8rem;
 }
