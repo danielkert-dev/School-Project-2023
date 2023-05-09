@@ -1,9 +1,48 @@
 .quiz-container {
     background-color: var(--third-color);
     min-height: 100vh;
+    width: 100%;
+    margin-bottom: 5rem;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
 }
 
-.quiz-container h1 {
-    padding-top: 5rem;
-    text-align: center;
+.quiz-box {
+    opacity: .8;
+    outline: .2rem solid var(--second-color);
+    background: linear-gradient(var(--first-color), var(--second-color));
+    width: 10rem;
+    height: 16rem;
+    margin: 1rem;
+    border-radius: .1rem;
+    transition: .1s ease-in-out;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.quiz-box:hover {
+    opacity: 1;
+    filter: drop-shadow(.2rem .2rem .5rem var(--third-color));
+}
+
+.quiz-box-empty {
+    opacity: .4;
+    outline: .2rem solid var(--second-color);
+    background: linear-gradient(var(--first-color), var(--second-color));
+    width: 10rem;
+    height: 16rem;
+    margin: 1rem;
+    border-radius: .1rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

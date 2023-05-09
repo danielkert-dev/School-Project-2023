@@ -65,6 +65,7 @@ function login(username, password) {
       }
     })
     .then((data) => {
+      console.log(data);
       let token = data.token;
       localStorage.setItem("token", token);
       localStorage.setItem("username", username);

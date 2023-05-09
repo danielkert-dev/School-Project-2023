@@ -1,19 +1,22 @@
 .main-page {
     margin-top: 5rem;
-    height: 10rem;
+    height: 8rem;
 
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
 .main-page input {
-    padding: 1rem;
-    width: 40rem;
+    margin-left: 2rem;
+    padding: .8rem;
+    width: 25rem;
+
 }
 
-.main-page button {
-    padding: 1rem;
-    margin-left: -1rem;
+.auth-warning {
+    text-align: center;
+    color: var(--third-color);
+    user-select: none;
 }

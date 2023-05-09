@@ -6,8 +6,9 @@ module.exports = {
     const offset = (page - 1) * pageSize;
     pool.query(
       `
-      SELECT * 
-      FROM quiz 
+      SELECT quiz.ID, quiz.title, quiz.amount_done, quiz.desctiption, quiz.user_ID, user.ID, user.username, quiz.image 
+      FROM quiz, user 
+      WHERE user.ID = quiz.user_ID
       LIMIT ? 
       OFFSET ?`,
       [parseInt(page), parseInt(offset)],
