@@ -22,8 +22,8 @@ function quizPage(page, pageSize) {
             <div class="quiz-box" id="quiz-box-${i}">
             <p>${data.data[i].title }</p>
             <img class="quiz-image" src="${data.data[i].image}">
-            <p>${data.data[i].desctiption}</p>
-            <p>${data.data[i].username}</p>
+            <p class="quiz-under-text">${data.data[i].desctiption}</p>
+            <p class="quiz-under-text">${data.data[i].username}</p>
             </div>
             `}
             document.querySelector(".page-number").value = parseInt(localStorage.getItem("page")) + 1;

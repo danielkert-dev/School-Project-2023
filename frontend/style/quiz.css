@@ -27,9 +27,29 @@
     align-items: center;
 }
 
+.quiz-box img{
+    max-height: 10rem;
+    max-width: 8rem;
+    min-width: 8rem;
+    object-fit: cover;
+    margin: .8rem;
+    opacity: .6;
+    transition: .1s ease-in-out;
+}
+
+.quiz-box img:hover {
+    opacity: 1;
+    filter: drop-shadow(.2rem .2rem .2rem var(--first-color));
+}
+
 .quiz-box:hover {
     opacity: 1;
-    filter: drop-shadow(.2rem .2rem .5rem var(--third-color));
+    filter: drop-shadow(.2rem .2rem .2rem var(--first-color));
+}
+
+.quiz-under-text {
+    color: var(--fourth-color);
+    font-size: .8rem;
 }
 
 .quiz-box-empty {

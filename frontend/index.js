@@ -1,5 +1,6 @@
 import { authPage } from "./auth/auth.js";
 import { quizPage } from "./quiz/quiz.js";
+import { questionPage } from "./question/question.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   header();
