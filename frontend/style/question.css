@@ -1,0 +1,17 @@
+.question-container {
+    margin-top: -10rem;
+    min-height: 80vh;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.question-box {
+    background: var(--fourth-color);
+    margin-top: 5rem;
+
+    width: 80%;
+    height: 30rem;
+}

@@ -2,6 +2,8 @@ import { mainPage } from "../index.js";
 
 function authPage() {
 
+  document.querySelector(".search").innerHTML = "";
+
   document.querySelector(".login-signup").style.opacity = "0";
 
   document.querySelector("main").innerHTML = `
@@ -116,8 +118,37 @@ function signup(username, password, email) {
       }
     })
     .then((data) => {
+      
       console.log(data);
-      alert("User created");
+      fetch(`${window.API}/user/Auth`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            document.querySelector(".login-response").innerHTML =
+              "Wrong username or password";
+            throw new Error("Wrong username or password"); // Important
+          }
+        })
+        .then((data) => {
+          console.log(data);
+          let token = data.token;
+          localStorage.setItem("token", token);
+          localStorage.setItem("username", username);
+          localStorage.setItem("password", password);
+    
+          mainPage();
+        });
+
     });
 }
 

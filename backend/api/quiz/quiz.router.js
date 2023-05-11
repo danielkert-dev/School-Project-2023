@@ -16,7 +16,7 @@ const router = require("express").Router();
 
 router.get("/SearchAll/:page/:pageSize", checkToken, quizSearchAll); // Works
 router.get("/SearchById/:id", checkToken, quizSearchById); // Works
-router.get("/Search/:input", checkToken, quizSearch); // Works
+router.get("/Search/:input/:page/:pageSize", checkToken, quizSearch); // Works
 router.post("/AmountAdd", checkToken, quizAmountAdd); // Request body, Works
 router.get("/QuestionSearch/:quiz_id/:question_num", checkToken, questionSearch); // Works
 router.get("/LeaderboardSearchAll/:page/:pageSize", checkToken, leaderboardSearchAll); // Works

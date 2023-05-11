@@ -26,6 +26,7 @@ module.exports = {
       return error400(res);
     }
     quizSearchAll(page, pageSize, (error, results) => {
+      console.log(results)
       if (error) {
         return error500(res, error);
       }
@@ -54,10 +55,12 @@ module.exports = {
 
   quizSearch: (req, res) => {
     const input = req.params.input;
-    if (!input) {
+    const page = req.params.page;
+    const pageSize = req.params.pageSize;
+    if (!input || !page || !pageSize) {
       return error400(res);
     }
-    quizSearch(input, (error, results) => {
+    quizSearch(input, page, pageSize, (error, results) => {
       if (error) {
         return error500(res, error);
       }

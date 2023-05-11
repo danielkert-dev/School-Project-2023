@@ -1,5 +1,5 @@
 .quiz-container {
-    background-color: var(--third-color);
+    background-color: var(--second-color);
     min-height: 100vh;
     width: 100%;
     margin-bottom: 5rem;
@@ -12,9 +12,9 @@
 }
 
 .quiz-box {
-    opacity: .8;
+    opacity: .9;
     outline: .2rem solid var(--second-color);
-    background: linear-gradient(var(--first-color), var(--second-color));
+    background: linear-gradient(var(--fourth-color), var(--second-color));
     width: 10rem;
     height: 16rem;
     margin: 1rem;

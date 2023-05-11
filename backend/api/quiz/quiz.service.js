@@ -6,7 +6,7 @@ module.exports = {
     const offset = (page - 1) * pageSize;
     pool.query(
       `
-      SELECT quiz.ID, quiz.title, quiz.amount_done, quiz.desctiption, quiz.user_ID, user.ID, user.username, quiz.image 
+      SELECT quiz.ID as quiz_ID, quiz.title, quiz.amount_done, quiz.description, quiz.user_ID, user.ID, user.username, quiz.image 
       FROM quiz, user 
       WHERE user.ID = quiz.user_ID
       LIMIT ? 
@@ -36,13 +36,16 @@ module.exports = {
   },
 
   // quizSearch
-  quizSearch: (input, callBack) => {
+  quizSearch: (input, page, pageSize, callBack) => {
+    const offset = (page - 1) * pageSize;
     pool.query(
-      `SELECT q.title, u.username
+      `SELECT q.title, q.description, q.image, q.amount_done, u.username
         FROM quiz q
         INNER JOIN user u ON q.user_ID = u.ID
-        WHERE q.title LIKE ? OR u.username LIKE ?;`,
-      [`%${input}%`, `%${input}%`],
+        WHERE q.title LIKE ? OR u.username LIKE ?
+        LIMIT ? 
+        OFFSET ?;`,
+      [`%${input}%`, `%${input}%`, parseInt(page), parseInt(offset)],
       (error, results) => {
         if (error) {
           console.error(error);
@@ -113,7 +116,7 @@ module.exports = {
   // quizCreate
   quizCreate: (input, callBack) => {
     pool.query(
-      "INSERT INTO `quiz`(`title`,`desctiption`, `user_ID`, `image`) VALUES (?,?,?,?,?)",
+      "INSERT INTO `quiz`(`title`,`description`, `user_ID`, `image`) VALUES (?,?,?,?,?)",
       [input.title, input.desctiption, input.user_ID, input.image],
       (error, results) => {
         if (error) {
@@ -128,8 +131,8 @@ module.exports = {
 
   // questionCreate
   questionCreate: (input, callBack) => {
-    "INSERT INTO `questions`(`quiz_ID`, `question`, `question_num`, `desctiption`, `choice1`, `choice2`, `choice3`, `choice4`, `correct_answer`, `last`) VALUES (?,?,?,?,?)",
-    [input.quiz_ID, input.question, input.question_num, input.desctiption, input.choice1, input.choice2, input.choice3, input.choice4, input.correct_answer, input.last],
+    "INSERT INTO `questions`(`quiz_ID`, `question`, `question_num`, `description`, `choice`, `correct_answer`, `last`) VALUES (?,?,?,?,?,?,?)",
+    [input.quiz_ID, input.question, input.question_num, input.desctiption, input.choice, input.correct_answer, input.last],
     (error, results) => {
       if (error) {
         console.error(error);
@@ -143,7 +146,7 @@ module.exports = {
   // quizUpdate
   quizUpdate: (input, callBack) => {
     pool.query(
-      "UPDATE `quiz` SET `title`= ?,`desctiption`= ?,`image`= ? WHERE id = ?",
+      "UPDATE `quiz` SET `title`= ?,`description`= ?,`image`= ? WHERE id = ?",
       [input.title, input.desctiption, input.image, input.id],
       (error, results) => {
         if (error) {
@@ -159,8 +162,8 @@ module.exports = {
   // questionUpdate
   questionUpdate: (input, callBack) => {
     pool.query(
-      "UPDATE `questions` SET `quiz_ID`= ? ,`question`= ? ,`desctiption`= ? ,`choice1`= ? ,`choice2`= ? ,`choice3`= ? ,`choice4`= ? ,`correct_answer`= ? WHERE ?",
-      [input.quiz_ID, input.question, input.desctiption, input.choice1, input.choice2, input.choice3, input.choice4, input.correct_answer, input.id],
+      "UPDATE `questions` SET `quiz_ID`= ? ,`question`= ? ,`description`= ? ,`choice`= ?,`correct_answer`= ? WHERE ?",
+      [input.quiz_ID, input.question, input.desctiption, input.choice, input.correct_answer, input.id],
       (error, results) => {
         if (error) {
           console.error(error);

@@ -15,7 +15,7 @@
     --sixth-color: #737373;
 
     --icon-color: #A4A4A4;
-    --text-color: #DADADA;
+    --text-color: #ffffff;
     --blue: #61AFFE;
     --green: #5ED3A3;
     --yellow: #F7A131;
@@ -92,11 +92,20 @@ button {
 button:hover, input:hover {
     background-color: var(--third-color);
     opacity: .5;
-    transition: all .3s ease-in-out;
+    transition: all .3s ;
+}
+
+.search {
+    width: 20rem;
+    height: 15rem;
+
+    margin-left: auto;
+    margin-right: auto;
 }
 
 main {
     width: 100vw;
+    transition: all .1s;
 }
 
 footer {
@@ -123,6 +132,7 @@ hr {
 .quiz-controller {
     background-color: var(--third-color);
     padding: 1rem;
+    border-radius: .2rem;
 
     display: flex;
     flex-direction: row;
