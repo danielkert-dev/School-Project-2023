@@ -12,7 +12,21 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 export function mainPage() {
-  try {
+
+
+  try {      
+
+      const token = localStorage.getItem("token"); // Checks if token is in local storage
+      if (!token) {
+        throw new Error("Token not found");
+      }
+      const decode = JSON.parse(atob(token.split('.')[1])); // Checks if token is not out of date
+      console.log(decode)
+      if (decode.exp * 1000 < new Date().getTime()) {
+          throw new Error("Token expired");
+      }
+
+
     if (!localStorage.getItem("username") || !localStorage.getItem("token")) {
       throw new Error("LocalStorage items not found");
     }
@@ -28,6 +42,7 @@ export function mainPage() {
       "main"
     ).innerHTML = `<br><br><br><br><br><h1 class="auth-warning">Log-in or sign-up to continue</h1><h1>`);
   }
+  
 
   document.querySelector("main").innerHTML = `
     <div class="main-page">
@@ -71,6 +86,10 @@ export function mainPage() {
   }, 200);
 
   quizPage(20, parseInt(localStorage.getItem("page")));
+}
+
+function search() {
+  
 }
 
 function header() {

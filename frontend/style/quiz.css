@@ -29,9 +29,11 @@
 
 .quiz-box img{
     max-height: 10rem;
+    min-height: 10rem;
     max-width: 8rem;
     min-width: 8rem;
     object-fit: cover;
+    border-radius: .2rem;
     margin: .8rem;
     opacity: .6;
     transition: .1s ease-in-out;
