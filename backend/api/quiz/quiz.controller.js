@@ -26,7 +26,6 @@ module.exports = {
       return error400(res);
     }
     quizSearchAll(page, pageSize, (error, results) => {
-      console.log(results)
       if (error) {
         return error500(res, error);
       }

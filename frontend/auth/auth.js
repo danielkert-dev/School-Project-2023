@@ -1,7 +1,6 @@
 import { mainPage } from "../index.js";
 
 function authPage() {
-
   document.querySelector(".search").innerHTML = "";
 
   document.querySelector(".login-signup").style.opacity = "0";
@@ -41,7 +40,6 @@ function authPage() {
   });
 }
 function login(username, password) {
-
   if (username === "" || password === "") {
     return (document.querySelector(".login-response").innerHTML =
       "All fields are required");
@@ -72,6 +70,7 @@ function login(username, password) {
       localStorage.setItem("token", token);
       localStorage.setItem("username", username);
       localStorage.setItem("password", password);
+      localStorage.setItem("list", "all");
 
       mainPage();
     });
@@ -118,7 +117,6 @@ function signup(username, password, email) {
       }
     })
     .then((data) => {
-      
       console.log(data);
       fetch(`${window.API}/user/Auth`, {
         method: "POST",
@@ -145,11 +143,11 @@ function signup(username, password, email) {
           localStorage.setItem("token", token);
           localStorage.setItem("username", username);
           localStorage.setItem("password", password);
-    
+          localStorage.setItem("list", "all");
+
           mainPage();
         });
-
     });
 }
 
-export { authPage};
+export { authPage };

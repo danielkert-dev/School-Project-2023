@@ -61,16 +61,24 @@ header {
 }
 
 .user-info {
-    margin-right: 1rem;
+    margin-top: .6rem;
+    margin-right: 2rem;
 }
 
-header h1 {
+.user-info p {
+    text-align: center;
+}
+
+#points {
+    font-size: .8rem;
+    color: var(--sixth-color);
+}
+
+header h1{
     cursor: pointer;
-}
-
-header h1, .points {
     color: var(--sixth-color);
     margin: 2rem;
+    margin-top: 2.2rem;
 }
 
 button, input {
@@ -97,7 +105,7 @@ button:hover, input:hover {
 
 .search {
     width: 20rem;
-    height: 15rem;
+    height: 11rem;
 
     margin-left: auto;
     margin-right: auto;
@@ -122,6 +130,31 @@ footer {
     bottom: 0;
 }
 
+@media (max-width: 700px) {
+
+    header {
+        justify-content: space-between;
+    }
+
+    header h1{
+        color: var(--sixth-color);
+        margin: 2rem;
+        margin-top: 2.2rem;
+        margin-left: 1rem;
+        font-size: 1rem;
+    }
+
+    header button {
+        margin-right: 2rem;
+        width: 4rem;
+    }
+
+    header p {
+        font-size: .8rem;
+    }
+    
+}
+
 hr {
     width: 100%;
     height: .2rem;
@@ -130,14 +163,13 @@ hr {
 }
 
 .quiz-controller {
-    background-color: var(--third-color);
-    padding: 1rem;
+    
+    padding: .6rem;
     border-radius: .2rem;
 
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
 }
 
 .quiz-controller-2 {
@@ -145,15 +177,14 @@ hr {
 }
 
 .quiz-controller button {
-    background-color: var(--fourth-color);
+    background-color: var(--third-color);
+    outline: .2rem solid var(--third-color);
 }
 
 .quiz-controller input {
     text-align: center;
-}
-
-.quiz-controller input:hover {
-    background-color: var(--fourth-color);
+    background-color: var(--third-color);
+    outline: .2rem solid var(--third-color);
 }
 
 input::-webkit-outer-spin-button,
