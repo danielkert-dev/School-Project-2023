@@ -1,6 +1,7 @@
 import { questionPage } from "../question/question.js";
+import { transition } from "../index.js";
 
-function quizPage(page, pageSize) {
+async function quizPage(page, pageSize) {
   fetch(`${window.API}/quiz/SearchAll/${page}/${pageSize}`, {
     method: "GET",
     headers: {
@@ -30,6 +31,7 @@ function quizPage(page, pageSize) {
             </div>
             `;
         quizID.push(data.data[i]);
+
         document.querySelector(".page-number").value =
           parseInt(localStorage.getItem("page")) + 1;
       }
@@ -40,6 +42,8 @@ function quizPage(page, pageSize) {
             .querySelector(`#quiz-box-${i}`)
             .addEventListener("click", () => {
               transition();
+              localStorage.setItem("quizID", quizID[i].quiz_ID);
+              localStorage.setItem("question", 1);
               setTimeout(() => {
                 questionPage(quizID[i]);
               }, 100);
@@ -74,11 +78,5 @@ function quizPage(page, pageSize) {
     });
 }
 
-function transition() {
-  document.querySelector("main").style.opacity = "0";
-  setTimeout(() => {
-    document.querySelector("main").style.opacity = "1";
-  }, 300);
-}
 
 export { quizPage };

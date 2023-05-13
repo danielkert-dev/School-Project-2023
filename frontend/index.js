@@ -238,9 +238,11 @@ function logout() {
   }, 100);
 }
 
-function transition() {
+export function transition() {
   document.querySelector("main").style.opacity = "0";
+  document.querySelector("body").style.pointerEvents = "none";
   setTimeout(() => {
     document.querySelector("main").style.opacity = "1";
+    document.querySelector("body").style.pointerEvents = "auto";
   }, 400);
 }
