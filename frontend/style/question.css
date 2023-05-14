@@ -81,3 +81,15 @@
 .question-choices > * {
     margin: .6rem;
 }
+
+.correct {
+    color: var(--green);
+}
+
+.wrong {
+    color: var(--red);
+}
+
+.continue-button {
+    transition: .3s ease-in-out; 
+}
