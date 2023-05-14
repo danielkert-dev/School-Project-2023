@@ -196,7 +196,7 @@ function search(input, page, pageSize) {
     });
 }
 
-function header() {
+export function header() {
   document.querySelector("header").innerHTML = `
     <h1 class="title">GUESS RIGHT</h1>
 
@@ -221,7 +221,7 @@ function footer() {
     `;
 }
 
-function titleClick() {
+export function titleClick() {
   document.querySelector(".title").addEventListener("click", () => {
     transition();
     setTimeout(() => {
