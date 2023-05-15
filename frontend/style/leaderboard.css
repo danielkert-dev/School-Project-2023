@@ -12,6 +12,7 @@
     background: var(--first-color);
     margin-top: 5rem;
     width: 80vw;
+    max-width: 80rem;
     height: 100%;
     border-radius: .5rem;
 
@@ -37,28 +38,38 @@
     margin: 1rem;
 
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 
 }
 
-.leaderboard-controls > * {
-    margin: .5rem;
+.leaderboard-controls > button {
+    margin: 1rem;
 }
 
 .leaderboard-table {
     border: .5rem solid var(--second-color);
     border-radius: .2rem;
 
+    width: 70vw;
+    max-width: 80%;
+
 }
 
 table {
-    width: 70vw;
+    width: 100%;
     text-align: center;
     border-collapse: collapse;
-    
+    transition: all 0.3s ease-in-out;
+
+}
+
+@media screen and (max-width: 600px) {
+    table {
+        font-size: .8rem;
+    }
 }
 
 tr {

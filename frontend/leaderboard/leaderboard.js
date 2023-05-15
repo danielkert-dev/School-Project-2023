@@ -9,6 +9,7 @@ function leaderboardPage() {
         <h3 class="leaderboard-points">Your points: ${localStorage.getItem("points")}</h3>
         <div class="leaderboard-controls">
         <button class="back-button">Back</button>
+        </div>
         <div class="leaderboard-table">
         <table>
         <thead>
@@ -19,7 +20,6 @@ function leaderboardPage() {
         <tbody>
         </tbody>
         </table>
-        </div>
         </div>
         <br>
         <br>
