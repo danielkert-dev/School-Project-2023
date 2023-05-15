@@ -45,9 +45,12 @@ export function mainPage() {
       }
     }).then((data) => {
       document.querySelector(".user-info").innerHTML = `<p>${username}</p> <p id="points">Points: ${data.data[0].points}<p>`;
+      localStorage.setItem("points", data.data[0].points);
     })
 
     // Set all the values
+    document.querySelector(".leaderboard").style.opacity = "1";
+    document.querySelector(".create").style.opacity = "1";
     document.querySelector(".login-signup").style.opacity = "1";
     document.querySelector(".login-signup").innerHTML = `Log-out`;
     document.querySelector(".login-signup").addEventListener("click", logout);
@@ -204,14 +207,19 @@ export function header() {
     <div class="header-objects">
 
     <div class="user-info"></div>
-    <button class="leaderboard">Leaderboard</button>
     <button class="create">&nbsp;+&nbsp;</button>
+    <button class="leaderboard">Leaderboard</button>
     <button class="login-signup" id="header-button">Log-in / Sign-up</button>
     </div>
 
     </div>
     `;
-  document.querySelector(".leaderboard").addEventListener("click", leaderboardPage);
+  document.querySelector(".leaderboard").addEventListener("click", () => {
+    transition();
+    setTimeout(() => {
+      leaderboardPage();  
+    }, 100)
+    });
   document.querySelector(".login-signup").addEventListener("click", authPage);
 }
 

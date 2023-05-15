@@ -10,7 +10,7 @@
 }
 
 .question-box {
-    background: var(--fourth-color);
+    background: var(--first-color);
     margin-top: 5rem;
     width: 80%;
     max-height: fit-content;

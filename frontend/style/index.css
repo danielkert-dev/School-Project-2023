@@ -38,6 +38,7 @@ body {
 
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+    user-select: none;
 }
 
 body::-webkit-scrollbar {
@@ -63,12 +64,11 @@ header {
 }
 
 .user-info {
-    margin-top: .6rem;
     margin-right: 2rem;
 }
 
 .header-objects > * {
-    margin: .5rem;
+    margin-right: 1rem;
 }
 
 .leaderboard {
@@ -93,6 +93,7 @@ header h1{
     color: var(--sixth-color);
     margin: 2rem;
     margin-top: 2.2rem;
+    transition: all .3s ease-in-out;
 }
 
 button, input {
@@ -146,11 +147,13 @@ footer {
 
 @media (max-width: 700px) {
 
+   
     header {
         justify-content: space-between;
     }
 
     header h1{
+        width: 100%;
         color: var(--sixth-color);
         margin: 2rem;
         margin-top: 2.2rem;
@@ -165,6 +168,19 @@ footer {
 
     header p {
         font-size: .8rem;
+    }
+
+    .header-objects > * {
+        font-size: .6rem;
+        margin-right: 1rem;
+    }
+
+    .user-info p {
+        font-size: .8rem;
+    }
+
+    #points {
+        font-size: .6rem;
     }
     
 }

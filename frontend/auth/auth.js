@@ -4,6 +4,8 @@ function authPage() {
   document.querySelector(".search").innerHTML = "";
 
   document.querySelector(".login-signup").style.opacity = "0";
+  document.querySelector(".leaderboard").style.opacity = "0";
+  document.querySelector(".create").style.opacity = "0";
 
   document.querySelector("main").innerHTML = `
       <div class="login-signup-container">

@@ -6,6 +6,7 @@ async function resultPage() {
         <div class="result-container">
         <div class="result-box">
         <h1 class="result-title"> YOUR RESULTS! </h1>
+        <h3 class="result-points">Your points: ${localStorage.getItem("points")} + ${localStorage.getItem("score")}</h3>
         <div class="result-controls">
         <button class="back-button">Back</button>
         </div>
@@ -48,8 +49,6 @@ async function resultPage() {
             let answer = data.data[0].correct_answer;
             let correct = choices[answer-1];
 
-            console.log(data.data[0].question_num);
-
             if (correctAnswers.includes(data.data[0].question_num)) {
 
 
@@ -71,11 +70,44 @@ async function resultPage() {
                 `
             }
 
+            document.querySelector(".result-answer").innerHTML += `
+            <br>
+            <br>
+            `
+
         
         })
     }
 
+    quizAddAmountDone();
     localStorage.setItem("correct", "");
+}
+
+function quizAddAmountDone() {
+
+    let quizID = parseInt(localStorage.getItem("quizID"));
+    console.log(quizID);
+
+    fetch(`${window.API}/quiz/AmountAdd`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+            id: quizID,
+          }),
+    }).then((response) => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error("Something went wrong");
+        }
+    }).then((data) => {
+        console.log(data);
+    }).catch((error) => {
+        mainPage();
+    })
 }
 
 export { resultPage };
