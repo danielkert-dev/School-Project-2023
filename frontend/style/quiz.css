@@ -18,6 +18,7 @@
     width: 10rem;
     height: 16rem;
     margin: 1rem;
+    margin-bottom: 5rem;
     border-radius: .1rem;
     transition: .1s ease-in-out;
 
@@ -68,3 +69,13 @@
     justify-content: center;
     align-items: center;
 }
+
+.quiz-box span {
+    display: none; 
+    position: absolute; 
+    color: #fff; 
+    background: var(--first-color); 
+    padding: 5px;
+    margin-top: 22rem;
+}
+.quiz-box:hover span {display: block; text-align: center;}

@@ -26,8 +26,9 @@ async function quizPage(page, pageSize) {
             <div class="quiz-box" id="quiz-box-${i}">
             <p>${data.data[i].title}</p>
             <img class="quiz-image" id="quiz-image-${i}" src="${data.data[i].image}">
-            <p class="quiz-under-text">${data.data[i].amount_done}</p>
-            <p class="quiz-under-text">${data.data[i].username}</p>
+            <p class="quiz-under-text">Played : ${data.data[i].amount_done}</p>
+            <p class="quiz-under-text">By ${data.data[i].username}</p>
+            <span>${data.data[i].description}</span>
             </div>
             `;
         quizID.push(data.data[i]);
