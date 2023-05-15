@@ -1,6 +1,7 @@
 import { authPage } from "./auth/auth.js";
 import { quizPage } from "./quiz/quiz.js";
 import { questionPage } from "./question/question.js";
+import { leaderboardPage } from "./leaderboard/leaderboard.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   // Initialize the page
@@ -203,13 +204,14 @@ export function header() {
     <div class="header-objects">
 
     <div class="user-info"></div>
-
+    <button class="leaderboard">Leaderboard</button>
+    <button class="create">&nbsp;+&nbsp;</button>
     <button class="login-signup" id="header-button">Log-in / Sign-up</button>
     </div>
 
     </div>
     `;
-
+  document.querySelector(".leaderboard").addEventListener("click", leaderboardPage);
   document.querySelector(".login-signup").addEventListener("click", authPage);
 }
 

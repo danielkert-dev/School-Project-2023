@@ -44,6 +44,7 @@ async function quizPage(page, pageSize) {
               transition();
               localStorage.setItem("quizID", quizID[i].quiz_ID);
               localStorage.setItem("question", 1);
+              localStorage.setItem("score", 0);
               setTimeout(() => {
                 questionPage(quizID[i]);
               }, 100);

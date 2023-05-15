@@ -1,0 +1,51 @@
+.leaderboard-container {
+    margin-top: -14rem;
+    min-height: 80vh;
+    max-height: fit-content;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.leaderboard-box {
+    background: var(--fourth-color);
+    margin-top: 5rem;
+    width: 80%;
+    max-height: fit-content;
+    border-radius: .5rem;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.leaderboard-title {
+    font-size: 2.5rem;
+    margin: 2rem;
+}
+
+.leaderboard-controls {
+    margin: 1rem;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.leaderboard-controls > * {
+    margin: .5rem;
+}
+
+table {
+    width: 30rem;
+    text-align: center;
+}
+tr > * {
+    padding: .2rem;
+}

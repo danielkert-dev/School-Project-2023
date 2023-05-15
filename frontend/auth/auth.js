@@ -71,6 +71,8 @@ function login(username, password) {
       localStorage.setItem("username", username);
       localStorage.setItem("password", password);
       localStorage.setItem("list", "all");
+      localStorage.setItem("correct", "");
+      localStorage.setItem("correctAnswer", "");
 
       mainPage();
     });

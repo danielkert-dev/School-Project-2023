@@ -24,7 +24,7 @@ function questionPage(quiz) {
       if (response.ok) {
         return response.json();
       } else {
-        throw new Error("Wrong input");
+        throw new Error("Something went wrong");
       }
     })
     .then((data) => {
@@ -34,72 +34,6 @@ function questionPage(quiz) {
         <div class="question-box">
         <div class="question-controls">
           <button class="back-button">Back</button>
-          <button class="end-button">End</button>
-          <button class="continue-button">Next</button>
-          </div>
-
-          <p class="question-title">${quiz.title}</p>
-          <p class="question-question">${data.data[0].question}</p>
-
-          <img class="question-image" src="${data.data[0].image}">
-          <p class="question-under-text">${data.data[0].description}<br>${quiz.username}</p>
-          <div class="question-choices">
-          </div>
-        </div>
-      `;
-
-      document.querySelector(".continue-button").style.opacity = ".6";
-
-        document.querySelector(".back-button").addEventListener("click", () => {
-          document.querySelector("header").style.display = "flex";
-          document.querySelector("footer").style.display = "flex";
-          mainPage();
-        });
-
-        let choicesList = [];
-
-        let choices = data.data[0].choice.split(";");
-        for (let i = 0; i < choices.length; i++) {
-          document.querySelector(".question-choices").innerHTML += `
-        <button id="choice-${i}" class="next-button">${choices[i]} </button>
-        `;
-          choicesList.push(choices[i]);
-        }
-
-        setTimeout(() => {
-          for (let i = 0; i < choicesList.length; i++) {
-            document.querySelector(`#choice-${i}`).addEventListener("click", () => {
-                let answer = data.data[0].correct_answer;
-                let choice = i + 1;
-                if (answer === choice) {
-                  document.querySelector(`#choice-${i}`).classList = "correct";
-                  document.querySelector(".question-choices").style.pointerEvents = "none";
-                  document.querySelector(".question-choices").style.userSelect = "none";
-                  document.querySelector(".continue-button").style.opacity = "1";
-                  document.querySelector(".continue-button").addEventListener("click", () => {
-                    correctLast(question);
-                  })
-                } else {
-                  document.querySelector(`#choice-${i}`).classList = "wrong";
-                  document.querySelector(".question-choices").style.pointerEvents = "none";
-                  document.querySelector(".question-choices").style.userSelect = "none";
-                  document.querySelector(".continue-button").style.opacity = "1";
-                  document.querySelector(".continue-button").addEventListener("click", () => {
-                    wrongLast(question);
-                  })
-                }
-              });
-          }
-        }, 100);
-           
-      
-      } else {
-        // If not last
-        document.querySelector(".question-container").innerHTML = `
-        <div class="question-box">
-        <div class="question-controls">
-          <button class="back-button">Back</button>
-          <button class="end-button">End</button>
           <button class="continue-button">Next</button>
           </div>
 
@@ -133,12 +67,86 @@ function questionPage(quiz) {
 
         setTimeout(() => {
           for (let i = 0; i < choicesList.length; i++) {
+            
+            let answer = data.data[0].correct_answer;
+            let choice = i + 1;
+           
             document.querySelector(`#choice-${i}`).addEventListener("click", () => {
-                let answer = data.data[0].correct_answer;
-                let choice = i + 1;
+                
                 if (answer === choice) {
+
                   document.querySelector(`#choice-${i}`).classList = "correct";
                   document.querySelector(".question-choices").style.pointerEvents = "none";
+                  document.querySelector(".question-choices").style.opacity = ".6";
+                  document.querySelector(".question-choices").style.userSelect = "none";
+                  document.querySelector(".continue-button").style.opacity = "1";
+                  document.querySelector(".continue-button").addEventListener("click", () => {
+                    correctLast(question, quiz);
+                  })
+                } else {
+                  document.querySelector(`#choice-${i}`).classList = "wrong";
+                  document.querySelector(".question-choices").style.pointerEvents = "none";
+                  document.querySelector(".question-choices").style.opacity = ".6";
+                  document.querySelector(".question-choices").style.userSelect = "none";
+                  document.querySelector(".continue-button").style.opacity = "1";
+                  document.querySelector(".continue-button").addEventListener("click", () => {
+                    wrongLast(question, quiz);
+                  })
+                }
+              });
+          }
+        }, 100);
+      
+      } else {
+        // If not last
+        document.querySelector(".question-container").innerHTML = `
+        <div class="question-box">
+        <div class="question-controls">
+          <button class="back-button">Back</button>
+          <button class="continue-button">Next</button>
+          </div>
+
+          <p class="question-title">${quiz.title}</p>
+          <p class="question-question">${data.data[0].question}</p>
+
+          <img class="question-image" src="${data.data[0].image}">
+          <p class="question-under-text">${data.data[0].description}<br>${quiz.username}</p>
+          <div class="question-choices">
+          </div>
+        </div>
+      `;
+
+        document.querySelector(".continue-button").style.opacity = ".6";
+
+        document.querySelector(".back-button").addEventListener("click", () => {
+          document.querySelector("header").style.display = "flex";
+          document.querySelector("footer").style.display = "flex";
+          mainPage();
+        });
+
+        let choicesList = [];
+
+        let choices = data.data[0].choice.split(";");
+        for (let i = 0; i < choices.length; i++) {
+          document.querySelector(".question-choices").innerHTML += `
+        <button id="choice-${i}" class="next-button">${choices[i]} </button>
+        `;
+          choicesList.push(choices[i]);
+        }
+
+        setTimeout(() => {
+          for (let i = 0; i < choicesList.length; i++) {
+            
+            let answer = data.data[0].correct_answer;
+            let choice = i + 1;
+           
+            document.querySelector(`#choice-${i}`).addEventListener("click", () => {
+                
+                if (answer === choice) {
+
+                  document.querySelector(`#choice-${i}`).classList = "correct";
+                  document.querySelector(".question-choices").style.pointerEvents = "none";
+                  document.querySelector(".question-choices").style.opacity = ".6";
                   document.querySelector(".question-choices").style.userSelect = "none";
                   document.querySelector(".continue-button").style.opacity = "1";
                   document.querySelector(".continue-button").addEventListener("click", () => {
@@ -147,6 +155,7 @@ function questionPage(quiz) {
                 } else {
                   document.querySelector(`#choice-${i}`).classList = "wrong";
                   document.querySelector(".question-choices").style.pointerEvents = "none";
+                  document.querySelector(".question-choices").style.opacity = ".6";
                   document.querySelector(".question-choices").style.userSelect = "none";
                   document.querySelector(".continue-button").style.opacity = "1";
                   document.querySelector(".continue-button").addEventListener("click", () => {
@@ -156,6 +165,7 @@ function questionPage(quiz) {
               });
           }
         }, 100);
+
       }
     })
     .catch((error) => {
@@ -218,7 +228,9 @@ function userPointsAdd() {
 }
 
 function correct(question, quiz) {
+  localStorage.setItem("correct", localStorage.getItem("correct") + localStorage.getItem("question") + ";");
   localStorage.setItem("question", parseInt(question) + 1);
+  localStorage.setItem("score", parseInt(localStorage.getItem("score")) + 1);
   transition();
   userPointsAdd();
   setTimeout(() => {
@@ -235,7 +247,9 @@ function wrong(question, quiz) {
 }
 
 function correctLast(question) {
+  localStorage.setItem("correct", localStorage.getItem("correct") + localStorage.getItem("question") + ";");
   localStorage.setItem("question", parseInt(question) + 1);
+  localStorage.setItem("score", parseInt(localStorage.getItem("score")) + 1);
   transition();
   userPointsAdd();
   setTimeout(() => {
