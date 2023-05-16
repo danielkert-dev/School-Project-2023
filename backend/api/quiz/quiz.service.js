@@ -39,7 +39,7 @@ module.exports = {
   quizSearch: (input, page, pageSize, callBack) => {
     const offset = (page - 1) * pageSize;
     pool.query(
-      `SELECT q.title, q.description, q.image, q.amount_done, u.username
+      `SELECT q.ID as quiz_ID, q.title, q.description, q.image, q.amount_done, u.username
         FROM quiz q
         INNER JOIN user u ON q.user_ID = u.ID
         WHERE q.title LIKE ? OR u.username LIKE ?

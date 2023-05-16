@@ -12,10 +12,11 @@ async function quizPage(page, pageSize) {
       if (response.ok) {
         return response.json();
       } else {
-        throw new Error("Wrong input");
+        throw new Error("No page found");
       }
     })
     .then((data) => {
+      console.log(data);
       let quizID = [];
       document.querySelector("main").innerHTML = `
             <div class="quiz-container"></div>
@@ -34,7 +35,7 @@ async function quizPage(page, pageSize) {
         quizID.push(data.data[i]);
 
         document.querySelector(".page-number").value =
-          parseInt(localStorage.getItem("page")) + 1;
+          parseInt(localStorage.getItem("page")) + 1; // -`????
       }
 
       setTimeout(() => {
@@ -64,6 +65,7 @@ async function quizPage(page, pageSize) {
       }, 100);
     })
     .catch((error) => {
+      document.querySelector("main").innerHTML = ``;
       console.log(error);
       document.querySelector("main").innerHTML += `
             <div class="quiz-container"></div>
