@@ -5,6 +5,7 @@
 @import url("main.css");
 @import url("result.css");
 @import url("leaderboard.css");
+@import url("create.css");
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
@@ -96,7 +97,7 @@ header h1{
     transition: all .3s ease-in-out;
 }
 
-button, input {
+button, input, textarea, select {
     background-color: var(--second-color);
     color: var(--text-color);
     outline: .2rem solid var(--third-color);

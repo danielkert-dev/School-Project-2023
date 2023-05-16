@@ -68,12 +68,15 @@ function questionPage(quiz) {
         setTimeout(() => {
           for (let i = 0; i < choicesList.length; i++) {
             
-            let answer = data.data[0].correct_answer;
+            
+            let answer = data.data[0].correct_answer.split(";");
+            answer = answer.map(Number);
             let choice = i + 1;
            
             document.querySelector(`#choice-${i}`).addEventListener("click", () => {
+
                 
-                if (answer === choice) {
+                if (answer.includes(choice)) {
 
                   document.querySelector(`#choice-${i}`).classList = "correct";
                   document.querySelector(".question-choices").style.pointerEvents = "none";
@@ -137,12 +140,14 @@ function questionPage(quiz) {
         setTimeout(() => {
           for (let i = 0; i < choicesList.length; i++) {
             
-            let answer = data.data[0].correct_answer;
+            let answer = data.data[0].correct_answer.split(";");
+            answer = answer.map(Number);
             let choice = i + 1;
            
             document.querySelector(`#choice-${i}`).addEventListener("click", () => {
+
                 
-                if (answer === choice) {
+                if (answer.includes(choice)) {
 
                   document.querySelector(`#choice-${i}`).classList = "correct";
                   document.querySelector(".question-choices").style.pointerEvents = "none";

@@ -46,8 +46,12 @@ async function resultPage() {
             correctAnswers = correctAnswers.map(Number);
 
             let choices = data.data[0].choice.split(";");
-            let answer = data.data[0].correct_answer;
+            let answer = data.data[0].correct_answer.split(";");
             let correct = choices[answer-1];
+
+            if (correct === undefined) {
+                correct = "Multiple Correct Choices";
+            }
 
             if (correctAnswers.includes(data.data[0].question_num)) {
 

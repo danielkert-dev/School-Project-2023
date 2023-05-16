@@ -2,6 +2,7 @@ import { authPage } from "./auth/auth.js";
 import { quizPage } from "./quiz/quiz.js";
 import { questionPage } from "./question/question.js";
 import { leaderboardPage } from "./leaderboard/leaderboard.js";
+import { createPage } from "./create/quiz.create.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   // Initialize the page
@@ -54,6 +55,7 @@ export function mainPage() {
     document.querySelector(".login-signup").style.opacity = "1";
     document.querySelector(".login-signup").innerHTML = `Log-out`;
     document.querySelector(".login-signup").addEventListener("click", logout);
+    document.querySelector("h1").style.pointerEvents = "auto";
   } catch (error) {
     // Catch if not logged in
     document.querySelector(".login-signup").style.opacity = "1";
@@ -220,6 +222,14 @@ export function header() {
       leaderboardPage();  
     }, 100)
     });
+
+  document.querySelector(".create").addEventListener("click", () => {
+    transition();
+    setTimeout(() => {
+      createPage();
+    }, 100)
+  })
+
   document.querySelector(".login-signup").addEventListener("click", authPage);
 }
 
