@@ -51,13 +51,20 @@ export function mainPage() {
 
     // Set all the values
     document.querySelector(".leaderboard").style.opacity = "1";
+    document.querySelector(".leaderboard").style.pointerEvents = "auto";
     document.querySelector(".create").style.opacity = "1";
+    document.querySelector(".create").style.pointerEvents = "auto";
     document.querySelector(".login-signup").style.opacity = "1";
     document.querySelector(".login-signup").innerHTML = `Log-out`;
     document.querySelector(".login-signup").addEventListener("click", logout);
     document.querySelector("h1").style.pointerEvents = "auto";
   } catch (error) {
     // Catch if not logged in
+    document.querySelector(".leaderboard").style.opacity = "0";
+    document.querySelector(".leaderboard").style.pointerEvents = "none";
+    document.querySelector(".create").style.opacity = "1";
+    document.querySelector(".create").style.pointerEvents = "none";
+    document.querySelector(".create").style.opacity = "0";
     document.querySelector(".login-signup").style.opacity = "1";
     return (document.querySelector(
       "main"

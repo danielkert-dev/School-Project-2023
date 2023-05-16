@@ -10,7 +10,8 @@ function createPage() {
     localStorage.setItem("createQuestion", 0);
     
     document.querySelector("main").innerHTML = `
-    <div class="create-container">
+    <div class="create-quiz-container">
+
     <div class="create-header">
     <h1 class="create-title">CREATE QUIZ</h1>
     <div class="create-button-container">
@@ -21,6 +22,7 @@ function createPage() {
     <div class="create-body">
 
     <div class="create-form-quiz">
+    <button class="create-button">Create Quiz</button>
 
     <h3>Quiz Title <p class="create-comment">Title of the quiz</p></h3>
     <input class="create-form-quiz-title" type="text" placeholder="Quiz Title...">
@@ -28,22 +30,20 @@ function createPage() {
     <textarea class="create-form-quiz-description" type="text" placeholder="Quiz Description..." maxlength="58" width="100%" rows="5"></textarea>
     <h3>Quiz Image <p class="create-comment">Image URL</p></h3>
     <input class="create-form-quiz-image" type="text" placeholder="Quiz Image URL...">
-    <button class="create-button">Create Quiz</button>
-    </div>
 
-    <div class="question-box">
-    <h3>Select Quiz <p class="create-comment">Select your quiz (Create a quiz if you have none)</p></h3>
-    <select class="create-form-quiz-select">
-    </select>
     <button class="add-question-button">Add Question</button>
     </div>
-
     <div class="create-form-question">
+    
     </div>
 
     </div>
     </div>
   `;
+
+  document.querySelector(".add-question-button").addEventListener("click", () => {
+      questionAdd();
+  })
 
   document.querySelector(".create-button").addEventListener("click", () => {
       quizAdd();
@@ -60,6 +60,14 @@ function createPage() {
 
 }
 
+function questionAdd () {
+    localStorage.setItem("createQuestion", parseInt(localStorage.getItem("createQuestion")) + 1);
+    document.querySelector(".create-form-question").innerHTML += `
+    <div class="create-question-box" id="create-question-${localStorage.getItem("createQuestion")}">
+    <h3>Question ${localStorage.getItem("createQuestion")}</h3>
+    </div>
+    `
+}
 
 
 function quizAdd() {
@@ -125,10 +133,6 @@ function quizAdd() {
     document.querySelector("footer").style.display = "flex";
     mainPage();
 })
-}
-
-function selectQuiz() {
-
 }
 
 export { createPage }

@@ -78,12 +78,11 @@
 }
 
 
-
 .create-form-question {
     padding-bottom: 2rem;
 }
 
-.question-box {
+.create-question-box {
     background-color: var(--first-color);
     width: 80vw;
     padding: 1rem;
@@ -95,26 +94,21 @@
     align-items: center;
 }
 
-.question-box > h3 {
+.create-question-box > h3 {
     margin: .5rem;
     text-align: center;
 }
 
-.question-box > input {
+.create-question-box > input {
     resize: none;
     margin: 1rem;
     margin-right: 2rem;
     width: 90%;
 }
 
-.question-box > button {
+.create-question-box > button {
     margin: 1rem;
     width: 50%;
-}
-
-.question-box > select {
-    margin: 1rem;
-    width: 90%;
 }
 
 .create-comment {
