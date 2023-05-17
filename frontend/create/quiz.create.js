@@ -65,7 +65,7 @@ function questionBoxAdd() {
   
   document.querySelector(".create-form-question").innerHTML += `
     <div class="create-question-box" id="create-question-${localStorage.getItem("createQuestion")}">
-    <h3>Question <div class="question-number">${localStorage.getItem("createQuestion")}</div></h3>
+    <h3>Question -+${localStorage.getItem("createQuestion")}</div></h3>
     <input class="question-title-${localStorage.getItem("createQuestion")}" type="text" placeholder="Question Title...">
     <input class="question-image-${localStorage.getItem("createQuestion")}" type="text" placeholder="Question Image URL...">
     <div class="question-image-box" id="question-image-box-${localStorage.getItem("createQuestion")}"></div>
@@ -74,7 +74,7 @@ function questionBoxAdd() {
     <input class="question-answer-${localStorage.getItem("createQuestion")}" type="text" placeholder="Correct Answer... (1;3)">
     </div>
     `;
-
++
     console.log(questionNumber);
     // Image preview
     document.querySelector(`.question-image-${questionNumber}`).addEventListener("input", () => {
@@ -83,9 +83,15 @@ function questionBoxAdd() {
         setTimeout(() => {
         document.querySelector(`#question-image-box-${questionNumber}`).innerHTML = `
         <img src="${document.querySelector(`.question-image-${questionNumber}`).value}">
-        <p>Image</p>
+        <p>Image</p>-
         `;
         }, 100)
+
+
+
+
+
+        
     })
 }
 
