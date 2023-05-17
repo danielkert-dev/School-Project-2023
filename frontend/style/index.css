@@ -97,7 +97,7 @@ header h1{
     transition: all .3s ease-in-out;
 }
 
-button, input, textarea, select {
+button, input, textarea, select, table {
     background-color: var(--second-color);
     color: var(--text-color);
     outline: .2rem solid var(--third-color);

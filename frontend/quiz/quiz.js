@@ -41,8 +41,7 @@ async function quizPage(page, pageSize) {
       setTimeout(() => {
         for (let i = 0; i < quizID.length; i++) {
           document
-            .querySelector(`#quiz-box-${i}`)
-            .addEventListener("click", () => {
+            .querySelector(`#quiz-box-${i}`).addEventListener("click", () => {
               transition();
               localStorage.setItem("quizID", quizID[i].quiz_ID);
               localStorage.setItem("question", 1);

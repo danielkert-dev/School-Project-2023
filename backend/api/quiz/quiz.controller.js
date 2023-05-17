@@ -10,6 +10,7 @@ const {
   quizUpdate,
   questionUpdate,
   quizDelete,
+  quizSearchByTitle,
 } = require("./quiz.service");
 const {
   response200,
@@ -51,6 +52,23 @@ module.exports = {
       return response200(res, results);
     });
   },
+
+  quizSearchByTitle: (req, res) => {
+    const title = req.params.title;
+    if (!title) {
+      return error400(res);
+    }
+    quizSearchByTitle(title, (error, results) => {
+      if (error) {
+        return error500(res, error);
+      }
+      if (!results || results.length === 0) {
+        return error404(res, results);
+      }
+      return response200(res, results);
+    });
+  },
+
 
   quizSearch: (req, res) => {
     const input = req.params.input;

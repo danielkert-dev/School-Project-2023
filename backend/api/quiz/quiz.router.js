@@ -9,13 +9,15 @@ const {
     questionCreate,
     quizUpdate,
     questionUpdate,
-    quizDelete
+    quizDelete,
+    quizSearchByTitle,
 } = require("./quiz.controller");
 const { checkToken } = require("../../auth/bearer.token.auth"); // Works
 const router = require("express").Router();
 
 router.get("/SearchAll/:page/:pageSize", checkToken, quizSearchAll); // Works
 router.get("/SearchById/:id", checkToken, quizSearchById); // Works
+router.get("/SearchByTitle/:title", checkToken, quizSearchByTitle);
 router.get("/Search/:input/:page/:pageSize", checkToken, quizSearch); // Works
 router.post("/AmountAdd", checkToken, quizAmountAdd); // Request body, Works
 router.get("/QuestionSearch/:quiz_id/:question_num", checkToken, questionSearch); // Works

@@ -35,6 +35,18 @@ module.exports = {
     });
   },
 
+    // quizByName
+    quizSearchByTitle: (title, callBack) => {
+      pool.query("SELECT * FROM quiz WHERE title = ?", [title], (error, results) => {
+        if (error) {
+          console.error(error);
+          callBack(error, null);
+        } else {
+          callBack(null, results);
+        }
+      });
+    },
+
   // quizSearch
   quizSearch: (input, page, pageSize, callBack) => {
     const offset = (page - 1) * pageSize;
@@ -131,8 +143,9 @@ module.exports = {
 
   // questionCreate
   questionCreate: (input, callBack) => {
-    "INSERT INTO `questions`(`quiz_ID`, `question`, `question_num`, `description`, `choice`, `correct_answer`, `last`) VALUES (?,?,?,?,?,?,?)",
-    [input.quiz_ID, input.question, input.question_num, input.desctiption, input.choice, input.correct_answer, input.last],
+    pool.query(
+    "INSERT INTO `questions`(`quiz_ID`, `question`, `image`, `question_num`, `description`, `choice`, `correct_answer`, `last`) VALUES (?,?,?,?,?,?,?,?)",
+    [input.quiz_ID, input.question, input.image ,input.question_num, input.description, input.choice, input.correct_answer, input.last],
     (error, results) => {
       if (error) {
         console.error(error);
@@ -141,6 +154,7 @@ module.exports = {
         callBack(null, results);
       }
     }
+    )
   },
 
   // quizUpdate
