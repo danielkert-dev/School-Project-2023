@@ -31,6 +31,7 @@ function createPage() {
     <input class="create-form-quiz-title" type="text" placeholder="Quiz Title...">
     <textarea class="create-form-quiz-description" type="text" placeholder="Quiz Description..." maxlength="58" width="100%" rows="5"></textarea>
     <input class="create-form-quiz-image" type="text" placeholder="Quiz Image URL...">
+    <img class="quiz-image-preview" src="" alt="Image Preview">
 
 
     <button class="add-question-button">Add Question</button>
@@ -57,43 +58,104 @@ function createPage() {
       mainPage();
     }, 100);
   });
+
+   // Quiz image preview
+   const imageInput = document.querySelector(`.create-form-quiz-image`);
+   const imagePreview = document.querySelector(`.quiz-image-preview`);
+
+
+   imageInput.addEventListener("input", () => {
+     imagePreview.src = imageInput.value;
+   });
+ 
+   imagePreview.onerror = () => {
+     console.log("Error");
+     imagePreview.style.display = "none";
+   };
+   
+   imagePreview.onload = () => {
+     console.log("Image loaded successfully");
+     imagePreview.style.display = "block";
+   };
+
 }
 
 function questionBoxAdd() {
   localStorage.setItem("createQuestion", parseInt(localStorage.getItem("createQuestion")) + 1);
   let questionNumber = localStorage.getItem("createQuestion");
-  
-  document.querySelector(".create-form-question").innerHTML += `
-    <div class="create-question-box" id="create-question-${localStorage.getItem("createQuestion")}">
-    <h3>Question -+${localStorage.getItem("createQuestion")}</div></h3>
+
+  const questionBox = document.createElement('div');
+  questionBox.className = 'create-question-box';
+  questionBox.id = `create-question-${localStorage.getItem("createQuestion")}`;
+  questionBox.innerHTML = `
+    <h3>Question ${localStorage.getItem("createQuestion")}</h3>
     <input class="question-title-${localStorage.getItem("createQuestion")}" type="text" placeholder="Question Title...">
+    
     <input class="question-image-${localStorage.getItem("createQuestion")}" type="text" placeholder="Question Image URL...">
-    <div class="question-image-box" id="question-image-box-${localStorage.getItem("createQuestion")}"></div>
+    <img class="question-image-preview-${localStorage.getItem("createQuestion")}" src="" alt="Image Preview">
+    
     <textarea class="question-description-${localStorage.getItem("createQuestion")}" type="text" placeholder="Question Description..." maxlength="58" width="100%" rows="5"></textarea>
-    <textarea class="question-choices-${localStorage.getItem("createQuestion")}" type="text" placeholder="Question Choices... (Choice1; Choice2; Choice3)" maxlength="58" width="100%" rows="5"></textarea>
+    <div class="choices-container-${localStorage.getItem("createQuestion")}"></div>
+    <input class="choice-input-${localStorage.getItem("createQuestion")}" type="text" placeholder="Enter a choice...">
+    <button class="add-choice-button-${localStorage.getItem("createQuestion")}">Add Choice</button>
     <input class="question-answer-${localStorage.getItem("createQuestion")}" type="text" placeholder="Correct Answer... (1;3)">
-    </div>
-    `;
-+
-    console.log(questionNumber);
-    // Image preview
-    document.querySelector(`.question-image-${questionNumber}`).addEventListener("input", () => {
-        console.log(document.querySelector(`.question-image-${questionNumber}`).value);
-        console.log(questionNumber);
-        setTimeout(() => {
-        document.querySelector(`#question-image-box-${questionNumber}`).innerHTML = `
-        <img src="${document.querySelector(`.question-image-${questionNumber}`).value}">
-        <p>Image</p>-
-        `;
-        }, 100)
+  `;
 
+  document.querySelector(".create-form-question").appendChild(questionBox); 
 
+  // Query select on a existing object??!!???
+  const choiceInput = questionBox.querySelector(`.choice-input-${localStorage.getItem("createQuestion")}`);
+  const choicesContainer = questionBox.querySelector(`.choices-container-${localStorage.getItem("createQuestion")}`);
+  const addChoiceButton = questionBox.querySelector(`.add-choice-button-${localStorage.getItem("createQuestion")}`);
 
+  addChoiceButton.addEventListener("click", () => {
+    const choice = choiceInput.value.trim(); // Remove whitespace
+    if (choice !== "") { // If choice is not empty
+      const choiceItem = document.createElement("div"); // Create div for choice item
+      choiceItem.className = "choice-item"; // Add class to div
 
+      const checkbox = document.createElement("input"); // Create checkbox
+      checkbox.type = "checkbox"; // Add type
 
-        
-    })
+      const choiceText = document.createElement("span"); // Create text
+      choiceText.textContent = choice; // Add text
+
+      const removeButton = document.createElement("button"); // Create button
+      removeButton.className = "remove-choice-button"; // Add class
+      removeButton.textContent = "Remove"; // Add text
+      removeButton.addEventListener("click", () => { // Add event listener
+        choiceItem.remove();  // Remove
+      });
+
+      choiceItem.appendChild(checkbox); // Add checkbox
+      choiceItem.appendChild(choiceText); // Add text
+      choiceItem.appendChild(removeButton); // Add remove
+
+      choicesContainer.appendChild(choiceItem); // Add item
+      choiceInput.value = ""; // Clear input
+    }
+  });
+
+  // Add event listener to the image input field to update the image preview
+  const imageInput = questionBox.querySelector(`.question-image-${localStorage.getItem("createQuestion")}`);
+  const imagePreview = questionBox.querySelector(`.question-image-preview-${localStorage.getItem("createQuestion")}`);
+
+  imageInput.addEventListener("input", () => {
+    imagePreview.src = imageInput.value;
+  });
+
+  imagePreview.onerror = () => {
+    console.log("Error");
+    imagePreview.style.display = "none";
+  };
+  
+  imagePreview.onload = () => {
+    console.log("Image loaded successfully");
+    imagePreview.style.display = "block";
+  };
 }
+
+
 
 function quizAdd() {
     // All the inputs for the quiz : title, description, user_ID, image
@@ -143,7 +205,7 @@ function quizAdd() {
     let image = document.querySelector(`.question-image-${i}`).value;
     let question_num = i;
     let description = document.querySelector(`.question-description-${i}`).value;
-    let choice = document.querySelector(`.question-choices-${i}`).value;
+    // let choice = document.querySelector(`.question-choices-${i}`).value;
     let correct_answer = document.querySelector(`.question-answer-${i}`).value;
 
     let last = 0;
@@ -151,7 +213,31 @@ function quizAdd() {
       last = 1;
     }
 
-    console.log("Quiz ID; '"+ quiz_ID+"' Question_Title: '" +question+ "' Image: '"+ image + "' Question number: '"+ question_num + "' Question_Description: '"+ description + "' Question_Choices: '"+ choice + "' Correct_Answer: '"+ correct_answer + "' Last: '"+ last);
+    // Choices 
+
+    // Correct answer
+
+    const choiceItems = document.querySelectorAll(`.choices-container-${i} .choice-item`);
+    const correctAnswer = document.querySelector(`.question-answer-${i}`).value;
+
+    let isCorrect = false;
+    let choices = [];
+    let choiceNumber = [];
+
+        for (let j = 0; j < choiceItems.length; j++) {
+        const checkbox = choiceItems[j].querySelector("input[type='checkbox']");
+        choices.push(checkbox.nextElementSibling.textContent);
+        if (checkbox.checked) {
+          choiceNumber.push(j + 1);
+          isCorrect = true;}
+    }
+    choices = choices.join(";");
+    choiceNumber = choiceNumber.join(";"); 
+
+    // console.log(`Question ${i} - Choices: ${choices}, Choice Number: ${choiceNumber}`);
+
+
+    console.log("Quiz ID; '"+ quiz_ID+"' Question_Title: '" +question+ "' Image: '"+ image + "' Question number: '"+ question_num + "' Question_Description: '"+ description + "' Question_Choices: '"+ choices + "' Correct_Answer: '"+ choiceNumber + "' Last: '"+ last);
 
     // Fetch questions post
     fetch(`${window.API}/quiz/QuestionCreate`, {
@@ -166,8 +252,8 @@ function quizAdd() {
             image: image,
             question_num: question_num,
             description: description,
-            choice: choice,
-            correct_answer: correct_answer,
+            choice: choices,
+            correct_answer: choiceNumber,
             last: last,
         })
         }).then((response) => {

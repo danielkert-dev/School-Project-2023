@@ -26,6 +26,18 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+}
+
+.quiz-box > p {
+    display: block;
+    width: 100%; 
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis; 
 }
 
 .quiz-box img{
