@@ -257,6 +257,113 @@ export function header() {
   })
 
   document.querySelector(".login-signup").addEventListener("click", authPage);
+
+  // window is smaller than 700px then header is hidden
+    setTimeout(() => {
+      if (window.innerWidth < 700) {
+        document.querySelector(".header-objects").innerHTML = `
+          <button class="burger-button">☰</button>
+
+          <div class="user-info-list">
+            <button class="create">&nbsp;+&nbsp;</button>
+            <button class="leaderboard">Leaderboard</button>
+            <button class="login-signup" id="header-button">Log-in / Sign-up</button>
+          </div>
+          `;
+
+          document.querySelector(".leaderboard").addEventListener("click", () => {
+            transition();
+            setTimeout(() => {
+              leaderboardPage();  
+            }, 100)
+            });
+        
+          document.querySelector(".create").addEventListener("click", () => {
+            transition();
+            setTimeout(() => {
+              createPage();
+            }, 100)
+          })
+        
+          document.querySelector(".login-signup").addEventListener("click", authPage);
+      }
+      document.querySelector(".user-info-list").style.display = "none";
+
+      document.querySelector(".burger-button").addEventListener("click", () => {
+        let list = document.querySelector(".user-info-list");
+        if (list.style.display === "none") {
+          list.style.display = "block";
+        } else {
+          list.style.display = "none";
+        }
+      })
+    },0)
+
+    window.addEventListener("resize", () => { // FIX THE FUCKING NAV BUG WITH AUTHORIZATION
+      if (window.innerWidth < 700) {
+        document.querySelector(".header-objects").innerHTML = `
+          <button class="burger-button">☰</button>
+
+          <div class="user-info-list">
+            <button class="create">&nbsp;+&nbsp;</button>
+            <button class="leaderboard">Leaderboard</button>
+            <button class="login-signup" id="header-button">Log-in / Sign-up</button>
+          </div>
+          `;
+
+          document.querySelector(".leaderboard").addEventListener("click", () => {
+            transition();
+            setTimeout(() => {
+              leaderboardPage();  
+            }, 100)
+            });
+        
+          document.querySelector(".create").addEventListener("click", () => {
+            transition();
+            setTimeout(() => {
+              createPage();
+            }, 100)
+          })
+        
+          document.querySelector(".login-signup").addEventListener("click", authPage);
+      } else {
+        document.querySelector(".header-objects").innerHTML = `
+        <div class="user-info"></div>
+        <button class="create">&nbsp;+&nbsp;</button>
+        <button class="leaderboard">Leaderboard</button>
+        <button class="login-signup" id="header-button">Log-in / Sign-up</button>
+        </div>
+        `;
+        document.querySelector(".leaderboard").addEventListener("click", () => {
+          transition();
+          setTimeout(() => {
+            leaderboardPage();  
+          }, 100)
+          });
+      
+        document.querySelector(".create").addEventListener("click", () => {
+          transition();
+          setTimeout(() => {
+            createPage();
+          }, 100)
+        })
+      
+        document.querySelector(".login-signup").addEventListener("click", authPage);
+      
+      }
+      document.querySelector(".user-info-list").style.display = "none";
+
+      document.querySelector(".burger-button").addEventListener("click", () => {
+        let list = document.querySelector(".user-info-list");
+        if (list.style.display === "none") {
+          list.style.display = "block";
+        } else {
+          list.style.display = "none";
+        }
+      })
+    }) 
+
+  
 }
 
 function footer() {

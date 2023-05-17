@@ -97,6 +97,44 @@ header h1{
     transition: all .3s ease-in-out;
 }
 
+.burger-button {
+    width: 2rem;
+}
+
+.user-info-list {
+    top: 0;
+    right: 0;
+    left: 0;
+    position: fixed;
+    margin-top: 5rem;
+
+    height: 5rem;
+    width: 100vw;
+
+    background-color: var(--first-color);
+
+    display: flex;
+}
+
+.user-info-list > * {
+    width: 100%;
+    height: 2rem;
+    margin: 0;
+    outline: 0;
+    display: inherit;
+    background-color: inherit;    
+    text-align: center;
+
+    border-bottom: .2rem solid var(--third-color);
+
+    transition: all .3s ease-in-out;
+}
+
+.user-info-list > *:hover {
+    background-color: var(--third-color);
+    opacity: 1;
+}
+
 button, input, textarea, select, table {
     background-color: var(--second-color);
     color: var(--text-color);
@@ -183,7 +221,7 @@ footer {
     #points {
         font-size: .6rem;
     }
-    
+
 }
 
 hr {
