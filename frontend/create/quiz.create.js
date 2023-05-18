@@ -4,8 +4,8 @@ import { mainPage, transition } from "../index.js";
 
 function createPage() {
   userID();
-  document.querySelector("header").style.display = "none";
   document.querySelector("footer").style.display = "none";
+  document.querySelector(".header-objects").style.display = "none";
   document.querySelector(".search").innerHTML = ``;
 
   localStorage.setItem("createQuestion", 0);
@@ -13,19 +13,17 @@ function createPage() {
   document.querySelector("main").innerHTML = `
     <div class="create-quiz-container">
 
-    <div class="create-header">
-    <h1 class="create-title">CREATE QUIZ</h1>
+    <div class="create-body">
+    
     <div class="create-button-container">
     <button class="back-button">Home</button>
+    <button clasS="create-tutorial">Tutorial</button>
+    <button class="create-button">Create Quiz</button>
     </div>
-    </div>
-
-    <div class="create-body">
 
     <div class="create-form-quiz">
     <div class="create-alert"></div>
     <h3>Quiz</h3>
-    <button class="create-button">Create Quiz</button>
 
 
     <input class="create-form-quiz-title" type="text" placeholder="Quiz Title..."  required>
@@ -44,13 +42,29 @@ function createPage() {
     </div>
   `;
 
+  let title = document.querySelector(".create-form-quiz-title").value;
+  let description = document.querySelector(".create-form-quiz-description").value;
+  let user_ID = localStorage.getItem("user_ID");
+  let image = document.querySelector(".create-form-quiz-image").value;
 
   document.querySelector(".add-question-button").addEventListener("click", () => {
       questionBoxAdd();
     });
   document.querySelector(".create-button").addEventListener("click", () => {
     quizAdd();
+    if (title === "" || description === "" || user_ID === "" || image === "") {
+      document.querySelector(".create-alert").innerHTML = "All fields are required";
+      return;
+  }
+    transition();
+    setTimeout(() => {
+      document.querySelector("header").style.display = "flex";
+      document.querySelector("footer").style.display = "flex";
+      mainPage();
+    }, 100);
     });
+
+
   document.querySelector(".back-button").addEventListener("click", () => {
     transition();
     setTimeout(() => {
@@ -167,11 +181,6 @@ function quizAdd() {
 
     console.log("Quiz_Title: '" +title+ "' Quiz_Description: '"+ description + "' User_ID: '"+ user_ID + "' Image: '"+ image + "'");
 
-    if (title === "" || description === "" || user_ID === "" || image === "") {
-        document.querySelector(".create-alert").innerHTML = "All fields are required";
-        return;
-    }
-
     // Fetch quiz post
     fetch(`${window.API}/quiz/Create`, {
         method: "POST",
@@ -212,7 +221,6 @@ function quizAdd() {
     let question_num = i;
     let description = document.querySelector(`.question-description-${i}`).value;
     // let choice = document.querySelector(`.question-choices-${i}`).value;
-    let correct_answer = document.querySelector(`.question-answer-${i}`).value;
 
     let last = 0;
     if (i == localStorage.getItem("createQuestion")) {
@@ -224,7 +232,6 @@ function quizAdd() {
     // Correct answer
 
     const choiceItems = document.querySelectorAll(`.choices-container-${i} .choice-item`);
-    const correctAnswer = document.querySelector(`.question-answer-${i}`).value;
 
     let isCorrect = false;
     let choices = [];

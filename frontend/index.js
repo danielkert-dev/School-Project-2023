@@ -50,6 +50,7 @@ export function mainPage() {
     })
 
     // Set all the values
+    document.querySelector("main").style.pointerEvents = "auto";
     document.querySelector(".header-objects").style.display = "flex";
     document.querySelector(".leaderboard").style.opacity = "1";
     document.querySelector(".leaderboard").style.pointerEvents = "auto";
@@ -276,6 +277,7 @@ export function header() {
     if (window.innerWidth > 700) {
       document.querySelector(".nav-control-mobile").style.display = "none";
       document.querySelector("main").style.filter = "brightness(100%)";
+      document.querySelector("main").style.pointerEvents = "auto";
     }
   })
 
@@ -284,9 +286,12 @@ export function header() {
     if (document.querySelector(".nav-control-mobile").style.display === "block") {
       document.querySelector(".nav-control-mobile").style.display = "none";
       document.querySelector("main").style.filter = "brightness(100%)";
+      document.querySelector("main").style.pointerEvents = "auto";
     } else {
       document.querySelector(".nav-control-mobile").style.display = "block";
       document.querySelector("main").style.filter = "brightness(40%)";
+      document.querySelector("main").style.pointerEvents = "none";
+
     }
   })
 
@@ -294,6 +299,7 @@ export function header() {
   document.querySelector(".leaderboard-mobile").addEventListener("click", () => {
     document.querySelector(".nav-control-mobile").style.display = "none";
     document.querySelector("main").style.filter = "brightness(100%)";
+    document.querySelector("main").style.pointerEvents = "auto";
     transition();
     setTimeout(() => {
       leaderboardPage();  
@@ -303,6 +309,7 @@ export function header() {
   document.querySelector(".create-mobile").addEventListener("click", () => {
     document.querySelector(".nav-control-mobile").style.display = "none";
     document.querySelector("main").style.filter = "brightness(100%)";
+    document.querySelector("main").style.pointerEvents = "auto";
     transition();
     setTimeout(() => {
       createPage();
@@ -313,6 +320,7 @@ export function header() {
     document.querySelector(".nav-control-mobile").style.display = "none";
     document.querySelector(".header-objects").style.display = "none";
     document.querySelector("main").style.filter = "brightness(100%)";
+    document.querySelector("main").style.pointerEvents = "auto";
     authPage();
   });
 

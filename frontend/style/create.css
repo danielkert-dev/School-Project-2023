@@ -12,6 +12,7 @@
     margin-top: -5rem;
 }
 
+
 .create-header h1 {
     cursor: pointer;
     color: var(--sixth-color);
@@ -25,13 +26,18 @@
 }
 
 .create-button-container {
-    display: flex;
-    align-items: center;
-    margin-right: .4rem;
-}
+    background-color: var(--first-color);
+    width: 80%;
+    max-width: 35rem;
+    padding: 1rem;
+    margin-top: 3rem;
+    margin-left: .4rem;
+    border-radius: .5rem;
 
-.create-button-container > button {
-    margin: .6rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .create-alert {
