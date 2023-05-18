@@ -99,40 +99,25 @@ header h1{
 
 .burger-button {
     width: 2rem;
+    display: none;
 }
 
-.user-info-list {
-    top: 0;
-    right: 0;
-    left: 0;
-    position: fixed;
-    margin-top: 5rem;
+.nav-control {
 
-    height: 5rem;
-    width: 100vw;
-
-    background-color: var(--first-color);
-
+    position: relative;
     display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.user-info-list > * {
-    width: 100%;
-    height: 2rem;
+.nav-control > * {
     margin: 0;
-    outline: 0;
-    display: inherit;
-    background-color: inherit;    
-    text-align: center;
-
-    border-bottom: .2rem solid var(--third-color);
-
-    transition: all .3s ease-in-out;
+    margin-left: 1rem;
 }
-
-.user-info-list > *:hover {
-    background-color: var(--third-color);
-    opacity: 1;
+.nav-control-mobile {
+    display: none;
+    position: absolute;
 }
 
 button, input, textarea, select, table {
@@ -221,6 +206,47 @@ footer {
     #points {
         font-size: .6rem;
     }
+
+    .burger-button {
+        display: inline;
+    }
+
+    .nav-control {
+        display: none;
+    }
+
+    .nav-control-mobile {
+        left: 0;
+        top: 0;
+        margin: 0;
+        margin-top: 5rem;
+        width: 100vw;
+        min-height: 11rem;
+        background-color: var(--first-color);
+
+
+        position: absolute;
+        display: none;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-control-mobile  > * {
+        width: 100%;
+        outline: none;
+        background-color: var(--second-color);
+        outline: .2rem solid var(--first-color);
+        border-radius: 0;
+        padding: 1rem;
+    }
+
+    .nav-control-mobile > *:hover {
+        opacity: 1;
+        background-color: var(--third-color);
+    }
+
+    
 
 }
 

@@ -50,6 +50,7 @@ export function mainPage() {
     })
 
     // Set all the values
+    document.querySelector(".header-objects").style.display = "flex";
     document.querySelector(".leaderboard").style.opacity = "1";
     document.querySelector(".leaderboard").style.pointerEvents = "auto";
     document.querySelector(".create").style.opacity = "1";
@@ -60,6 +61,7 @@ export function mainPage() {
     document.querySelector("h1").style.pointerEvents = "auto";
   } catch (error) {
     // Catch if not logged in
+    document.querySelector(".header-objects").style.display = "none";
     document.querySelector(".leaderboard").style.opacity = "0";
     document.querySelector(".leaderboard").style.pointerEvents = "none";
     document.querySelector(".create").style.opacity = "1";
@@ -235,133 +237,86 @@ export function header() {
     <div class="header-objects">
 
     <div class="user-info"></div>
+    <button class="burger-button">☰</button>
+    <div class="nav-control">
     <button class="create">&nbsp;+&nbsp;</button>
     <button class="leaderboard">Leaderboard</button>
     <button class="login-signup" id="header-button">Log-in / Sign-up</button>
     </div>
 
+    <div class="nav-control-mobile">
+    <button class="create-mobile">&nbsp;+&nbsp;</button>
+    <button class="leaderboard-mobile">Leaderboard</button>
+    <button class="login-signup-mobile" id="header-button">Log-in / Sign-up</button>
+    </div>
+    </div>
+
     </div>
     `;
-  document.querySelector(".leaderboard").addEventListener("click", () => {
+
+    document.querySelector(".leaderboard").addEventListener("click", () => {
+      transition();
+      setTimeout(() => {
+        leaderboardPage();  
+      }, 100)
+      });
+  
+    document.querySelector(".create").addEventListener("click", () => {
+      transition();
+      setTimeout(() => {
+        createPage();
+      }, 100)
+    })
+  
+    document.querySelector(".login-signup").addEventListener("click", authPage);
+  
+  
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 700) {
+      document.querySelector(".nav-control-mobile").style.display = "none";
+      document.querySelector("main").style.filter = "brightness(100%)";
+    }
+  })
+
+
+  document.querySelector(".burger-button").addEventListener("click", () => {
+    if (document.querySelector(".nav-control-mobile").style.display === "block") {
+      document.querySelector(".nav-control-mobile").style.display = "none";
+      document.querySelector("main").style.filter = "brightness(100%)";
+    } else {
+      document.querySelector(".nav-control-mobile").style.display = "block";
+      document.querySelector("main").style.filter = "brightness(40%)";
+    }
+  })
+
+  
+  document.querySelector(".leaderboard-mobile").addEventListener("click", () => {
+    document.querySelector(".nav-control-mobile").style.display = "none";
+    document.querySelector("main").style.filter = "brightness(100%)";
     transition();
     setTimeout(() => {
       leaderboardPage();  
     }, 100)
     });
 
-  document.querySelector(".create").addEventListener("click", () => {
+  document.querySelector(".create-mobile").addEventListener("click", () => {
+    document.querySelector(".nav-control-mobile").style.display = "none";
+    document.querySelector("main").style.filter = "brightness(100%)";
     transition();
     setTimeout(() => {
       createPage();
     }, 100)
   })
 
-  document.querySelector(".login-signup").addEventListener("click", authPage);
+  document.querySelector(".login-signup-mobile").addEventListener("click", () => {
+    document.querySelector(".nav-control-mobile").style.display = "none";
+    document.querySelector(".header-objects").style.display = "none";
+    document.querySelector("main").style.filter = "brightness(100%)";
+    authPage();
+  });
 
-  // window is smaller than 700px then header is hidden
-    setTimeout(() => {
-      if (window.innerWidth < 700) {
-        document.querySelector(".header-objects").innerHTML = `
-          <button class="burger-button">☰</button>
 
-          <div class="user-info-list">
-            <button class="create">&nbsp;+&nbsp;</button>
-            <button class="leaderboard">Leaderboard</button>
-            <button class="login-signup" id="header-button">Log-in / Sign-up</button>
-          </div>
-          `;
-
-          document.querySelector(".leaderboard").addEventListener("click", () => {
-            transition();
-            setTimeout(() => {
-              leaderboardPage();  
-            }, 100)
-            });
-        
-          document.querySelector(".create").addEventListener("click", () => {
-            transition();
-            setTimeout(() => {
-              createPage();
-            }, 100)
-          })
-        
-          document.querySelector(".login-signup").addEventListener("click", authPage);
-      }
-      document.querySelector(".user-info-list").style.display = "none";
-
-      document.querySelector(".burger-button").addEventListener("click", () => {
-        let list = document.querySelector(".user-info-list");
-        if (list.style.display === "none") {
-          list.style.display = "block";
-        } else {
-          list.style.display = "none";
-        }
-      })
-    },0)
-
-    window.addEventListener("resize", () => { // FIX THE FUCKING NAV BUG WITH AUTHORIZATION
-      if (window.innerWidth < 700) {
-        document.querySelector(".header-objects").innerHTML = `
-          <button class="burger-button">☰</button>
-
-          <div class="user-info-list">
-            <button class="create">&nbsp;+&nbsp;</button>
-            <button class="leaderboard">Leaderboard</button>
-            <button class="login-signup" id="header-button">Log-in / Sign-up</button>
-          </div>
-          `;
-
-          document.querySelector(".leaderboard").addEventListener("click", () => {
-            transition();
-            setTimeout(() => {
-              leaderboardPage();  
-            }, 100)
-            });
-        
-          document.querySelector(".create").addEventListener("click", () => {
-            transition();
-            setTimeout(() => {
-              createPage();
-            }, 100)
-          })
-        
-          document.querySelector(".login-signup").addEventListener("click", authPage);
-      } else {
-        document.querySelector(".header-objects").innerHTML = `
-        <div class="user-info"></div>
-        <button class="create">&nbsp;+&nbsp;</button>
-        <button class="leaderboard">Leaderboard</button>
-        <button class="login-signup" id="header-button">Log-in / Sign-up</button>
-        </div>
-        `;
-        document.querySelector(".leaderboard").addEventListener("click", () => {
-          transition();
-          setTimeout(() => {
-            leaderboardPage();  
-          }, 100)
-          });
-      
-        document.querySelector(".create").addEventListener("click", () => {
-          transition();
-          setTimeout(() => {
-            createPage();
-          }, 100)
-        })
-      
-        document.querySelector(".login-signup").addEventListener("click", authPage);
-      
-      }
-      document.querySelector(".user-info-list").style.display = "none";
-
-      document.querySelector(".burger-button").addEventListener("click", () => {
-        let list = document.querySelector(".user-info-list");
-        if (list.style.display === "none") {
-          list.style.display = "block";
-        } else {
-          list.style.display = "none";
-        }
-      })
-    }) 
 
   
 }

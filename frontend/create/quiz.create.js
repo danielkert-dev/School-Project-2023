@@ -28,9 +28,9 @@ function createPage() {
     <button class="create-button">Create Quiz</button>
 
 
-    <input class="create-form-quiz-title" type="text" placeholder="Quiz Title...">
+    <input class="create-form-quiz-title" type="text" placeholder="Quiz Title..."  required>
     <textarea class="create-form-quiz-description" type="text" placeholder="Quiz Description..." maxlength="58" width="100%" rows="5"></textarea>
-    <input class="create-form-quiz-image" type="text" placeholder="Quiz Image URL...">
+    <input class="create-form-quiz-image" type="text" placeholder="Quiz Image URL..."  required>
     <img class="quiz-image-preview" src="" alt="Image Preview">
 
 
@@ -43,6 +43,7 @@ function createPage() {
     </div>
     </div>
   `;
+
 
   document.querySelector(".add-question-button").addEventListener("click", () => {
       questionBoxAdd();
@@ -88,18 +89,18 @@ function questionBoxAdd() {
   questionBox.className = 'create-question-box';
   questionBox.id = `create-question-${localStorage.getItem("createQuestion")}`;
   questionBox.innerHTML = `
+  <div class="create-alert-question-${localStorage.getItem("createQuestion")}"></div>
     <h3>Question ${localStorage.getItem("createQuestion")}</h3>
-    <input class="question-title-${localStorage.getItem("createQuestion")}" type="text" placeholder="Question Title...">
+    <input class="question-title-${localStorage.getItem("createQuestion")}" type="text" placeholder="Question Title..."  required>
     
-    <input class="question-image-${localStorage.getItem("createQuestion")}" type="text" placeholder="Question Image URL...">
+    <input class="question-image-${localStorage.getItem("createQuestion")}" type="text" placeholder="Question Image URL..."  required>
     <img class="question-image-preview-${localStorage.getItem("createQuestion")}" src="" alt="Image Preview">
     
     <textarea class="question-description-${localStorage.getItem("createQuestion")}" type="text" placeholder="Question Description..." maxlength="58" width="100%" rows="5"></textarea>
-    <div class="choices-container-${localStorage.getItem("createQuestion")}"></div>
     <input class="choice-input-${localStorage.getItem("createQuestion")}" type="text" placeholder="Enter a choice...">
     <button class="add-choice-button-${localStorage.getItem("createQuestion")}">Add Choice</button>
-    <input class="question-answer-${localStorage.getItem("createQuestion")}" type="text" placeholder="Correct Answer... (1;3)">
-  `;
+    <div class="choices-container-${localStorage.getItem("createQuestion")}"></div>
+    `;
 
   document.querySelector(".create-form-question").appendChild(questionBox); 
 
@@ -165,6 +166,11 @@ function quizAdd() {
     let image = document.querySelector(".create-form-quiz-image").value;
 
     console.log("Quiz_Title: '" +title+ "' Quiz_Description: '"+ description + "' User_ID: '"+ user_ID + "' Image: '"+ image + "'");
+
+    if (title === "" || description === "" || user_ID === "" || image === "") {
+        document.querySelector(".create-alert").innerHTML = "All fields are required";
+        return;
+    }
 
     // Fetch quiz post
     fetch(`${window.API}/quiz/Create`, {
