@@ -23,6 +23,11 @@ async function quizPage(page, pageSize) {
             `;
 
       for (let i = 0; i < data.data.length; i++) {
+
+        if (data.data[i].disabled === 1) {
+          continue;
+        } 
+
         document.querySelector(".quiz-container").innerHTML += `
             <div class="quiz-box" id="quiz-box-${i}">
             <p>${data.data[i].title}</p>
