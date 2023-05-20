@@ -3,6 +3,7 @@ import { quizPage } from "./quiz/quiz.js";
 import { questionPage } from "./question/question.js";
 import { leaderboardPage } from "./leaderboard/leaderboard.js";
 import { createPage } from "./create/quiz.create.js";
+import { panelPage } from "./panel/panel.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   // Initialize the page
@@ -36,18 +37,22 @@ export function mainPage() {
     fetch(`${window.API}/user/SearchByUsername/${username}`, {
       method: "GET",
       headers: {
-        "Authorization": `Bearer ${localStorage.getItem("token")}`,
-      }
-    }).then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error("Wrong input");
-      }
-    }).then((data) => {
-      document.querySelector(".user-info").innerHTML = `<p>${username}</p> <p id="points">Points: ${data.data[0].points}<p>`;
-      localStorage.setItem("points", data.data[0].points);
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Wrong input");
+        }
+      })
+      .then((data) => {
+        document.querySelector(
+          ".user-info"
+        ).innerHTML = `<p>${username}</p> <p id="points">Points: ${data.data[0].points}<p>`;
+        localStorage.setItem("points", data.data[0].points);
+      });
 
     // Set all the values
     document.querySelector("main").style.pointerEvents = "auto";
@@ -58,20 +63,11 @@ export function mainPage() {
     document.querySelector(".create").style.pointerEvents = "auto";
     document.querySelector(".login-signup").style.opacity = "1";
     document.querySelector(".login-signup").innerHTML = `Log-out`;
+    document.querySelector(".login-signup-mobile").innerHTML = `Log-out`;
     document.querySelector(".login-signup").addEventListener("click", logout);
     document.querySelector("h1").style.pointerEvents = "auto";
   } catch (error) {
-    // Catch if not logged in
-    document.querySelector(".header-objects").style.display = "none";
-    document.querySelector(".leaderboard").style.opacity = "0";
-    document.querySelector(".leaderboard").style.pointerEvents = "none";
-    document.querySelector(".create").style.opacity = "1";
-    document.querySelector(".create").style.pointerEvents = "none";
-    document.querySelector(".create").style.opacity = "0";
-    document.querySelector(".login-signup").style.opacity = "1";
-    return (document.querySelector(
-      "main"
-    ).innerHTML = `<br><br><br><br><br><h1 class="auth-warning">Log-in or sign-up to continue</h1><h1>`);
+    return authPage();
   }
 
   // Set the search bar
@@ -242,12 +238,14 @@ export function header() {
     <div class="nav-control">
     <button class="create">&nbsp;+&nbsp;</button>
     <button class="leaderboard">Leaderboard</button>
+    <button class="panel">Control Panel</button>
     <button class="login-signup" id="header-button">Log-in / Sign-up</button>
     </div>
 
     <div class="nav-control-mobile">
     <button class="create-mobile">&nbsp;+&nbsp;</button>
     <button class="leaderboard-mobile">Leaderboard</button>
+    <button class="panel-mobile">Control Panel</button>
     <button class="login-signup-mobile" id="header-button">Log-in / Sign-up</button>
     </div>
     </div>
@@ -255,23 +253,28 @@ export function header() {
     </div>
     `;
 
-    document.querySelector(".leaderboard").addEventListener("click", () => {
-      transition();
-      setTimeout(() => {
-        leaderboardPage();  
-      }, 100)
-      });
-  
-    document.querySelector(".create").addEventListener("click", () => {
-      transition();
-      setTimeout(() => {
-        createPage();
-      }, 100)
-    })
-  
-    document.querySelector(".login-signup").addEventListener("click", authPage);
-  
-  
+  document.querySelector(".leaderboard").addEventListener("click", () => {
+    transition();
+    setTimeout(() => {
+      leaderboardPage();
+    }, 100);
+  });
+
+  document.querySelector(".create").addEventListener("click", () => {
+    transition();
+    setTimeout(() => {
+      createPage();
+    }, 100);
+  });
+
+  document.querySelector(".panel").addEventListener("click", () => {
+    transition();
+    setTimeout(() => {
+      panelPage();
+    }, 100);
+  });
+
+  document.querySelector(".login-signup").addEventListener("click", authPage);
 
   window.addEventListener("resize", () => {
     if (window.innerWidth > 700) {
@@ -279,11 +282,12 @@ export function header() {
       document.querySelector("main").style.filter = "brightness(100%)";
       document.querySelector("main").style.pointerEvents = "auto";
     }
-  })
-
+  });
 
   document.querySelector(".burger-button").addEventListener("click", () => {
-    if (document.querySelector(".nav-control-mobile").style.display === "block") {
+    if (
+      document.querySelector(".nav-control-mobile").style.display === "block"
+    ) {
       document.querySelector(".nav-control-mobile").style.display = "none";
       document.querySelector("main").style.filter = "brightness(100%)";
       document.querySelector("main").style.pointerEvents = "auto";
@@ -291,19 +295,19 @@ export function header() {
       document.querySelector(".nav-control-mobile").style.display = "block";
       document.querySelector("main").style.filter = "brightness(40%)";
       document.querySelector("main").style.pointerEvents = "none";
-
     }
-  })
+  });
 
-  
-  document.querySelector(".leaderboard-mobile").addEventListener("click", () => {
-    document.querySelector(".nav-control-mobile").style.display = "none";
-    document.querySelector("main").style.filter = "brightness(100%)";
-    document.querySelector("main").style.pointerEvents = "auto";
-    transition();
-    setTimeout(() => {
-      leaderboardPage();  
-    }, 100)
+  document
+    .querySelector(".leaderboard-mobile")
+    .addEventListener("click", () => {
+      document.querySelector(".nav-control-mobile").style.display = "none";
+      document.querySelector("main").style.filter = "brightness(100%)";
+      document.querySelector("main").style.pointerEvents = "auto";
+      transition();
+      setTimeout(() => {
+        leaderboardPage();
+      }, 100);
     });
 
   document.querySelector(".create-mobile").addEventListener("click", () => {
@@ -313,20 +317,28 @@ export function header() {
     transition();
     setTimeout(() => {
       createPage();
-    }, 100)
-  })
-
-  document.querySelector(".login-signup-mobile").addEventListener("click", () => {
-    document.querySelector(".nav-control-mobile").style.display = "none";
-    document.querySelector(".header-objects").style.display = "none";
-    document.querySelector("main").style.filter = "brightness(100%)";
-    document.querySelector("main").style.pointerEvents = "auto";
-    authPage();
+    }, 100);
   });
 
+  document.querySelector(".panel-mobile").addEventListener("click", () => {
+    document.querySelector(".nav-control-mobile").style.display = "none";
+    document.querySelector("main").style.filter = "brightness(100%)";
+    document.querySelector("main").style.pointerEvents = "auto";
+    transition();
+    setTimeout(() => {
+      panelPage();
+    }, 100);
+  });
 
-
-  
+  document
+    .querySelector(".login-signup-mobile")
+    .addEventListener("click", () => {
+      document.querySelector(".nav-control-mobile").style.display = "none";
+      document.querySelector(".header-objects").style.display = "none";
+      document.querySelector("main").style.filter = "brightness(100%)";
+      document.querySelector("main").style.pointerEvents = "auto";
+      authPage();
+    });
 }
 
 function footer() {

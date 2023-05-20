@@ -30,6 +30,7 @@
     width: 80%;
     max-width: 35rem;
     padding: 1rem;
+    padding-left: 7%;
     margin-top: 3rem;
     margin-left: .4rem;
     border-radius: .5rem;
@@ -228,7 +229,7 @@
     
     .create-button-container > button {
         margin: .6rem;
-        font-size: .6rem;
+        font-size: .8rem;
     }
     
     .create-body {
