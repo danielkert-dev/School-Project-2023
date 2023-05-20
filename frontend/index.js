@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   mainPage();
 
   titleClick();
+
 });
 
 export function mainPage() {
@@ -55,18 +56,27 @@ export function mainPage() {
       });
 
     // Set all the values
+    document.querySelector(".burger-button").style.display = "auto";
     document.querySelector("main").style.pointerEvents = "auto";
+    document.querySelector(".burger-button").style.opacity = "1";
+    document.querySelector(".burger-button").style.pointerEvents = "auto";
+
     document.querySelector(".header-objects").style.display = "flex";
     document.querySelector(".leaderboard").style.opacity = "1";
     document.querySelector(".leaderboard").style.pointerEvents = "auto";
     document.querySelector(".create").style.opacity = "1";
     document.querySelector(".create").style.pointerEvents = "auto";
+    document.querySelector(".panel").style.opacity = "1";
+    document.querySelector(".panel").style.pointerEvents = "auto";
     document.querySelector(".login-signup").style.opacity = "1";
     document.querySelector(".login-signup").innerHTML = `Log-out`;
     document.querySelector(".login-signup-mobile").innerHTML = `Log-out`;
     document.querySelector(".login-signup").addEventListener("click", logout);
+    document.querySelector(".login-signup-mobile").addEventListener("click", logout);
     document.querySelector("h1").style.pointerEvents = "auto";
   } catch (error) {
+    document.querySelector(".burger-button").style.opacity = "0";
+    document.querySelector(".burger-button").style.pointerEvents = "none";
     return authPage();
   }
 
@@ -233,25 +243,34 @@ export function header() {
 
     <div class="header-objects">
 
-    <div class="user-info"></div>
     <button class="burger-button">☰</button>
+
     <div class="nav-control">
     <button class="create">&nbsp;+&nbsp;</button>
     <button class="leaderboard">Leaderboard</button>
-    <button class="panel">Control Panel</button>
+    <button class="panel">Control-panel</button>
     <button class="login-signup" id="header-button">Log-in / Sign-up</button>
     </div>
 
     <div class="nav-control-mobile">
     <button class="create-mobile">&nbsp;+&nbsp;</button>
     <button class="leaderboard-mobile">Leaderboard</button>
-    <button class="panel-mobile">Control Panel</button>
+    <button class="panel-mobile">Control-panel</button>
     <button class="login-signup-mobile" id="header-button">Log-in / Sign-up</button>
     </div>
+    <div class="user-info"></div>
+    <div class="color-mode">☼</div>
     </div>
-
     </div>
     `;
+
+    initTheme();
+  document.querySelector(".color-mode").addEventListener("click", () => {
+    transition();
+    setTimeout(() => {
+      colorMode();
+    }, 100);
+  })
 
   document.querySelector(".leaderboard").addEventListener("click", () => {
     transition();
@@ -274,7 +293,8 @@ export function header() {
     }, 100);
   });
 
-  document.querySelector(".login-signup").addEventListener("click", authPage);
+  document.querySelector(".login-signup").addEventListener("click", () => {
+    authPage()});
 
   window.addEventListener("resize", () => {
     if (window.innerWidth > 700) {
@@ -334,9 +354,10 @@ export function header() {
     .querySelector(".login-signup-mobile")
     .addEventListener("click", () => {
       document.querySelector(".nav-control-mobile").style.display = "none";
-      document.querySelector(".header-objects").style.display = "none";
       document.querySelector("main").style.filter = "brightness(100%)";
       document.querySelector("main").style.pointerEvents = "auto";
+      document.querySelector(".burger-button").style.opacity = "0";
+      document.querySelector(".burger-button").style.pointerEvents = "none";
       authPage();
     });
 }
@@ -374,3 +395,98 @@ export function transition() {
     document.querySelector("body").style.pointerEvents = "auto";
   }, 400);
 }
+
+export function userID() {
+  let username = localStorage.getItem("username");
+  fetch(`${window.API}/user/SearchByUsername/${username}`, {
+    method: "GET",
+    headers: {
+      "Authorization": `Bearer ${localStorage.getItem("token")}`,
+    }
+  }).then((response) => {
+    if (response.ok) {
+      return response.json();
+    } else {
+      throw new Error("Wrong input");
+    }
+  }).then((data) => {
+    localStorage.setItem("user_ID", data.data[0].ID);
+  })
+}
+
+
+function colorMode() {
+  var root = document.querySelector(":root");
+
+  if (localStorage.getItem("theme") === "light") {
+    localStorage.setItem("theme", "dark");
+
+    root.style.setProperty('--first-color', '#1e1e1e');
+    root.style.setProperty('--second-color', '#262626');
+    root.style.setProperty('--third-color', '#363636');
+    root.style.setProperty('--fourth-color', '#4c4c4c');
+    root.style.setProperty('--fifth-color', '#595959');
+    root.style.setProperty('--sixth-color', '#737373');
+    root.style.setProperty('--icon-color', '#A4A4A4');
+    root.style.setProperty('--text-color', '#ffffff');
+    root.style.setProperty('--blue', '#61AFFE');
+    root.style.setProperty('--green', '#5ED3A3');
+    root.style.setProperty('--yellow', '#F7A131');
+    root.style.setProperty('--red', '#F13D3E');
+
+  } else {
+    localStorage.setItem("theme", "light");
+
+    root.style.setProperty('--first-color', '#F7F7F7');
+    root.style.setProperty('--second-color', '#ECECEC');
+    root.style.setProperty('--third-color', '#E0E0E0');
+    root.style.setProperty('--fourth-color', '#D3D3D3');
+    root.style.setProperty('--fifth-color', '#C6C6C6');
+    root.style.setProperty('--sixth-color', '#B9B9B9');
+    root.style.setProperty('--icon-color', '#767676');
+    root.style.setProperty('--text-color', 'black');
+    root.style.setProperty('--blue', '#61AFFE');
+    root.style.setProperty('--green', '#5ED3A3');
+    root.style.setProperty('--yellow', '#F7A131');
+    root.style.setProperty('--red', '#F13D3E');
+    
+  }
+
+}
+
+function initTheme() {
+  var root = document.querySelector(":root");
+
+
+  if (localStorage.getItem("theme") === "light") {
+    root.style.setProperty('--first-color', '#ffffff');
+    root.style.setProperty('--second-color', '#f5f5f5');
+    root.style.setProperty('--third-color', '#ebebeb');
+    root.style.setProperty('--fourth-color', '#dcdcdc');
+    root.style.setProperty('--fifth-color', '#c9c9c9');
+    root.style.setProperty('--sixth-color', '#a8a8a8');
+    root.style.setProperty('--icon-color', '#606060');
+    root.style.setProperty('--text-color', '#1e1e1e');
+    root.style.setProperty('--blue', '#61AFFE');
+    root.style.setProperty('--green', '#5ED3A3');
+    root.style.setProperty('--yellow', '#F7A131');
+    root.style.setProperty('--red', '#F13D3E');
+    return
+  }
+  if (localStorage.getItem("theme") === "dark") {
+    root.style.setProperty('--first-color', '#1e1e1e');
+    root.style.setProperty('--second-color', '#262626');
+    root.style.setProperty('--third-color', '#363636');
+    root.style.setProperty('--fourth-color', '#4c4c4c');
+    root.style.setProperty('--fifth-color', '#595959');
+    root.style.setProperty('--sixth-color', '#737373');
+    root.style.setProperty('--icon-color', '#A4A4A4');
+    root.style.setProperty('--text-color', '#ffffff');
+    root.style.setProperty('--blue', '#61AFFE');
+    root.style.setProperty('--green', '#5ED3A3');
+    root.style.setProperty('--yellow', '#F7A131');
+    root.style.setProperty('--red', '#F13D3E');
+    return
+  }
+}
+

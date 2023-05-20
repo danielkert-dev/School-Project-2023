@@ -3,9 +3,13 @@ import { mainPage } from "../index.js";
 function authPage() {
   document.querySelector(".search").innerHTML = "";
 
-  document.querySelector(".login-signup").style.opacity = "0";
   document.querySelector(".leaderboard").style.opacity = "0";
-  document.querySelector(".create").style.opacity = "0";
+    document.querySelector(".leaderboard").style.pointerEvents = "none";
+    document.querySelector(".create").style.opacity = "0";
+    document.querySelector(".create").style.pointerEvents = "none";
+    document.querySelector(".panel").style.opacity = "0";
+    document.querySelector(".panel").style.pointerEvents = "none";
+    document.querySelector(".login-signup").style.opacity = "0";
   document.querySelector("h1").style.pointerEvents = "none";
 
   document.querySelector("main").innerHTML = `

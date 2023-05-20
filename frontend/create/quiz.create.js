@@ -1,11 +1,19 @@
-import { mainPage, transition } from "../index.js";
+import { mainPage, transition, userID } from "../index.js";
 
 // quiz/Create
 
 function createPage() {
   userID();
+  document.querySelector(".burger-button").style.opacity = "0";
+  document.querySelector(".burger-button").style.pointerEvents = "none";
   document.querySelector("footer").style.display = "none";
-  document.querySelector(".header-objects").style.display = "none";
+  document.querySelector(".leaderboard").style.opacity = "0";
+  document.querySelector(".leaderboard").style.pointerEvents = "none";
+  document.querySelector(".create").style.opacity = "0";
+  document.querySelector(".create").style.pointerEvents = "none";
+  document.querySelector(".panel").style.opacity = "0";
+  document.querySelector(".panel").style.pointerEvents = "none";
+  document.querySelector(".login-signup").style.opacity = "0";
   document.querySelector(".search").innerHTML = ``;
 
   localStorage.setItem("createQuestion", 0);
@@ -37,6 +45,7 @@ function createPage() {
 
     <div class="create-form-question">
     </div>
+
 
     </div>
     </div>
@@ -282,23 +291,4 @@ function quizAdd() {
 })
 
 }
-
-function userID() {
-    let username = localStorage.getItem("username");
-    fetch(`${window.API}/user/SearchByUsername/${username}`, {
-      method: "GET",
-      headers: {
-        "Authorization": `Bearer ${localStorage.getItem("token")}`,
-      }
-    }).then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error("Wrong input");
-      }
-    }).then((data) => {
-      localStorage.setItem("user_ID", data.data[0].ID);
-    })
-}
-
 export { createPage };

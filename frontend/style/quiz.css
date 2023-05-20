@@ -87,4 +87,7 @@
     padding: 5px;
     margin-top: 22rem;
 }
-.quiz-box:hover span {display: block; text-align: center;}
+.quiz-box:hover span {
+    color: var(--text-color);
+    display: block; 
+    text-align: center;}
