@@ -61,10 +61,6 @@ function createPage() {
     });
   document.querySelector(".create-button").addEventListener("click", () => {
     quizAdd();
-    if (title === "" || description === "" || user_ID === "" || image === "") {
-      document.querySelector(".create-alert").innerHTML = "All fields are required";
-      return;
-  }
     transition();
     setTimeout(() => {
       document.querySelector("header").style.display = "flex";

@@ -381,8 +381,9 @@ export function titleClick() {
 
 function logout() {
   setTimeout(() => {
-    localStorage.removeItem("username");
-    localStorage.removeItem("token");
+    let theme = localStorage.getItem("theme");
+    localStorage.clear();
+    localStorage.setItem("theme", theme);
     document.querySelector(".user-info").innerHTML = "";
   }, 100);
 }
@@ -411,6 +412,7 @@ export function userID() {
     }
   }).then((data) => {
     localStorage.setItem("user_ID", data.data[0].ID);
+    localStorage.setItem("type", data.data[0].type);
   })
 }
 
@@ -436,19 +438,19 @@ function colorMode() {
 
   } else {
     localStorage.setItem("theme", "light");
+    root.style.setProperty('--first-color', '#F0F3F8');
+    root.style.setProperty('--second-color', '#E1E7F1');
+    root.style.setProperty('--third-color', '#C6D1E5');
+    root.style.setProperty('--fourth-color', '#A7B9D8');
+    root.style.setProperty('--fifth-color', '#94AACC');
+    root.style.setProperty('--sixth-color', '#7B8FBF');
+    root.style.setProperty('--icon-color', '#4E648B');
+    root.style.setProperty('--text-color', '#000000');
+    root.style.setProperty('--blue', '#4D8BCC');
+    root.style.setProperty('--green', '#3D6759');
+    root.style.setProperty('--yellow', '#B5793D');
+    
 
-    root.style.setProperty('--first-color', '#F7F7F7');
-    root.style.setProperty('--second-color', '#ECECEC');
-    root.style.setProperty('--third-color', '#E0E0E0');
-    root.style.setProperty('--fourth-color', '#D3D3D3');
-    root.style.setProperty('--fifth-color', '#C6C6C6');
-    root.style.setProperty('--sixth-color', '#B9B9B9');
-    root.style.setProperty('--icon-color', '#767676');
-    root.style.setProperty('--text-color', 'black');
-    root.style.setProperty('--blue', '#61AFFE');
-    root.style.setProperty('--green', '#5ED3A3');
-    root.style.setProperty('--yellow', '#F7A131');
-    root.style.setProperty('--red', '#F13D3E');
     
   }
 
@@ -459,18 +461,19 @@ function initTheme() {
 
 
   if (localStorage.getItem("theme") === "light") {
-    root.style.setProperty('--first-color', '#ffffff');
-    root.style.setProperty('--second-color', '#f5f5f5');
-    root.style.setProperty('--third-color', '#ebebeb');
-    root.style.setProperty('--fourth-color', '#dcdcdc');
-    root.style.setProperty('--fifth-color', '#c9c9c9');
-    root.style.setProperty('--sixth-color', '#a8a8a8');
-    root.style.setProperty('--icon-color', '#606060');
-    root.style.setProperty('--text-color', '#1e1e1e');
-    root.style.setProperty('--blue', '#61AFFE');
-    root.style.setProperty('--green', '#5ED3A3');
-    root.style.setProperty('--yellow', '#F7A131');
-    root.style.setProperty('--red', '#F13D3E');
+    root.style.setProperty('--first-color', '#F0F3F8');
+    root.style.setProperty('--second-color', '#E1E7F1');
+    root.style.setProperty('--third-color', '#C6D1E5');
+    root.style.setProperty('--fourth-color', '#A7B9D8');
+    root.style.setProperty('--fifth-color', '#94AACC');
+    root.style.setProperty('--sixth-color', '#7B8FBF');
+    root.style.setProperty('--icon-color', '#4E648B');
+    root.style.setProperty('--text-color', '#000000');
+    root.style.setProperty('--blue', '#4D8BCC');
+    root.style.setProperty('--green', '#3D6759');
+    root.style.setProperty('--yellow', '#B5793D');
+
+
     return
   }
   if (localStorage.getItem("theme") === "dark") {

@@ -36,16 +36,44 @@ function panelPage(){
         })
 
     // If admin or user
+
+    setTimeout(() => {
+        if (localStorage.getItem("type") == "admin"){ 
+            adminPanel();
+        } 
+    
+        if (localStorage.getItem("type") == "user"){
+            userPanel();
+        }
+    }, 100)
     
 }
 
 function adminPanel(){
-
-
+    alert("Admin Panel");
 }
 
 function userPanel(){
+    document.querySelector(".panel-items").innerHTML = `
+    <div class="user-quiz">
+    <h3>Your Quizzes</h3>
+    <div clasS="user-quiz-list">
+    <p>No quizzes yet</p>
+    </div>
+    </div>
+    <div class="user-control">
+    <h3>User Control</h3>
+    <input type="text" placeholder="Update your name">
+    <input type="text" placeholder="Update your email">
+    <input type="text" placeholder="Update your password">
+    <button class="user-update">Update</button>
+    <button class="user-delete">Delete</button>
+    </div>
+    `
 
+    // All the quizzes you have created (Update or delete)
+
+    // Update your account or delete.
 }
 
 export { panelPage };
