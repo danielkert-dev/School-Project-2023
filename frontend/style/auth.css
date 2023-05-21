@@ -2,10 +2,9 @@
     display: flex;
     flex-direction:column;
     align-items: center;
-    justify-content: center;
     height: 100vh;
     width: 100vw;
-    margin-top: -11rem;
+    margin-top: -13rem;
 }
 
 .login {
@@ -17,6 +16,7 @@
     padding: 1rem;
     outline: .2rem solid var(--third-color);
     border-radius: .1rem;
+    margin-top: 5rem;
 }
 
 .login input {

@@ -2,8 +2,12 @@ import { mainPage } from "../index.js";
 
 function authPage() {
   window.scrollTo(0, 0);
+  localStorage.setItem("authPage", "auth");
+
   document.querySelector(".search").innerHTML = "";
 
+  document.querySelector(".burger-button").style.opacity = "0";
+  document.querySelector(".burger-button").style.pointerEvents = "none";
   document.querySelector(".leaderboard").style.opacity = "0";
     document.querySelector(".leaderboard").style.pointerEvents = "none";
     document.querySelector(".create").style.opacity = "0";
@@ -12,6 +16,7 @@ function authPage() {
     document.querySelector(".panel").style.pointerEvents = "none";
     document.querySelector(".login-signup").style.opacity = "0";
   document.querySelector("h1").style.pointerEvents = "none";
+
 
   document.querySelector("main").innerHTML = `
       <div class="login-signup-container">

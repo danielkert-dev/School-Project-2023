@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 export function mainPage() {
   window.scrollTo(0, 0);
-
+  localStorage.setItem("authPage", "main");
   // Main page
   try {
     const token = localStorage.getItem("token"); // Checks if token is in local storage
@@ -88,13 +88,18 @@ export function mainPage() {
   <div class="main-page">
   <input type="text" placeholder="🔍 Search for a quiz..." class="search-box">
   </div>
+  <div class="quiz-list-type">
+  <select>
+    <option value="search">Most popular quizzes</option>
+    <option value="all">All quizzes</option>
+    <option value="random">Most recent quizzes</option>
+  </select>
+  </div>
   <div class="quiz-controller">
-    <div class="quiz-controller-2">
     <button class="page-button" id="quiz-button-1"><</button>
     <input type="number" min="1" max="20" class="page-number">
     <button class="page-button" id="quiz-button-2">></button>
-    <div>
-    </div>
+  </div>
   `;
 
   document.querySelector(".search-box").value = localStorage.getItem("search");
@@ -155,6 +160,9 @@ export function mainPage() {
 }
 
 function search(input, page, pageSize) {
+
+  // If 
+
   if (input === "") {
     localStorage.setItem("list", "all");
     quizPage(20, parseInt(localStorage.getItem("page")));
@@ -238,6 +246,10 @@ function search(input, page, pageSize) {
           parseInt(localStorage.getItem("page")) + 1;
       }
     });
+
+
+
+
 }
 
 export function header() {
@@ -298,6 +310,8 @@ export function header() {
 
   document.querySelector(".login-signup").addEventListener("click", () => {
     authPage()});
+
+
 
   window.addEventListener("resize", () => {
     if (window.innerWidth > 700) {

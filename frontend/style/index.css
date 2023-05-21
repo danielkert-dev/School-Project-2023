@@ -149,11 +149,24 @@ a:visited {
 }
 
 .search {
-    width: 20rem;
-    height: 11rem;
+    width: 100vw;
+    height: 13rem;
+    margin-top: 5rem;
 
-    margin-left: auto;
-    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search > * {
+    margin: 0;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.search > *:first-child {
+    width: 30rem;
+    height: auto;
 }
 
 main {
@@ -261,36 +274,38 @@ footer {
 
 }
 
-hr {
+.quiz-list-type {
+    width: 15rem;
+    text-align-last:left;
+}
+
+.quiz-list-type > * {
+    margin: 0;
     width: 100%;
-    height: .2rem;
-    background-color: var(--third-color);
-    border: none;
+    text-align: center;
 }
 
 .quiz-controller {
-    
-    padding: .6rem;
-    border-radius: .2rem;
+    width: 100%;
 
     display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: center;
+    text-align: center;
+    gap: 1rem;
 }
 
-.quiz-controller-2 {
-    margin-left: 2rem;
+.quiz-controller > *{
+    margin: 0;
 }
 
-.quiz-controller button {
-    background-color: var(--third-color);
-    outline: .2rem solid var(--third-color);
-}
 
 .quiz-controller input {
     text-align: center;
     background-color: var(--third-color);
     outline: .2rem solid var(--third-color);
+
 }
 
 input::-webkit-outer-spin-button,
