@@ -26,7 +26,6 @@ function createPage() {
     
     <div class="create-button-container">
     <button class="back-button">Home</button>
-    <button class="create-tutorial">Tutorial</button>
     <button class="create-button">Create Quiz</button>
     </div>
 
@@ -51,10 +50,6 @@ function createPage() {
     </div>
     </div>
   `;
-
-  document.querySelector(".create-tutorial").addEventListener("click", () => {
-    location.href = "./static/create.tutorial.html";
-  })
 
   document.querySelector(".add-question-button").addEventListener("click", () => {
       questionBoxAdd();

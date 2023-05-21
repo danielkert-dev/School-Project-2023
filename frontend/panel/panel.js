@@ -20,16 +20,12 @@ function panelPage(){
 
     <div class="panel-control-buttons">
     <button class="back-button">Home</button>
-    <button class="panel-tutorial">Tutorial</button>
     </div>
 
     <div class="panel-items"></div>
     </div>
     `;
 
-        document.querySelector(".panel-tutorial").addEventListener("click", () => {
-            location.href = "./static/control.tutorial.html";
-        })
 
         document.querySelector(".back-button").addEventListener("click", () => {
             transition();
