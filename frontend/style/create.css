@@ -142,6 +142,8 @@
 
 div[class^="create-alert-question"] {
     color: var(--red);
+    font-size: .8rem;
+    margin: 1rem;
 }
 
 .create-question-box > div {
