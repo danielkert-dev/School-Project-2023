@@ -150,7 +150,7 @@ a:visited {
 
 .search {
     width: 100vw;
-    height: 13rem;
+    height: 11rem;
     margin-top: 5rem;
 
     display: flex;
@@ -160,12 +160,13 @@ a:visited {
 
 .search > * {
     margin: 0;
-    margin-top: 1rem;
+    margin-top: .6rem;
     margin-bottom: 1rem;
 }
 
 .search > *:first-child {
     width: 30rem;
+    max-width: 80vw;
     height: auto;
 }
 
