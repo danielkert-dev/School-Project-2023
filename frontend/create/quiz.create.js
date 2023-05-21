@@ -51,15 +51,54 @@ function createPage() {
     </div>
   `;
 
-  let title = document.querySelector(".create-form-quiz-title").value;
-  let description = document.querySelector(".create-form-quiz-description").value;
-  let user_ID = localStorage.getItem("user_ID");
-  let image = document.querySelector(".create-form-quiz-image").value;
-
   document.querySelector(".add-question-button").addEventListener("click", () => {
       questionBoxAdd();
     });
   document.querySelector(".create-button").addEventListener("click", () => {
+
+    let title = document.querySelector(".create-form-quiz-title").value;
+    let description = document.querySelector(".create-form-quiz-description").value;
+    let user_ID = localStorage.getItem("user_ID");
+    let image = document.querySelector(".create-form-quiz-image").value;
+
+    let isValid = true;
+
+    if (user_ID === "") {
+      alert("Please login again or contact admin for support");
+      mainPage();
+    }
+
+
+    if (title === "" || description === "" || user_ID === "" || image === "") {
+        document.querySelector(".create-alert").innerHTML = "All fields are required";
+        isValid = false;
+    } else {
+      document.querySelector(".create-alert").innerHTML = "";
+    }
+
+    if (localStorage.getItem("createQuestion") < 1) {
+      document.querySelector(".create-alert").innerHTML = "You must add at least one question";
+      isValid = false;
+    }
+
+    for (let i = 1; i <= localStorage.getItem("createQuestion"); i++) {
+      let question = document.querySelector(`.question-title-${i}`).value;
+      let QuestionImage = document.querySelector(`.question-image-${i}`).value;
+      let choiceItems = document.querySelectorAll(`.choices-container-${i} .choice-item`);
+
+          if (choiceItems.length < 1 || question === "" || QuestionImage === "") {
+            document.querySelector(`.create-alert-question-${i}`).innerHTML = "All fields are required and one choice";
+            isValid = false;
+          } else {
+            document.querySelector(`.create-alert-question-${i}`).innerHTML = "";
+          }
+      
+    }
+
+    if (!isValid) {
+      return;
+    }
+
     quizAdd();
     transition();
     setTimeout(() => {
@@ -108,7 +147,7 @@ function questionBoxAdd() {
   questionBox.className = 'create-question-box';
   questionBox.id = `create-question-${localStorage.getItem("createQuestion")}`;
   questionBox.innerHTML = `
-  <div class="create-alert-question-${localStorage.getItem("createQuestion")}"></div>
+  <div class="create-alert-question-${localStorage.getItem("createQuestion")} question-alert"></div>
     <h3>Question ${localStorage.getItem("createQuestion")}</h3>
     <input class="question-title-${localStorage.getItem("createQuestion")}" type="text" placeholder="Question Title..."  required>
     
@@ -238,7 +277,6 @@ function quizAdd() {
 
     const choiceItems = document.querySelectorAll(`.choices-container-${i} .choice-item`);
 
-    let isCorrect = false;
     let choices = [];
     let choiceNumber = [];
 

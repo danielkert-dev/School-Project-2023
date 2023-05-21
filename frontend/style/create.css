@@ -140,6 +140,10 @@
     align-items: center;
 }
 
+div[class^="create-alert-question"] {
+    color: var(--red);
+}
+
 .create-question-box > div {
     width: 100%;
 

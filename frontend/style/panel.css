@@ -44,6 +44,7 @@
     .panel-control-buttons > button {
         font-size: .8rem;
     }
+
 }
 
 
@@ -84,6 +85,7 @@
     align-items: center;
     margin: .6rem;
     padding: .6rem;
+    font-size: .8rem;
 }
 
 .user-quiz-list-buttons > button {
@@ -95,8 +97,9 @@
 
 .user-quiz-list-buttons{
     width: fit-content;
-
-    display: inline;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .user-control {

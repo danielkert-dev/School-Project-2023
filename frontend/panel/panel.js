@@ -65,8 +65,8 @@ function userPanel(){
     <input type="text" placeholder="Update your username" class="username-update">
     <input type="text" placeholder="Update your email" class="email-update">
     <input type="password" placeholder="Update your password" class="password-update">
-    <button class="user-update">Update</button>
-    <button class="user-delete">Delete</button>
+    <button class="user-update">Update User</button>
+    <button class="user-delete">Delete User</button>
     </div>
     `
 
@@ -79,7 +79,9 @@ function userPanel(){
             "Content-Type": "application/json",
             "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
-    }).then(res => res.json()).then(data => {
+    }).then((response) => {
+            return response.json();
+    }).then(data => {
         console.log(data.length);
 
         for (let i = 0; i < data.data.length; i++){
@@ -105,14 +107,19 @@ function userPanel(){
                 console.log("Update " + data.data[i].quiz_ID);
             })
             quizDelete.addEventListener("click", () => {
-                console.log("Delete " + data.data[i].quiz_ID);
+                if (confirm("Are you sure you want to delete this quiz?")){
+
+
+                    console.log("Delete " + data.data[i].quiz_ID);
+
+
+                }
             })
 
 
         }
 
     })
-
 
     // Insert your current details
 
