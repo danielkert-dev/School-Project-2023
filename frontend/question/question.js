@@ -3,6 +3,7 @@ import { resultPage } from "../result/result.js";
 
 
 function questionPage(quiz) {
+  window.scrollTo(0, 0);
   let question = localStorage.getItem("question");
 
   document.querySelector(".search").innerHTML = ``;

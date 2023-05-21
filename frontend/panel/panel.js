@@ -1,6 +1,7 @@
 import { mainPage, transition, userID } from "../index.js";
 
 function panelPage(){
+    window.scrollTo(0, 0);
     userID();
     document.querySelector("footer").style.display = "none";
     document.querySelector(".burger-button").style.opacity = "0";
@@ -25,6 +26,10 @@ function panelPage(){
     <div class="panel-items"></div>
     </div>
     `;
+
+        document.querySelector(".panel-tutorial").addEventListener("click", () => {
+            location.href = "./static/control.tutorial.html";
+        })
 
         document.querySelector(".back-button").addEventListener("click", () => {
             transition();
@@ -57,7 +62,7 @@ function userPanel(){
     document.querySelector(".panel-items").innerHTML = `
     <div class="user-quiz">
     <h3>Your Quizzes</h3>
-    <div clasS="user-quiz-list">
+    <div class="user-quiz-list">
     </div>
     </div>
     <div class="user-control">

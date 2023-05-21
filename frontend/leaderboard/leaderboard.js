@@ -1,6 +1,7 @@
 import { mainPage } from "../index.js";
 
 function leaderboardPage() {
+    window.scrollTo(0, 0);
     document.querySelector(".search").innerHTML = ``;
     document.querySelector("main").innerHTML = `
         <div class="leaderboard-container">

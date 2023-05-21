@@ -1,6 +1,7 @@
 import { mainPage, transition } from "../index.js";
 
 async function resultPage() {
+    window.scrollTo(0, 0);
     document.querySelector(".search").innerHTML = ``;
     document.querySelector("main").innerHTML = `
         <div class="result-container">

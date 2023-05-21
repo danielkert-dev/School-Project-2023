@@ -2,6 +2,7 @@ import { questionPage } from "../question/question.js";
 import { transition } from "../index.js";
 
 async function quizPage(page, pageSize) {
+  window.scrollTo(0, 0);
   fetch(`${window.API}/quiz/SearchAll/${page}/${pageSize}`, {
     method: "GET",
     headers: {

@@ -1,6 +1,7 @@
 import { mainPage } from "../index.js";
 
 function authPage() {
+  window.scrollTo(0, 0);
   document.querySelector(".search").innerHTML = "";
 
   document.querySelector(".leaderboard").style.opacity = "0";

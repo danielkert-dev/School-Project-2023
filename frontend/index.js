@@ -8,15 +8,18 @@ import { panelPage } from "./panel/panel.js";
 document.addEventListener("DOMContentLoaded", () => {
   // Initialize the page
   header();
-  footer();
 
   mainPage();
 
   titleClick();
+  footer();
+  
 
 });
 
 export function mainPage() {
+  window.scrollTo(0, 0);
+
   // Main page
   try {
     const token = localStorage.getItem("token"); // Checks if token is in local storage
@@ -363,11 +366,12 @@ export function header() {
 }
 
 function footer() {
-  document.querySelector("footer").innerHTML = `
+    document.querySelector("footer").innerHTML = `
     © ${new Date().getFullYear()} - Daniel Kertsmik - &nbsp;<div class="footer-links">
-    <a href="#">Privacy Policy</a>
+    <a href="./static/policy.html">Privacy Policy</a>
     </div>
-    `;
+    `;    
+
 }
 
 export function titleClick() {
