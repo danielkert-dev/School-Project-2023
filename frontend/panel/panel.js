@@ -58,20 +58,67 @@ function userPanel(){
     <div class="user-quiz">
     <h3>Your Quizzes</h3>
     <div clasS="user-quiz-list">
-    <p>No quizzes yet</p>
     </div>
     </div>
     <div class="user-control">
     <h3>User Control</h3>
-    <input type="text" placeholder="Update your name">
-    <input type="text" placeholder="Update your email">
-    <input type="text" placeholder="Update your password">
+    <input type="text" placeholder="Update your username" class="username-update">
+    <input type="text" placeholder="Update your email" class="email-update">
+    <input type="password" placeholder="Update your password" class="password-update">
     <button class="user-update">Update</button>
     <button class="user-delete">Delete</button>
     </div>
     `
 
+    let username = localStorage.getItem("username");
+
     // All the quizzes you have created (Update or delete)
+    fetch(`${window.API}/quiz/Search/${username}/100/0`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
+    }).then(res => res.json()).then(data => {
+        console.log(data.length);
+
+        for (let i = 0; i < data.data.length; i++){
+            console.log(data.data[i]);
+            let quizList = document.querySelector(".user-quiz-list");
+            let quizListItem = document.createElement("div");
+            quizListItem.classList.add("user-quiz-item-" + i);
+            quizListItem.innerHTML += `
+            <p>${data.data[i].title}</p>
+            <div class="user-quiz-list-buttons">
+            <button class="user-quiz-update-${i}">Update</button>
+            <button class="user-quiz-delete-${i}">Delete</button>
+            </div>
+            `
+            quizList.appendChild(quizListItem);
+
+            let quizUpdate = document.querySelector(`.user-quiz-update-${i}`);
+            quizUpdate.style.backgroundColor = "var(--blue)";
+            let quizDelete = document.querySelector(`.user-quiz-delete-${i}`);
+            quizDelete.style.backgroundColor = "var(--red)";
+
+            quizUpdate.addEventListener("click", () => {
+                console.log("Update " + data.data[i].quiz_ID);
+            })
+            quizDelete.addEventListener("click", () => {
+                console.log("Delete " + data.data[i].quiz_ID);
+            })
+
+
+        }
+
+    })
+
+
+    // Insert your current details
+
+    document.querySelector(".username-update").value = localStorage.getItem("username");
+    document.querySelector(".email-update").value = localStorage.getItem("email");
+    document.querySelector(".password-update").value = localStorage.getItem("password");
 
     // Update your account or delete.
 }

@@ -412,6 +412,7 @@ export function userID() {
     }
   }).then((data) => {
     localStorage.setItem("user_ID", data.data[0].ID);
+    localStorage.setItem("email", data.data[0].email);
     localStorage.setItem("type", data.data[0].type);
   })
 }
