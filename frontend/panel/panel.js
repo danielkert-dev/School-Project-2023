@@ -150,7 +150,10 @@ function userPanel(){
     document.querySelector(".email-update").value = localStorage.getItem("email");
     document.querySelector(".password-update").value = localStorage.getItem("password");
 
-    // Update your account or delete.
+    // Update your account.
+
+
+    // Delete your account.
 }
 
 export { panelPage };
