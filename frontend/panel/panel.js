@@ -75,7 +75,7 @@ function userPanel(){
     let username = localStorage.getItem("username");
 
     // All the quizzes you have created (Update or delete)
-    fetch(`${window.API}/quiz/Search/${username}/100/0`, {
+    fetch(`${window.API}/quiz/Search/${username}/100/0`, { // If anybody make more then 100 quizzes then its worth changing
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -116,6 +116,25 @@ function userPanel(){
 
                     console.log("Delete " + data.data[i].quiz_ID);
 
+                    fetch(`${window.API}/quiz/Delete`, {
+                        method: "DELETE",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${localStorage.getItem("token")}`,
+                        },
+                        body: JSON.stringify({
+                            id : data.data[i].quiz_ID,
+                        })
+                        
+                    }).then((res) => res.json())
+                    .then((data) => {
+                        console.log("Deleted: " + data);
+                    })
+
+                    transition();
+                    setTimeout(() => {
+                        panelPage();
+                    }, 100);
 
                 }
             })
