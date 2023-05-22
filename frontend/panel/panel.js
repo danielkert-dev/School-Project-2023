@@ -130,6 +130,7 @@ function userPanel(){
                     .then((data) => {
                         console.log("Deleted: " + data);
                     })
+                    
 
                     transition();
                     setTimeout(() => {
