@@ -4,10 +4,12 @@ const {
   quizSearch,
   quizAmountAdd,
   questionSearch,
+  questionAmountByQuizID,
   leaderboardSearchAll,
   quizCreate,
   questionCreate,
   quizUpdate,
+  quizAmountDone,
   questionUpdate,
   quizDelete,
   quizSearchByTitle,
@@ -122,6 +124,22 @@ module.exports = {
     });
   },
 
+  questionAmountByQuizID: (req, res) => {
+    const quiz_id = req.params.quiz_id;
+    if (!quiz_id) {
+      return error400(res);
+    }
+    questionAmountByQuizID(quiz_id, (error, results) => {
+      if (error) {
+        return error500(res, error);
+      }
+      if (!results || results.length === 0) {
+        return error404(res, results);
+      }
+      return response200(res, results);
+    })
+  },
+
   leaderboardSearchAll: (req, res) => {
     const page = req.params.page;
     const pageSize = req.params.pageSize;
@@ -177,6 +195,22 @@ module.exports = {
       return error400(res);
     }
     quizUpdate(body, (error, results) => {
+      if (error) {
+        return error500(res, error);
+      }
+      if (!results || results.length === 0) {
+        return error404(res, results);
+      }
+      return response200(res, results);
+    })
+  },
+
+  quizAmountDone: (req, res) => {
+    const body = req.body;
+    if (!body) {
+      return error400(res);
+    }
+    quizAmountDone(body, (error, results) => {
       if (error) {
         return error500(res, error);
       }

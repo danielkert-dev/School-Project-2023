@@ -38,6 +38,148 @@
     align-items: center;
 }
 
+.panel-update-buttons {
+    background-color: var(--first-color);
+    width: 80%;
+    height: 5rem;
+    max-width: 35rem;
+    padding: 1rem;
+    margin-top: 5rem;
+    border-radius: .5rem;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.panel-update-buttons > button{
+    margin: 0;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.panel-update-container {
+    width: 100%;
+    margin-top: -13rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.quiz-update-box {
+    background-color: var(--first-color);
+    width: 80%;
+    padding: 1rem;
+    max-width: 35rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    border-radius: .5rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.quiz-update-alert {
+    color: var(--red);
+    font-size: .8rem;
+    margin: 1rem;
+}
+
+.quiz-update-box > div {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.quiz-update-box > h3 {
+    margin: .5rem;
+    text-align: center;
+}
+
+.quiz-update-box > input, textarea {
+    resize: none;
+    margin: 1rem;
+    margin-left: 2rem;
+    width: 80%;
+}
+
+.quiz-update-box > input {
+    margin-right: 2rem;
+}
+
+.quiz-update-box > button {
+    margin: 1rem;
+    width: 80%;
+}
+
+.quiz-update-box > img {
+    border-radius: .2rem;
+    width: 80%;
+    outline: solid var(--third-color);
+}
+
+.question-box-update {
+    background-color: var(--first-color);
+    width: 80%;
+    padding: 1rem;
+    max-width: 35rem;
+    margin-bottom: 3rem;
+    border-radius: .5rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+div[class^="question-update-alert"] {
+    color: var(--red);
+    font-size: .8rem;
+    margin: 1rem;
+}
+
+.question-box-update > div {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.question-box-update > h3 {
+    margin: .5rem;
+    text-align: center;
+}
+
+.question-box-update > input, textarea {
+    resize: none;
+    margin: 1rem;
+    margin-left: 2rem;
+    width: 80%;
+}
+
+.question-box-update > textarea { 
+    height: 5rem;
+}
+
+.question-box-update > input {
+    margin-right: 2rem;
+}
+
+.question-box-update > button {
+    margin: 1rem;
+    width: 80%;
+}
+
+.question-box-update > img {
+    border-radius: .2rem;
+    width: 80%;
+    outline: solid var(--third-color);
+}
 
 @media screen and (max-width: 700px) {
     

@@ -89,10 +89,10 @@ export function mainPage() {
   <input type="text" placeholder="🔍 Search for a quiz..." class="search-box">
   </div>
   <div class="quiz-list-type">
-  <select>
-    <option value="search">Most popular quizzes</option>
-    <option value="all">All quizzes</option>
-    <option value="random">Most recent quizzes</option>
+  <select class="quiz-list-select">
+    <option value="all" selected>All quizzes</option>
+    <option value="popular">Most popular quizzes</option>
+    <option value="recent">Most recent quizzes</option>
   </select>
   </div>
   <div class="quiz-controller">
@@ -102,14 +102,72 @@ export function mainPage() {
   </div>
   `;
 
-  document.querySelector(".search-box").value = localStorage.getItem("search");
+  // Set the quiz list page (all, reacent, popular)
+  localStorage.setItem("type", "all");
+  document.querySelector(".quiz-list-select").addEventListener("change", () => {
+    if (document.querySelector(".quiz-list-select").value === "all") {
+      console.log("all");
+      localStorage.setItem("type", "all");
+      if (localStorage.getItem("list") === "all") {
+        if (localStorage.getItem("type") === "all") {
+    
+        transition();
+        setTimeout(() => {
+          quizPage(20, parseInt(localStorage.getItem("page")));
+        }, 200);
+    
+      }
+      } else {
+        search(localStorage.getItem("type"),localStorage.getItem("search"),20,parseInt(localStorage.getItem("page"))
+        );
+      }
+    }
+    if (document.querySelector(".quiz-list-select").value === "recent") {
+      console.log("recent");
+      localStorage.setItem("type", "recent");
+      if (localStorage.getItem("list") === "all") {
+        if (localStorage.getItem("type") === "recent") {
+    
+        transition();
+        setTimeout(() => {
+          console.log("quizPageRecent");
+        }, 200);
+    
+      }
+      } else {
+        search(localStorage.getItem("type"),localStorage.getItem("search"),20,parseInt(localStorage.getItem("page"))
+        );
+      }
+    }
+    if (document.querySelector(".quiz-list-select").value === "popular") {
+      console.log("popular");
+      localStorage.setItem("type", "popular");
+      if (localStorage.getItem("list") === "all") {
+        if (localStorage.getItem("type") === "popular") {
+    
+        transition();
+        setTimeout(() => {
+          console.log("quizPagePopular");
+        }, 200);
+    
+      }
+      } else {
+        search(localStorage.getItem("type"),localStorage.getItem("search"),20,parseInt(localStorage.getItem("page"))
+        );
+      }
+    }
+  })
+  
 
-  if (localStorage.getItem("page") === null) {
+  document.querySelector(".search-box").value = localStorage.getItem("search"); // Search value
+
+  if (localStorage.getItem("page") === null) { // If there is no page then first page
     localStorage.setItem("page", 0);
   }
 
-  setTimeout(() => {
-    document.querySelector("#quiz-button-1").addEventListener("click", () => {
+  setTimeout(() => { 
+    // Back page button
+    document.querySelector("#quiz-button-1").addEventListener("click", () => { 
       console.log(localStorage.getItem("page"));
       if (parseInt(localStorage.getItem("page")) === 0) {
         return;
@@ -117,11 +175,13 @@ export function mainPage() {
       localStorage.setItem("page", parseInt(localStorage.getItem("page")) - 1);
       location.reload();
     });
+    // Next page button
     document.querySelector("#quiz-button-2").addEventListener("click", () => {
       console.log(localStorage.getItem("page"));
       localStorage.setItem("page", parseInt(localStorage.getItem("page")) + 1);
       location.reload();
     });
+    // Page number input
     document.querySelector(".page-number").addEventListener("change", () => {
       if (parseInt(document.querySelector(".page-number").value) < 1) {
         return;
@@ -133,6 +193,7 @@ export function mainPage() {
       location.reload();
     });
 
+    // Search event listener
     document.querySelector(".search-box").addEventListener("keyup", (e) => {
       // console.log(e.target.value);
       transition();
@@ -140,32 +201,32 @@ export function mainPage() {
         localStorage.setItem("page", 0);
         localStorage.setItem("list", "search");
         localStorage.setItem("search", e.target.value);
-        search(e.target.value, 20, parseInt(localStorage.getItem("page")));
+        search(localStorage.getItem("type"),e.target.value, 20, parseInt(localStorage.getItem("page")));
       }, 100);
     });
   }, 200);
 
+  // If all then search all
   if (localStorage.getItem("list") === "all") {
+    if (localStorage.getItem("type") === "all") {
+
     transition();
     setTimeout(() => {
       quizPage(20, parseInt(localStorage.getItem("page")));
     }, 200);
+
+  }
   } else {
-    search(
-      localStorage.getItem("search"),
-      20,
-      parseInt(localStorage.getItem("page"))
+    search(localStorage.getItem("type"),localStorage.getItem("search"),20,parseInt(localStorage.getItem("page"))
     );
   }
 }
 
-function search(input, page, pageSize) {
-
-  // If 
+function search(type, input, page, pageSize) {
 
   if (input === "") {
     localStorage.setItem("list", "all");
-    quizPage(20, parseInt(localStorage.getItem("page")));
+    quizPage(20, parseInt(localStorage.getItem("page"))); // Quiz page
   }
 
   console.log(input);

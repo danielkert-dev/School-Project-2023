@@ -103,6 +103,24 @@ module.exports = {
     );
   },
 
+  // questionAmountByQuizID
+  questionAmountByQuizID: (quiz_id, callBack) => {
+    pool.query(
+      `SELECT COUNT(*) as question_amount
+      FROM questions
+      WHERE quiz_ID = ?`,
+      [quiz_id],
+      (error, results) => {
+        if (error) {
+          console.error(error);
+          callBack(error, null);
+        } else {
+          callBack(null, results);
+        }
+      }
+    );
+  },
+
   /* leaderboardAll */
   leaderboardSearchAll: (page, pageSize, callBack) => {
     const offset = (page - 1) * pageSize;
@@ -173,6 +191,23 @@ module.exports = {
     )
   },
 
+  // Add amount done
+
+  quizAmountDone: (input, callBack) => {
+    pool.query(
+      "UPDATE quiz SET amount_done = ? WHERE id = ?",
+      [input.amount_done, input.id],
+      (error, results) => {
+        if (error) {
+          console.error(error);
+          callBack(error, null);
+        } else {
+          callBack(null, results);
+        }
+      }
+    )
+  },
+
   // questionUpdate
   questionUpdate: (input, callBack) => {
     pool.query(
@@ -191,6 +226,7 @@ module.exports = {
 
   // quizDelete
   quizDelete: (input, callBack) => {
+    pool.query (
     "DELETE FROM `quiz` WHERE id = ?",
     [input.id],
     (error, results) => {
@@ -200,6 +236,6 @@ module.exports = {
       } else {
         callBack(null, results);
       }
-    }
+    })
   }
 };

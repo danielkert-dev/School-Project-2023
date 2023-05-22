@@ -1,4 +1,5 @@
 import { mainPage, transition, userID } from "../index.js";
+import { panelPageUpdate } from "./update.panel.js";
 
 function panelPage(){
     window.scrollTo(0, 0);
@@ -83,10 +84,8 @@ function userPanel(){
     }).then((response) => {
             return response.json();
     }).then(data => {
-        console.log(data.length);
 
         for (let i = 0; i < data.data.length; i++){
-            console.log(data.data[i]);
             let quizList = document.querySelector(".user-quiz-list");
             let quizListItem = document.createElement("div");
             quizListItem.classList.add("user-quiz-item-" + i);
@@ -105,8 +104,12 @@ function userPanel(){
             quizDelete.style.backgroundColor = "var(--red)";
 
             quizUpdate.addEventListener("click", () => {
-                console.log("Update " + data.data[i].quiz_ID);
+                transition();
+                setTimeout(() => {
+                    panelPageUpdate(data.data[i]);
+                }, 100)
             })
+
             quizDelete.addEventListener("click", () => {
                 if (confirm("Are you sure you want to delete this quiz?")){
 

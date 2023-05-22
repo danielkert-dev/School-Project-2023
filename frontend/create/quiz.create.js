@@ -54,6 +54,7 @@ function createPage() {
   document.querySelector(".add-question-button").addEventListener("click", () => {
       questionBoxAdd();
     });
+
   document.querySelector(".create-button").addEventListener("click", () => {
 
     let title = document.querySelector(".create-form-quiz-title").value;
@@ -151,7 +152,7 @@ function questionBoxAdd() {
     <h3>Question ${localStorage.getItem("createQuestion")}</h3>
     <input class="question-title-${localStorage.getItem("createQuestion")}" type="text" placeholder="Question Title..."  required>
     
-    <input class="question-image-${localStorage.getItem("createQuestion")}" type="text" placeholder="Question Image URL..."  required>
+    <input class="question-image-${localStorage.getItem("createQuestion")}" type="text"placeholder="Question Image..."  required>
     <img class="question-image-preview-${localStorage.getItem("createQuestion")}" src="" alt="Image Preview">
     
     <textarea class="question-description-${localStorage.getItem("createQuestion")}" type="text" placeholder="Question Description..." maxlength="58" width="100%" rows="5"></textarea>
@@ -285,7 +286,7 @@ function quizAdd() {
         choices.push(checkbox.nextElementSibling.textContent);
         if (checkbox.checked) {
           choiceNumber.push(j + 1);
-          isCorrect = true;}
+          }
     }
     choices = choices.join(";");
     choiceNumber = choiceNumber.join(";"); 
@@ -318,9 +319,9 @@ function quizAdd() {
             console.log(data);
         })
     }
-    }, 100);
+    });
 
-})
+}, 100)
 
 })
 
