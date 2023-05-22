@@ -41,6 +41,7 @@ function createPage() {
 
 
     <button class="add-question-button">Add Question</button>
+    <button class="remove-question-button">Remove Question</button>
     </div>
 
     <div class="create-form-question">
@@ -54,6 +55,10 @@ function createPage() {
   document.querySelector(".add-question-button").addEventListener("click", () => {
       questionBoxAdd();
     });
+
+  document.querySelector(".remove-question-button").addEventListener("click", () => {
+      questionBoxRemove();
+  })
 
   document.querySelector(".create-button").addEventListener("click", () => {
 
@@ -215,6 +220,47 @@ function questionBoxAdd() {
   };
 }
 
+function questionBoxRemove() {
+  const createFormQuestion = document.querySelector(".create-form-question");
+  const createQuestionBoxes = createFormQuestion.querySelectorAll(".create-question-box");
+  
+  if (createQuestionBoxes.length > 0) {
+    const lastQuestionBox = createQuestionBoxes[createQuestionBoxes.length - 1];
+    lastQuestionBox.remove();
+    
+    // Update the value of "createQuestion" in localStorage
+    localStorage.setItem("createQuestion", createQuestionBoxes.length - 1);
+  }
+
+  
+}
+
+/*function questionBoxRemove(questionIndex) {
+  const createFormQuestion = document.querySelector(".create-form-question");
+  const questionBoxToRemove = createFormQuestion.querySelector(`#create-question-${questionIndex}`);
+  
+  if (questionBoxToRemove) {
+    questionBoxToRemove.remove();
+    const remainingQuestionBoxes = createFormQuestion.querySelectorAll(".create-question-box");
+
+    // Update the value of "createQuestion" in localStorage
+    localStorage.setItem("createQuestion", remainingQuestionBoxes.length);
+
+    // Update the question indices in the DOM
+    remainingQuestionBoxes.forEach((questionBox, index) => {
+      const questionNumber = index + 1;
+      questionBox.id = `create-question-${questionNumber}`;
+      questionBox.querySelector(`.question-alert`).className = `create-alert-question-${questionNumber} question-alert`;
+      questionBox.querySelector(`.question-title-${questionIndex}`).className = `question-title-${questionNumber}`;
+      questionBox.querySelector(`.question-image-${questionIndex}`).className = `question-image-${questionNumber}`;
+      questionBox.querySelector(`.question-image-preview-${questionIndex}`).className = `question-image-preview-${questionNumber}`;
+      questionBox.querySelector(`.question-description-${questionIndex}`).className = `question-description-${questionNumber}`;
+      questionBox.querySelector(`.choice-input-${questionIndex}`).className = `choice-input-${questionNumber}`;
+      questionBox.querySelector(`.add-choice-button-${questionIndex}`).className = `add-choice-button-${questionNumber}`;
+      questionBox.querySelector(`.choices-container-${questionIndex}`).className = `choices-container-${questionNumber}`;
+    });
+  }
+}*/
 
 
 function quizAdd() {
