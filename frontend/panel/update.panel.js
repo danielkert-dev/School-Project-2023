@@ -21,6 +21,8 @@ async function panelPageUpdate(panelData) {
     <img class="quiz-update-image-preview" src="" alt="Image Preview">
 
     <button class="add-question-update-button">Add Question</button>
+    <button class="remove-question-button">Remove Question</button>
+
     <div>
     </div>
     `
@@ -34,6 +36,10 @@ async function panelPageUpdate(panelData) {
             setTimeout(() => {
                 panelPage();
             }, 100)
+        })
+
+        document.querySelector(".remove-question-button").addEventListener("click", () => {
+            questionBoxRemove();
         })
 
         document.querySelector(".add-question-update-button").addEventListener("click", () => {
@@ -484,5 +490,20 @@ async function quizUpdate(amountDone, originalQuizID) {
     })
 
 }
+
+function questionBoxRemove() {
+    const createFormQuestion = document.querySelector(".panel-update-container");
+    const createQuestionBoxes = createFormQuestion.querySelectorAll(".question-box-update");
+    
+    if (createQuestionBoxes.length > 0) {
+      const lastQuestionBox = createQuestionBoxes[createQuestionBoxes.length - 1];
+      lastQuestionBox.remove();
+      
+      // Update the value of "createQuestion" in localStorage
+      localStorage.setItem("questionAmount", createQuestionBoxes.length - 1);
+    }
+  
+    
+  }
 
 export { panelPageUpdate }

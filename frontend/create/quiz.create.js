@@ -155,6 +155,8 @@ function questionBoxAdd() {
   questionBox.innerHTML = `
   <div class="create-alert-question-${localStorage.getItem("createQuestion")} question-alert"></div>
     <h3>Question ${localStorage.getItem("createQuestion")}</h3>
+    <button class="remove-question-button-${localStorage.getItem("createQuestion")}">Remove Question</button>
+
     <input class="question-title-${localStorage.getItem("createQuestion")}" type="text" placeholder="Question Title..."  required>
     
     <input class="question-image-${localStorage.getItem("createQuestion")}" type="text"placeholder="Question Image..."  required>
@@ -167,6 +169,10 @@ function questionBoxAdd() {
     `;
 
   document.querySelector(".create-form-question").appendChild(questionBox); 
+
+  document.querySelector(`.remove-question-button-${localStorage.getItem("createQuestion")}`).addEventListener("click", () => {
+    questionBoxRemove(localStorage.getItem("createQuestion"));
+  })
 
   // Query select on a existing object??!!???
   const choiceInput = questionBox.querySelector(`.choice-input-${localStorage.getItem("createQuestion")}`);
