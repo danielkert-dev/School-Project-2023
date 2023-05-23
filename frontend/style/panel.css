@@ -286,3 +286,41 @@ div[class^="question-update-alert"] {
     background-color: var(--blue);
     outline: .2rem solid var(--blue);
 }
+
+
+
+
+.admin-container {
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.all-users {
+    background-color: var(--first-color);
+    width: 100%;
+    max-width: 35rem;
+    padding: 1rem;
+    margin-top: 3rem;
+    border-radius: .5rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.all-quizzes {
+    background-color: var(--first-color);
+    width: 100%;
+    max-width: 35rem;
+    padding: 1rem;
+    margin-top: 3rem;
+    border-radius: .5rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

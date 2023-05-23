@@ -1,6 +1,7 @@
 const {
     quizSearchAll,
     quizSearchById,
+    quizSearchByAmount,
     quizSearch,
     quizAmountAdd,
     questionSearch,
@@ -19,6 +20,7 @@ const router = require("express").Router();
 
 router.get("/SearchAll/:page/:pageSize", checkToken, quizSearchAll); // Works
 router.get("/SearchById/:id", checkToken, quizSearchById); // Works
+router.get("/SearchByAmount/:page/:pageSize", checkToken, quizSearchByAmount); // Works
 router.get("/SearchByTitle/:title", checkToken, quizSearchByTitle);
 router.get("/Search/:input/:page/:pageSize", checkToken, quizSearch); // Works
 router.post("/AmountAdd", checkToken, quizAmountAdd); // Request body, Works

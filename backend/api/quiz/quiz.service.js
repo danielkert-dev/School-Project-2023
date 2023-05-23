@@ -35,6 +35,24 @@ module.exports = {
     });
   },
 
+  quizSearchByAmount : (page, pageSize, callBack) => {
+    pool.query(`
+    SELECT quiz.ID as quiz_ID, quiz.title, quiz.amount_done, quiz.description, quiz.user_ID, user.ID, user.username, quiz.image
+      FROM quiz, user 
+      WHERE user.ID = quiz.user_ID
+      ORDER BY quiz.amount_done DESC 
+    LIMIT ? 
+    OFFSET ?;
+    `, [parseInt(page), parseInt(pageSize)], (error, results) => {
+      if (error) {
+        console.error(error);
+        callBack(error, null);
+      } else {
+        callBack(null, results);
+      }
+    });
+  },
+
     // quizByName
     quizSearchByTitle: (title, callBack) => {
       pool.query("SELECT * FROM quiz WHERE title = ?", [title], (error, results) => {
@@ -52,11 +70,12 @@ module.exports = {
     const offset = (page - 1) * pageSize;
     pool.query(
       `SELECT q.ID as quiz_ID, q.title, q.description, q.image, q.amount_done, u.username
-        FROM quiz q
-        INNER JOIN user u ON q.user_ID = u.ID
-        WHERE q.title LIKE ? OR u.username LIKE ?
-        LIMIT ? 
-        OFFSET ?;`,
+      FROM quiz q
+      JOIN user u ON q.user_ID = u.ID
+      WHERE q.title LIKE ? OR u.username LIKE ?
+      LIMIT ? 
+      OFFSET ?;
+      `,
       [`%${input}%`, `%${input}%`, parseInt(page), parseInt(offset)],
       (error, results) => {
         if (error) {

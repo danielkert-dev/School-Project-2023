@@ -20,7 +20,8 @@ async function quizPage(page, pageSize) {
       console.log(data);
       let quizID = [];
       document.querySelector("main").innerHTML = `
-            <div class="quiz-container"></div>
+            <div class="quiz-container">
+            </div>
             `;
 
       for (let i = 0; i < data.data.length; i++) {

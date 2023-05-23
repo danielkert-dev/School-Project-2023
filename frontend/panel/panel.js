@@ -1,5 +1,6 @@
 import { mainPage, transition, userID } from "../index.js";
 import { panelPageUpdate } from "./update.panel.js";
+import { authPage } from "../auth/auth.js";
 
 function panelPage(){
     window.scrollTo(0, 0);
@@ -52,7 +53,17 @@ function panelPage(){
 }
 
 function adminPanel(){
-    alert("Admin Panel");
+    document.querySelector(".panel-items").innerHTML = `
+    <div class="admin-container">
+    <div class="all-users"></div>
+    <div class="all-quizzes"></div>
+    </div>
+    `
+
+    // List all users
+
+
+    // List all quizzes
 }
 
 function userPanel(){
@@ -106,6 +117,7 @@ function userPanel(){
             quizUpdate.addEventListener("click", () => {
                 transition();
                 setTimeout(() => {
+                    window.scrollTo(0, 0);
                     panelPageUpdate(data.data[i]);
                 }, 100)
             })
@@ -134,6 +146,7 @@ function userPanel(){
 
                     transition();
                     setTimeout(() => {
+                        window.scrollTo(0, 0);
                         panelPage();
                     }, 100);
 
@@ -152,6 +165,75 @@ function userPanel(){
     document.querySelector(".password-update").value = localStorage.getItem("password");
 
     // Update your account.
+
+    let userUpdate = document.querySelector(".user-update");
+    let userDelete = document.querySelector(".user-delete");
+
+    userUpdate.addEventListener("click", () => {
+        if (confirm("Are you sure you want to update your account?")){
+            let username = document.querySelector(".username-update").value;
+            let email = document.querySelector(".email-update").value;
+            let password = document.querySelector(".password-update").value;
+            let userID = parseInt(localStorage.getItem("user_ID"));
+
+            console.log(typeof username + " " + email + " " + password + " " + typeof userID);
+
+            // Fetch update
+
+                fetch(`${window.API}/user/Update`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        email: email,
+                        password: password,
+                        id: userID,
+                    })
+                }).then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    console.log("Updated");
+                    console.log(data);
+                })
+
+                transition();
+                setTimeout(() => {
+                    localStorage.clear();
+                    location.reload();
+                    window.scrollTo(0, 0);
+                }, 100)
+        }
+        
+    })
+
+    userDelete.addEventListener("click", () => {
+        if (confirm("Are you sure you want to delete your account?")){
+
+            // Fetch delete (Update to anonymous account)
+            fetch (`${window.API}/user/Delete`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+                body: JSON.stringify({
+                    id: parseInt(localStorage.getItem("user_ID")),
+                })
+            })
+
+            transition();
+            setTimeout(() => {
+                localStorage.clear();
+                location.reload();
+                window.scrollTo(0, 0);
+            }, 100);
+        }
+
+    })
 
 
     // Delete your account.

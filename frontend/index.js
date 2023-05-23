@@ -5,6 +5,8 @@ import { leaderboardPage } from "./leaderboard/leaderboard.js";
 import { createPage } from "./create/quiz.create.js";
 import { panelPage } from "./panel/panel.js";
 
+import { quizPagePopular } from "./quiz/popular.quiz.js";
+
 document.addEventListener("DOMContentLoaded", () => {
   // Initialize the page
   header();
@@ -86,80 +88,38 @@ export function mainPage() {
   // Set the search bar
   document.querySelector(".search").innerHTML = `
   <div class="main-page">
+
+  <div class="popular-page"></div>
+
   <input type="text" placeholder="🔍 Search for a quiz..." class="search-box">
   </div>
-  <div class="quiz-list-type">
-  <select class="quiz-list-select">
-    <option value="all" selected>All quizzes</option>
-    <option value="popular">Most popular quizzes</option>
-    <option value="recent">Most recent quizzes</option>
-  </select>
-  </div>
+
   <div class="quiz-controller">
     <button class="page-button" id="quiz-button-1"><</button>
     <input type="number" min="1" max="20" class="page-number">
     <button class="page-button" id="quiz-button-2">></button>
   </div>
+
+
+
   `;
 
-  // Set the quiz list page (all, reacent, popular)
-  localStorage.setItem("type", "all");
-  document.querySelector(".quiz-list-select").addEventListener("change", () => {
-    if (document.querySelector(".quiz-list-select").value === "all") {
-      console.log("all");
-      localStorage.setItem("type", "all");
-      if (localStorage.getItem("list") === "all") {
-        if (localStorage.getItem("type") === "all") {
-    
-        transition();
-        setTimeout(() => {
-          quizPage(20, parseInt(localStorage.getItem("page")));
-        }, 200);
-    
-      }
-      } else {
-        search(localStorage.getItem("type"),localStorage.getItem("search"),20,parseInt(localStorage.getItem("page"))
-        );
-      }
-    }
-    if (document.querySelector(".quiz-list-select").value === "recent") {
-      console.log("recent");
-      localStorage.setItem("type", "recent");
-      if (localStorage.getItem("list") === "all") {
-        if (localStorage.getItem("type") === "recent") {
-    
-        transition();
-        setTimeout(() => {
-          console.log("quizPageRecent");
-        }, 200);
-    
-      }
-      } else {
-        search(localStorage.getItem("type"),localStorage.getItem("search"),20,parseInt(localStorage.getItem("page"))
-        );
-      }
-    }
-    if (document.querySelector(".quiz-list-select").value === "popular") {
-      console.log("popular");
-      localStorage.setItem("type", "popular");
-      if (localStorage.getItem("list") === "all") {
-        if (localStorage.getItem("type") === "popular") {
-    
-        transition();
-        setTimeout(() => {
-          console.log("quizPagePopular");
-        }, 200);
-    
-      }
-      } else {
-        search(localStorage.getItem("type"),localStorage.getItem("search"),20,parseInt(localStorage.getItem("page"))
-        );
-      }
-    }
-  })
   
+    // If all then search all
+    if (localStorage.getItem("list") === "all") {
+      transition();
+      setTimeout(() => {
+        quizPagePopular(10, 0);
+        quizPage(20, parseInt(localStorage.getItem("page")));
+      }, 200);
+    } else {
+      search(localStorage.getItem("search"),20,parseInt(localStorage.getItem("page"))
+      );
+    }
 
-  document.querySelector(".search-box").value = localStorage.getItem("search"); // Search value
+    // Search
+
+  document.querySelector(".search-box").value = localStorage.getItem("search"); // Search value saved
 
   if (localStorage.getItem("page") === null) { // If there is no page then first page
     localStorage.setItem("page", 0);
@@ -193,36 +153,25 @@ export function mainPage() {
       location.reload();
     });
 
+
+
     // Search event listener
-    document.querySelector(".search-box").addEventListener("keyup", (e) => {
+  document.querySelector(".search-box").addEventListener("keyup", (e) => {
       // console.log(e.target.value);
       transition();
       setTimeout(() => {
         localStorage.setItem("page", 0);
         localStorage.setItem("list", "search");
         localStorage.setItem("search", e.target.value);
-        search(localStorage.getItem("type"),e.target.value, 20, parseInt(localStorage.getItem("page")));
+        search(e.target.value ,20, parseInt(localStorage.getItem("page")));
       }, 100);
     });
   }, 200);
 
-  // If all then search all
-  if (localStorage.getItem("list") === "all") {
-    if (localStorage.getItem("type") === "all") {
-
-    transition();
-    setTimeout(() => {
-      quizPage(20, parseInt(localStorage.getItem("page")));
-    }, 200);
-
-  }
-  } else {
-    search(localStorage.getItem("type"),localStorage.getItem("search"),20,parseInt(localStorage.getItem("page"))
-    );
-  }
 }
 
-function search(type, input, page, pageSize) {
+function search(input, page, pageSize) {
+  window.scrollTo(0, 0);
 
   if (input === "") {
     localStorage.setItem("list", "all");
@@ -309,8 +258,6 @@ function search(type, input, page, pageSize) {
     });
 
 
-
-
 }
 
 export function header() {
@@ -377,6 +324,7 @@ export function header() {
   window.addEventListener("resize", () => {
     if (window.innerWidth > 700) {
       document.querySelector(".nav-control-mobile").style.display = "none";
+      document.querySelector(".search").style.filter = "brightness(100%)";
       document.querySelector("main").style.filter = "brightness(100%)";
       document.querySelector("main").style.pointerEvents = "auto";
     }
@@ -387,10 +335,12 @@ export function header() {
       document.querySelector(".nav-control-mobile").style.display === "block"
     ) {
       document.querySelector(".nav-control-mobile").style.display = "none";
+      document.querySelector(".search").style.filter = "brightness(100%)";
       document.querySelector("main").style.filter = "brightness(100%)";
       document.querySelector("main").style.pointerEvents = "auto";
     } else {
       document.querySelector(".nav-control-mobile").style.display = "block";
+      document.querySelector(".search").style.filter = "brightness(40%)";
       document.querySelector("main").style.filter = "brightness(40%)";
       document.querySelector("main").style.pointerEvents = "none";
     }
@@ -400,6 +350,7 @@ export function header() {
     .querySelector(".leaderboard-mobile")
     .addEventListener("click", () => {
       document.querySelector(".nav-control-mobile").style.display = "none";
+      document.querySelector(".search").style.filter = "brightness(100%)";
       document.querySelector("main").style.filter = "brightness(100%)";
       document.querySelector("main").style.pointerEvents = "auto";
       transition();
@@ -410,6 +361,7 @@ export function header() {
 
   document.querySelector(".create-mobile").addEventListener("click", () => {
     document.querySelector(".nav-control-mobile").style.display = "none";
+    document.querySelector(".search").style.filter = "brightness(100%)";
     document.querySelector("main").style.filter = "brightness(100%)";
     document.querySelector("main").style.pointerEvents = "auto";
     transition();
@@ -420,6 +372,7 @@ export function header() {
 
   document.querySelector(".panel-mobile").addEventListener("click", () => {
     document.querySelector(".nav-control-mobile").style.display = "none";
+    document.querySelector(".search").style.filter = "brightness(100%)";
     document.querySelector("main").style.filter = "brightness(100%)";
     document.querySelector("main").style.pointerEvents = "auto";
     transition();
@@ -433,6 +386,7 @@ export function header() {
     .addEventListener("click", () => {
       document.querySelector(".nav-control-mobile").style.display = "none";
       document.querySelector("main").style.filter = "brightness(100%)";
+      document.querySelector(".search").style.filter = "brightness(100%)";
       document.querySelector("main").style.pointerEvents = "auto";
       document.querySelector(".burger-button").style.opacity = "0";
       document.querySelector(".burger-button").style.pointerEvents = "none";

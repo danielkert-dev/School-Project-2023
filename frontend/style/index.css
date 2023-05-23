@@ -153,11 +153,12 @@ a:visited {
 .search {
     width: 100vw;
     height: 11rem;
-    margin-top: 5rem;
+    margin-top: 3rem;
 
     display: flex;
     flex-direction: column;
     align-items: center;
+
 }
 
 .search > * {
@@ -169,15 +170,8 @@ a:visited {
 .search > *:first-child {
     width: 30rem;
     max-width: 80vw;
-    margin-top: 1.5rem;
+    margin-top: 2rem;
     margin-bottom: .5rem;
-    height: auto;
-}
-
-.search > *:last-child {
-    width: 30rem;
-    max-width: 80vw;
-    margin-top: 0.2rem;
     height: auto;
 }
 
@@ -286,19 +280,74 @@ footer {
 
 }
 
-.quiz-list-type {
-    width: 15rem;
-    text-align-last:left;
+.popular-page {
+    width: 100vw;
+    height: 28rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--first-color);
+    
 }
 
-.quiz-list-type > * {
-    margin: 0;
-    width: 100%;
+.popular-page > h1 {
     text-align: center;
+    width: 100vw;
+    margin: 2rem;
+    
 }
+
+.popular-quiz {
+    width: 100vw;
+
+    overflow-x: scroll;
+    overflow-y: hidden;
+
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    gap: .5rem;
+    
+}
+
+.popular-quiz > * {
+    left: 0;
+    scroll-snap-align: center;
+    margin-bottom: 5rem;
+}
+
+.popular-quiz > *:first-child {
+    margin-left: 2.5rem;
+}
+
+.popular-quiz > *:last-child {
+    margin-right: 2.5rem;
+}
+
+
+.popular-quiz::-webkit-scrollbar {
+    background: var(--first-color); 
+    height: .8rem;
+  }
+
+.popular-quiz::-webkit-scrollbar-track {
+    background: var(--first-color); 
+  }
+
+.popular-quiz::-webkit-scrollbar-thumb {
+    border-radius: .1rem;
+    background: var(--third-color); 
+  }
+
+.popular-quiz::-webkit-scrollbar-thumb:hover {
+    background: var(--fourth-color); 
+  }
+
 
 .quiz-controller {
     width: 100%;
+    margin: 1rem;
 
     display: flex;
     flex-direction: row;
@@ -306,6 +355,7 @@ footer {
     justify-content: center;
     text-align: center;
     gap: 1rem;
+
 }
 
 .quiz-controller > *{

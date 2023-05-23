@@ -1,9 +1,10 @@
 import { questionPage } from "../question/question.js";
 import { transition } from "../index.js";
+import { authPage } from "../auth/auth.js";
 
 async function quizPagePopular(page, pageSize) {
   window.scrollTo(0, 0);
-  fetch(`${window.API}/quiz/SearchAll/${page}/${pageSize}`, { // Change the to popular endpoint
+  fetch(`${window.API}/quiz/SearchByAmount/${page}/${pageSize}`, { // Change the to popular endpoint
     method: "GET",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -19,8 +20,10 @@ async function quizPagePopular(page, pageSize) {
     .then((data) => {
       console.log(data);
       let quizID = [];
-      document.querySelector("main").innerHTML = `
-            <div class="quiz-container"></div>
+      document.querySelector(".popular-page").innerHTML = `
+      <h1>Popular Quizzes</h1>
+            <div class="popular-quiz">
+            </div>
             `;
 
       for (let i = 0; i < data.data.length; i++) {
@@ -29,8 +32,9 @@ async function quizPagePopular(page, pageSize) {
           continue;
         } 
 
-        document.querySelector(".quiz-container").innerHTML += `
-            <div class="quiz-box" id="quiz-box-${i}">
+        document.querySelector(".popular-quiz").innerHTML += `
+            <div class="quiz-box" id="quiz-box-popular-${i}">
+            <h2>Rank ${i + 1}</h2>
             <p>${data.data[i].title}</p>
             <img class="quiz-image" id="quiz-image-${i}" src="${data.data[i].image}">
             <p class="quiz-under-text">Played : ${data.data[i].amount_done}</p>
@@ -46,7 +50,7 @@ async function quizPagePopular(page, pageSize) {
 
       setTimeout(() => {
         for (let i = 0; i < quizID.length; i++) {
-          document.querySelector(`#quiz-box-${i}`).addEventListener("click", () => {
+          document.querySelector(`#quiz-box-popular-${i}`).addEventListener("click", () => {
               transition();
               localStorage.setItem("quizID", quizID[i].quiz_ID);
               localStorage.setItem("question", 1);
@@ -58,31 +62,10 @@ async function quizPagePopular(page, pageSize) {
         }
       }, 200);
 
-      setTimeout(() => {
-        for (let i = 0; i < 20 - data.data.length; i++) {
-          document.querySelector(".quiz-container").innerHTML += `
-                <div class="quiz-box-empty">
-                Quiz
-                </div>
-                `;
-        }
-      }, 100);
+   
     })
     .catch((error) => {
-      document.querySelector("main").innerHTML = ``;
-      console.log(error);
-      document.querySelector("main").innerHTML += `
-            <div class="quiz-container"></div>
-            `;
-      for (let i = 0; i < 20; i++) {
-        document.querySelector(".quiz-container").innerHTML += `
-            <div class="quiz-box-empty">
-            Quiz
-            </div>
-            `;
-        document.querySelector(".page-number").value =
-          parseInt(localStorage.getItem("page")) + 1;
-      }
+      authPage();
     });
 }
 

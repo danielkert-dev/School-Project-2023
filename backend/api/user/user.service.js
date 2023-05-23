@@ -74,7 +74,13 @@ module.exports = {
 
   userDelete: (input, callBack) => {
     pool.query(
-      "UPDATE user SET disabled = 1 WHERE id = ?",
+      `UPDATE user 
+      SET disabled = 1, 
+        password = rand(),
+          username = CONCAT('Anon.', FLOOR(RAND() * 1000000)), 
+          email = 'Anonymous'
+      WHERE id = ?;
+      `,
       [input.id],
       (error, results) => {
         if (error) {

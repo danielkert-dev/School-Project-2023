@@ -1,6 +1,7 @@
 const {
   quizSearchAll,
   quizSearchById,
+  quizSearchByAmount,
   quizSearch,
   quizAmountAdd,
   questionSearch,
@@ -53,6 +54,23 @@ module.exports = {
       }
       return response200(res, results);
     });
+  },
+
+  quizSearchByAmount: (req, res) => {
+    const page = req.params.page;
+    const pageSize = req.params.pageSize;
+    if (!page || !pageSize) {
+      return error400(res);
+    }
+    quizSearchByAmount(page, pageSize, (error, results) => {
+      if (error) {
+        return error500(res, error);
+      }
+      if (!results || results.length === 0) {
+        return error404(res, results);
+      }
+      return response200(res, results);
+    })
   },
 
   quizSearchByTitle: (req, res) => {
