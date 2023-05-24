@@ -39,7 +39,6 @@ async function quizPagePopular(page, pageSize) {
             <img class="quiz-image" id="quiz-image-${i}" src="${data.data[i].image}">
             <p class="quiz-under-text">Played : ${data.data[i].amount_done}</p>
             <p class="quiz-under-text">By ${data.data[i].username}</p>
-            <span>${data.data[i].description}</span>
             </div>
             `;
         quizID.push(data.data[i]);

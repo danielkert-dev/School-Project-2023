@@ -324,3 +324,69 @@ div[class^="question-update-alert"] {
     flex-direction: column;
     align-items: center;
 }
+
+.admin-page {
+    margin: 0;
+    width: 3rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.admin-search {
+    margin: 0;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+}
+
+.admin-users-list {
+    width: 80%;
+}
+
+.user-control-alert {
+    color: var(--red);
+    font-size: .8rem;
+}
+
+div[class^="user-list-item"] {
+    outline: .2rem solid var(--third-color);
+
+    width: 100%;
+    margin: .5rem;
+    border-radius: .1rem;
+    min-height: 2rem;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.admin-username {
+    font-size: .6rem;
+    width: 30%;
+    text-align: center;
+
+    overflow: hidden;
+}
+
+.admin-email {
+    font-size: .6rem;
+    width: 30%;
+    text-align: center;
+    border-left: solid .1rem var(--third-color);
+}
+
+.user-list-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.user-list-buttons > button {
+    font-size: .6rem;
+    margin: .1rem;
+    background-color: var(--red);
+    outline: 0;
+
+}

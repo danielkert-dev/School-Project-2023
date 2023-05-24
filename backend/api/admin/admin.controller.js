@@ -1,4 +1,4 @@
-const { adminSearchAll, adminDelete } = require("../admin/admin.service");
+const { adminSearchAll, adminSearch ,adminDelete } = require("../admin/admin.service");
 const {
   response200,
   error400,
@@ -22,6 +22,24 @@ module.exports = {
       }
       return response200(res, results);
     });
+  },
+
+  adminSearch: (req, res) => {
+    const input = req.params.input;
+    const page = req.params.page;
+    const pageSize = req.params.pageSize;
+    if (!input || !page || !pageSize) {
+      return error400(res);
+    }
+    adminSearch(input, page, pageSize, (error, results) => {
+      if (error) {
+        return error500(res, error);
+      }
+      if (!results || results.length === 0) {
+        return error404(res, results);
+      }
+      return response200(res, results);
+    })
   },
 
   adminDelete: (req, res) => {

@@ -4,15 +4,12 @@ import { questionPage } from "./question/question.js";
 import { leaderboardPage } from "./leaderboard/leaderboard.js";
 import { createPage } from "./create/quiz.create.js";
 import { panelPage } from "./panel/panel.js";
-
 import { quizPagePopular } from "./quiz/popular.quiz.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   // Initialize the page
   header();
-
   mainPage();
-
   titleClick();
   footer();
   
