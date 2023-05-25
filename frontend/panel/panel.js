@@ -343,6 +343,10 @@ function adminUserSearchAll (page) {
                 }).then((res) => res.json())
                 .then((data) => {
                     console.log(data);
+                    transition();
+                    setTimeout(() => {
+                        location.reload();
+                    }, 200)
                 })
 
             }
@@ -416,6 +420,10 @@ function adminUserSearch (input, page) {
                     }).then((res) => res.json())
                     .then((data) => {
                         console.log(data);
+                        transition();
+                        setTimeout(() => {
+                            location.reload();
+                        }, 200)
                     })
                 }    
 
