@@ -27,7 +27,10 @@ app.get("*", function (req, res) {
   res.redirect("/");
 });
 
-app.listen(process.env.APP_PORT, () => {
-  console.log(`Server is running on http://localhost:${process.env.APP_PORT}`);
+const server =app.listen(process.env.APP_PORT, () => {
+var os = require('os');
+var networkInterfaces = os.networkInterfaces();
+console.log(networkInterfaces);
+  console.log(`Listening `, server.address());
 });
 
