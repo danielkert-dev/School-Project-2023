@@ -1,6 +1,6 @@
 import { mainPage, transition, userID } from "../index.js";
 import { panelPageUpdate } from "./update.panel.js";
-import { authPage } from "../auth/auth.js";
+import { authPage } from "../auth/auth.js"; 
 
 function panelPage(){
     window.scrollTo(0, 0);
@@ -62,10 +62,18 @@ function adminPanel(){
     <div class="admin-users-list">
     </div>
     </div>
+    <div class="all-quizzes">
+    <h3>All Quizzes</h3>
+    <input type="text" placeholder="Page..." class="admin-quiz-page" value="1">
+    <input type="text" placeholder="Search..." class="admin-quiz-search">
+    <div class="admin-quiz-list">
+    </div>
+    </div>
     </div>
     `
 
-    // List all users
+    // List all users and delete
+
     adminUserSearchAll(document.querySelector(".admin-page").value-1);
 
     document.querySelector(".admin-page").addEventListener("keyup", (e) => {
@@ -78,7 +86,20 @@ function adminPanel(){
     })
 
 
-    // List all quizzes
+    // List all quizzes and update or delete
+
+    adminQuizListAll(document.querySelector(".admin-quiz-page").value-1);
+
+    document.querySelector(".admin-quiz-page").addEventListener("keyup", (e) => {
+        adminQuizListAll(document.querySelector(".admin-quiz-page").value-1);
+    })
+
+    document.querySelector(".admin-quiz-search").addEventListener("keyup", (e) => {
+        console.log(document.querySelector(".admin-quiz-search").value);
+        adminQuizList(document.querySelector(".admin-quiz-search").value ,document.querySelector(".admin-quiz-page").value-1);
+    })
+
+
 }
 
 function userPanel(){
@@ -345,7 +366,7 @@ function adminUserSearchAll (page) {
                     console.log(data);
                     transition();
                     setTimeout(() => {
-                        location.reload();
+                        panelPage
                     }, 200)
                 })
 
@@ -422,7 +443,7 @@ function adminUserSearch (input, page) {
                         console.log(data);
                         transition();
                         setTimeout(() => {
-                            location.reload();
+                            panelPage();
                         }, 200)
                     })
                 }    
@@ -430,6 +451,149 @@ function adminUserSearch (input, page) {
             })
         }
     })
+}
+
+function adminQuizListAll (page) {
+
+    fetch(`${window.API}/quiz/SearchAll/${10}/${page}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error("No page found");
+          }
+        })
+        .then((data) => {
+            console.log(data);
+            document.querySelector(".admin-quiz-list").innerHTML = "";
+            for (let i = 0; i < data.data.length; i++) {
+                let quizList = document.querySelector(".admin-quiz-list");
+                let quizListItem = document.createElement("div");
+                quizListItem.classList.add("quiz-list-item-" + i);
+                quizListItem.innerHTML += `
+                <p class="admin-quiz-title">${data.data[i].title}</p>
+                <p class="admin-quiz-username">${data.data[i].username}</p>
+                <div class="admin-quiz-list-buttons">
+                <button class="quiz-update-${i}">Update</button>
+                <button class="quiz-delete-${i}">Delete</button>
+                </div>
+                `
+                quizList.appendChild(quizListItem);
+
+                document.querySelector(`.quiz-update-${i}`).addEventListener("click", () => {
+                    transition();
+                setTimeout(() => {
+                    window.scrollTo(0, 0);
+                    panelPageUpdate(data.data[i]);
+                }, 100)
+                })
+
+                document.querySelector(`.quiz-delete-${i}`).addEventListener("click", () => {
+                    if (confirm("Are you sure you want to delete your account?")){
+
+                        // Fetch delete (Update to anonymous account)
+                        fetch (`${window.API}/user/Delete`, {
+                            method: "DELETE",
+                            headers: {
+                                "Content-Type": "application/json",
+                                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                            },
+                            body: JSON.stringify({
+                                id: data.data[i].quiz_ID,
+                            })
+                        })
+            
+                        transition();
+                        setTimeout(() => {
+                            panelPage();
+                            window.scrollTo(0, 0);
+                        }, 100);
+                    }
+                })
+
+            }
+            })
+}
+
+function adminQuizList (input, page) {
+
+    if (page < 0){
+        page = 0;
+    }
+
+    if (document.querySelector(".admin-quiz-search").value === ""){
+        page = 0;
+        console.log(page);
+        adminQuizListAll(page);
+    }
+
+    fetch(`${window.API}/quiz/Search/${input}/${10}/${page}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            return response.json();
+          } else {
+            throw new Error("Something went wrong");
+          }
+        })
+        .then((data) => {
+
+            document.querySelector(".admin-quiz-list").innerHTML = "";
+            for (let i = 0; i < data.data.length; i++) {
+                let quizList = document.querySelector(".admin-quiz-list");
+                let quizListItem = document.createElement("div");
+                quizListItem.classList.add("quiz-list-item-" + i);
+                quizListItem.innerHTML += `
+                <p class="admin-quiz-title">${data.data[i].title}</p>
+                <p class="admin-quiz-username">${data.data[i].username}</p>
+                <div class="admin-quiz-list-buttons">
+                <button class="quiz-update-${i}">Update</button>
+                <button class="quiz-delete-${i}">Delete</button>
+                </div>
+                `
+                quizList.appendChild(quizListItem);
+
+                document.querySelector(`.quiz-update-${i}`).addEventListener("click", () => {
+                    transition();
+                setTimeout(() => {
+                    window.scrollTo(0, 0);
+                    panelPageUpdate(data.data[i]);
+                }, 100)
+                })
+
+                document.querySelector(`.quiz-delete-${i}`).addEventListener("click", () => {
+                    if (confirm("Are you sure you want to delete your account?")){
+
+                        // Fetch delete (Update to anonymous account)
+                        fetch (`${window.API}/user/Delete`, {
+                            method: "DELETE",
+                            headers: {
+                                "Content-Type": "application/json",
+                                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                            },
+                            body: JSON.stringify({
+                                id: data.data[i].quiz_ID,
+                            })
+                        })
+            
+                        transition();
+                        setTimeout(() => {
+                            panelPage();
+                            window.scrollTo(0, 0);
+                        }, 100);
+                    }
+                })
+            }
+        })
 }
 
 export { panelPage };

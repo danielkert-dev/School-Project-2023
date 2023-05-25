@@ -204,6 +204,9 @@ div[class^="question-update-alert"] {
     
 }
 
+.user-quiz > input {
+    margin: 0rem;}
+
 .user-quiz > h3 {
     margin: 1rem;
 }
@@ -299,20 +302,10 @@ div[class^="question-update-alert"] {
     align-items: center;
 }
 
+.admin-container > input {
+    margin: 0rem;}
+
 .all-users {
-    background-color: var(--first-color);
-    width: 100%;
-    max-width: 35rem;
-    padding: 1rem;
-    margin-top: 3rem;
-    border-radius: .5rem;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.all-quizzes {
     background-color: var(--first-color);
     width: 100%;
     max-width: 35rem;
@@ -343,6 +336,10 @@ div[class^="question-update-alert"] {
     width: 80%;
 }
 
+.admin-users-list:first-child {
+    border: 0;
+}
+
 .user-control-alert {
     color: var(--red);
     font-size: .8rem;
@@ -352,7 +349,7 @@ div[class^="user-list-item"] {
     outline: .2rem solid var(--third-color);
 
     width: 100%;
-    margin: .5rem;
+    margin-top: .5rem;
     border-radius: .1rem;
     min-height: 2rem;
 
@@ -389,4 +386,86 @@ div[class^="user-list-item"] {
     background-color: var(--red);
     outline: 0;
 
+}
+
+
+.all-quizzes {
+    background-color: var(--first-color);
+    width: 100%;
+    max-width: 35rem;
+    padding: 1rem;
+    margin-top: 3rem;
+    border-radius: .5rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.admin-quiz-page {
+    margin: 0;
+    width: 3rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.admin-quiz-search {
+    margin: 0;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+}
+
+.admin-quiz-list {
+    width: 80%;
+}
+
+div[class^="quiz-list-item"] {
+    outline: .2rem solid var(--third-color);
+
+    width: 100%;
+    margin-bottom: .5rem;
+    border-radius: .1rem;
+    min-height: 2rem;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.admin-quiz-list-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.admin-quiz-list-buttons > button:last-child {
+    font-size: .6rem;
+    margin: .1rem;
+    background-color: var(--red);
+    outline: 0;
+
+}
+
+.admin-quiz-list-buttons > button:first-child {
+    font-size: .6rem;
+    margin: .1rem;
+    background-color: var(--blue);
+    outline: 0;
+
+}
+
+.admin-quiz-title {
+    font-size: .6rem;
+    width: 30%;
+    text-align: center;
+
+    overflow: hidden;
+}
+
+.admin-quiz-username {
+    font-size: .6rem;
+    width: 30%;
+    text-align: center;
+    border-left: solid .1rem var(--third-color);
 }

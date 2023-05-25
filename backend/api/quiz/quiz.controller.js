@@ -85,7 +85,7 @@ module.exports = {
       if (!results || results.length === 0) {
         return error404(res, results);
       }
-      return response200(res, results);
+      return response200(res, results); 
     });
   },
 
