@@ -466,7 +466,7 @@ function colorMode() {
     root.style.setProperty('--green', '#5ED3A3');
     root.style.setProperty('--yellow', '#F7A131');
     root.style.setProperty('--red', '#F13D3E');
-
+ 
   } else {
     localStorage.setItem("theme", "light");
     root.style.setProperty('--first-color', '#F0F3F8');

@@ -4,6 +4,7 @@ const app = express(); // create express app
 const cors = require("cors"); // import cors
 const path = require("path"); // import path
 
+
 app.use(express.json()); // Middleware parse
 app.use(cors()); // Middleware cors
 
