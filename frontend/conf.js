@@ -1,1 +1,1 @@
-window.API = "https://nodejs-production-cffc.up.railway.app/";
+window.API = "https://guessrightapi-production.up.railway.app";
