@@ -12,11 +12,11 @@ document.addEventListener("DOMContentLoaded", () => {
   mainPage();
   titleClick();
   footer();
-  
 
 });
 
 export function mainPage() {
+  userID();
   window.scrollTo(0, 0);
   localStorage.setItem("authPage", "main");
   // Main page
@@ -421,10 +421,10 @@ function logout() {
 export function transition() {
   document.querySelector("main").style.opacity = "0";
   document.querySelector("body").style.pointerEvents = "none";
-  setTimeout(() => {
-    document.querySelector("main").style.opacity = "1";
-    document.querySelector("body").style.pointerEvents = "auto";
-  }, 400);
+    setTimeout(() => {
+      document.querySelector("main").style.opacity = "1";
+      document.querySelector("body").style.pointerEvents = "auto";
+    }, 800);
 }
 
 export function userID() {

@@ -106,12 +106,16 @@ function createPage() {
     }
 
     quizAdd();
-    transition();
+    document.querySelector("body").style.opacity = "0";
     setTimeout(() => {
-      document.querySelector("header").style.display = "flex";
-      document.querySelector("footer").style.display = "flex";
-      mainPage();
-    }, 100);
+      transition();
+      document.querySelector("body").style.opacity = "1";
+      setTimeout(() => {
+        document.querySelector("header").style.display = "flex";
+        document.querySelector("footer").style.display = "flex";
+        mainPage();
+      },100)
+    }, 2000);
     });
 
 
@@ -213,7 +217,6 @@ function questionBoxAdd() {
   });
 
   imagePreview.onerror = () => {
-    console.log("Error");
     imagePreview.style.display = "none";
   };
   
@@ -266,7 +269,7 @@ function questionBoxRemove() {
 }*/
 
 
-function quizAdd() {
+async function quizAdd() {
     // All the inputs for the quiz : title, description, user_ID, image
     let title = document.querySelector(".create-form-quiz-title").value;
     let description = document.querySelector(".create-form-quiz-description").value;
@@ -276,7 +279,7 @@ function quizAdd() {
     console.log("Quiz_Title: '" +title+ "' Quiz_Description: '"+ description + "' User_ID: '"+ user_ID + "' Image: '"+ image + "'");
 
     // Fetch quiz post
-    fetch(`${window.API}/quiz/Create`, {
+    await fetch(`${window.API}/quiz/Create`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -294,7 +297,7 @@ function quizAdd() {
         console.log(data);
 
     // All the inputs from questions : quiz_ID, question, image, question_num, description, choice, correct_answer, last
-    
+
     setTimeout(() => {
         fetch(`${window.API}/quiz/SearchByTitle/${title}`, {
             method: "GET",
@@ -305,11 +308,15 @@ function quizAdd() {
         .then((response) => {
             return response.json();
         })
-        .then((data) => {
+        .then(async (data) => {
             console.log(data);
+            let quiz_ID = data.data[0].ID;
+            
     for (let i = 1; i <= localStorage.getItem("createQuestion"); i++) {
-    
-    let quiz_ID = data.data[0].ID;
+
+    console.log(i);
+
+
     let question = document.querySelector(`.question-title-${i}`).value;
     let image = document.querySelector(`.question-image-${i}`).value;
     let question_num = i;
@@ -370,8 +377,7 @@ function quizAdd() {
     }
     });
 
-}, 100)
-
+  }, 1000)
 })
 
 }

@@ -353,7 +353,7 @@ function adminUserSearchAll (page) {
 
             if (confirm("Are you sure you want to delete this user?")){
                 
-                fetch(`${window.API}/admin/Delete`, {
+                fetch(`${window.API}/user/Delete`, {
                     method: "DELETE",
                     headers: {
                         "Content-Type": "application/json",
@@ -430,7 +430,7 @@ function adminUserSearch (input, page) {
 
                 if (confirm("Are you sure you want to delete this user?")){
                 
-                    fetch(`${window.API}/admin/Delete`, {
+                    fetch(`${window.API}/user/Delete`, {
                         method: "DELETE",
                         headers: {
                             "Content-Type": "application/json",
@@ -497,7 +497,7 @@ function adminQuizListAll (page) {
                     if (confirm("Are you sure you want to delete your account?")){
 
                         // Fetch delete (Update to anonymous account)
-                        fetch (`${window.API}/user/Delete`, {
+                        fetch (`${window.API}/quiz/Delete`, {
                             method: "DELETE",
                             headers: {
                                 "Content-Type": "application/json",
@@ -574,7 +574,7 @@ function adminQuizList (input, page) {
                     if (confirm("Are you sure you want to delete your account?")){
 
                         // Fetch delete (Update to anonymous account)
-                        fetch (`${window.API}/user/Delete`, {
+                        fetch (`${window.API}/quiz/Delete`, {
                             method: "DELETE",
                             headers: {
                                 "Content-Type": "application/json",
