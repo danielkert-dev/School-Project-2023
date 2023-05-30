@@ -23,7 +23,7 @@ const {
 } = require("../../conf/response");
 
 module.exports = {
-  quizSearchAll: (req, res) => {
+  quizSearchAll: (req, res) => { // Search all quizzes
     const page = req.params.page;
     const pageSize = req.params.pageSize;
     if (!page || !pageSize) {
@@ -40,7 +40,7 @@ module.exports = {
     });
   },
 
-  quizSearchById: (req, res) => {
+  quizSearchById: (req, res) => { // Search quiz by id
     const id = req.params.id;
     if (!id) {
       return error400(res);
@@ -56,7 +56,7 @@ module.exports = {
     });
   },
 
-  quizSearchByAmount: (req, res) => {
+  quizSearchByAmount: (req, res) => { // Search quiz by amount
     const page = req.params.page;
     const pageSize = req.params.pageSize;
     if (!page || !pageSize) {
@@ -73,7 +73,7 @@ module.exports = {
     })
   },
 
-  quizSearchByTitle: (req, res) => {
+  quizSearchByTitle: (req, res) => { // Search quiz by title
     const title = req.params.title;
     if (!title) {
       return error400(res);
@@ -90,7 +90,7 @@ module.exports = {
   },
 
 
-  quizSearch: (req, res) => {
+  quizSearch: (req, res) => { // Search quiz by input
     const input = req.params.input;
     const page = req.params.page;
     const pageSize = req.params.pageSize;
@@ -108,7 +108,7 @@ module.exports = {
     });
   },
 
-  quizAmountAdd: (req, res) => {
+  quizAmountAdd: (req, res) => { // Add amount played on quiz
     const input = req.body;
     if (!input) {
       return error400(res);
@@ -124,7 +124,7 @@ module.exports = {
     });
   },
 
-  questionSearch: (req, res) => {
+questionSearch: (req, res) => { // Search question by quiz id and question number
     const quiz_id = req.params.quiz_id;
     const question_num = req.params.question_num;
 
@@ -142,7 +142,7 @@ module.exports = {
     });
   },
 
-  questionAmountByQuizID: (req, res) => {
+  questionAmountByQuizID: (req, res) => { // Get amount of questions by quiz id
     const quiz_id = req.params.quiz_id;
     if (!quiz_id) {
       return error400(res);
@@ -158,7 +158,7 @@ module.exports = {
     })
   },
 
-  leaderboardSearchAll: (req, res) => {
+  leaderboardSearchAll: (req, res) => { // Search leaderboard by page
     const page = req.params.page;
     const pageSize = req.params.pageSize;
     if (!page || !pageSize) {
@@ -175,7 +175,7 @@ module.exports = {
     });
   },
 
-  quizCreate: (req, res) => {
+  quizCreate: (req, res) => { // Create new quiz
     const body = req.body;
     if (!body) {
       return error400(res);
@@ -191,7 +191,7 @@ module.exports = {
     })
   },
 
-  questionCreate: (req, res) => {
+  questionCreate: (req, res) => { // Create new question
     const body = req.body;
     if (!body) {
       return error400(res);
@@ -207,7 +207,7 @@ module.exports = {
     })
   },
 
-  quizUpdate: (req, res) => {
+  quizUpdate: (req, res) => { // Update quiz
     const body = req.body;
     if (!body) {
       return error400(res);
@@ -223,7 +223,7 @@ module.exports = {
     })
   },
 
-  quizAmountDone: (req, res) => {
+  quizAmountDone: (req, res) => { // Update amount played
     const body = req.body;
     if (!body) {
       return error400(res);
@@ -239,7 +239,7 @@ module.exports = {
     })
   },
 
-  questionUpdate: (req, res) => {
+  questionUpdate: (req, res) => { // Update question
     const body = req.body;
     if (!body) {
       return error400(res);
@@ -255,7 +255,7 @@ module.exports = {
     })
   },
 
-  quizDelete: (req, res) => {
+  quizDelete: (req, res) => { // Delete quiz
     const body = req.body;
     if (!body) {
       return error400(res);

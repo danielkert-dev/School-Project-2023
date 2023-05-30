@@ -1,7 +1,8 @@
 import { mainPage, transition } from "../index.js";
 
-async function resultPage() {
+async function resultPage() { // Result page after questions
     window.scrollTo(0, 0);
+    // Fill the page
     document.querySelector(".search").innerHTML = ``;
     document.querySelector("main").innerHTML = `
         <div class="result-container">
@@ -28,7 +29,7 @@ async function resultPage() {
 
     for (let i = 0; i < localStorage.getItem("question")-1; i++) {
    
-    await fetch(`${window.API}/quiz/QuestionSearch/${localStorage.getItem("quizID")}/${i+1}`, {
+    await fetch(`${window.API}/quiz/QuestionSearch/${localStorage.getItem("quizID")}/${i+1}`, { // Get the question in API
         method: "GET",
         headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -43,6 +44,7 @@ async function resultPage() {
         })
         .then((data) => {
 
+            // List the choices that were correct
             let correctAnswers = localStorage.getItem("correct").split(";");
             correctAnswers = correctAnswers.map(Number);
 
@@ -88,7 +90,7 @@ async function resultPage() {
     localStorage.setItem("correct", "");
 }
 
-function quizAddAmountDone() {
+function quizAddAmountDone() { // Add the amount played
 
     let quizID = parseInt(localStorage.getItem("quizID"));
     console.log(quizID);

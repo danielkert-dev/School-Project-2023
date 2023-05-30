@@ -1,9 +1,9 @@
 import { questionPage } from "../question/question.js";
 import { transition } from "../index.js";
 
-async function quizPage(page, pageSize) {
+async function quizPage(page, pageSize) { // List all quizzes
   window.scrollTo(0, 0);
-  fetch(`${window.API}/quiz/SearchAll/${page}/${pageSize}`, {
+  fetch(`${window.API}/quiz/SearchAll/${page}/${pageSize}`, { // Get all quizzes in API
     method: "GET",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -18,7 +18,7 @@ async function quizPage(page, pageSize) {
     })
     .then((data) => {
       console.log(data);
-      let quizID = [];
+      let quizID = []; // Fill the page
       document.querySelector("main").innerHTML = `
             <div class="quiz-container">
             </div>
@@ -26,10 +26,10 @@ async function quizPage(page, pageSize) {
 
       for (let i = 0; i < data.data.length; i++) {
 
-        if (data.data[i].disabled === 1) {
+        if (data.data[i].disabled === 1) { // If the quiz is disabled then don't show
           continue;
         } 
-
+        // Fill the page
         document.querySelector(".quiz-container").innerHTML += `
             <div class="quiz-box" id="quiz-box-${i}">
             <p>${data.data[i].title}</p>
@@ -46,7 +46,7 @@ async function quizPage(page, pageSize) {
       }
 
       setTimeout(() => {
-        for (let i = 0; i < quizID.length; i++) {
+        for (let i = 0; i < quizID.length; i++) { // Add event listeners to go to quiz
           document.querySelector(`#quiz-box-${i}`).addEventListener("click", () => {
               transition();
               localStorage.setItem("quizID", quizID[i].quiz_ID);
@@ -60,7 +60,7 @@ async function quizPage(page, pageSize) {
       }, 200);
 
       setTimeout(() => {
-        for (let i = 0; i < 20 - data.data.length; i++) {
+        for (let i = 0; i < 20 - data.data.length; i++) { // Add empty quizzes
           document.querySelector(".quiz-container").innerHTML += `
                 <div class="quiz-box-empty">
                 Quiz

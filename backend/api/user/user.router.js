@@ -10,6 +10,7 @@ const {
 const { checkToken } = require("../../auth/bearer.token.auth"); // Works
 const router = require("express").Router();
 
+// Comments in controller but these are routers that go to app.
 router.get("/SearchByUsername/:input", checkToken, userSearchByUsername); // Works
 router.get("/SearchById/:id", checkToken, userSearchById); // Works
 router.post("/Create", userCreate); // Request body, Works

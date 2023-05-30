@@ -2,9 +2,9 @@ import { questionPage } from "../question/question.js";
 import { transition } from "../index.js";
 import { authPage } from "../auth/auth.js";
 
-async function quizPagePopular(page, pageSize) {
+async function quizPagePopular(page, pageSize) { // List all popular quizzes
   window.scrollTo(0, 0);
-  fetch(`${window.API}/quiz/SearchByAmount/${page}/${pageSize}`, { // Change the to popular endpoint
+  fetch(`${window.API}/quiz/SearchByAmount/${page}/${pageSize}`, { // Get all popular quizzes in API (By played amount)
     method: "GET",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -19,7 +19,7 @@ async function quizPagePopular(page, pageSize) {
     })
     .then((data) => {
       console.log(data);
-      let quizID = [];
+      let quizID = []; // Fille the page
       document.querySelector(".popular-page").innerHTML = `
       <h1>Popular Quizzes</h1>
             <div class="popular-quiz">
@@ -31,7 +31,7 @@ async function quizPagePopular(page, pageSize) {
         if (data.data[i].disabled === 1) {
           continue;
         } 
-
+        // Load all the popular quizzes
         document.querySelector(".popular-quiz").innerHTML += `
             <div class="quiz-box" id="quiz-box-popular-${i}">
             <h2>Rank ${i + 1}</h2>
@@ -48,7 +48,7 @@ async function quizPagePopular(page, pageSize) {
       }
 
       setTimeout(() => {
-        for (let i = 0; i < quizID.length; i++) {
+        for (let i = 0; i < quizID.length; i++) { // Add event listeners to go to quiz
           document.querySelector(`#quiz-box-popular-${i}`).addEventListener("click", () => {
               transition();
               localStorage.setItem("quizID", quizID[i].quiz_ID);

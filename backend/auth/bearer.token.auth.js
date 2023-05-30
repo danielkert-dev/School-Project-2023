@@ -1,7 +1,7 @@
 const { verify } = require("jsonwebtoken");
 
 module.exports = {
-  checkToken: (req, res, next) => {
+  checkToken: (req, res, next) => { // Checks token and verifies it if valid
     let token = req.headers.authorization;
     if (token) {
       token = token.slice(7);

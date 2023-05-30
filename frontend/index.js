@@ -177,7 +177,7 @@ function search(input, page, pageSize) {
 
   console.log(input);
 
-  fetch(`${window.API}/quiz/Search/${input}/${page}/${pageSize}`, {
+  fetch(`${window.API}/quiz/Search/${input}/${page}/${pageSize}`, { // Search quiz in API
     method: "GET",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -197,7 +197,7 @@ function search(input, page, pageSize) {
             <div class="quiz-container"></div>
             `;
 
-      for (let i = 0; i < data.data.length; i++) {
+      for (let i = 0; i < data.data.length; i++) { // Create the quiz boxes
         document.querySelector(".quiz-container").innerHTML += `
             <div class="quiz-box" id="quiz-box-${i}">
             <p>${data.data[i].title}</p>
@@ -214,7 +214,7 @@ function search(input, page, pageSize) {
       }
 
       setTimeout(() => {
-        for (let i = 0; i < quizID.length; i++) {
+        for (let i = 0; i < quizID.length; i++) { // Quiz box add event listener to go to the quiz
           document
             .querySelector(`#quiz-box-${i}`)
             .addEventListener("click", () => {
@@ -230,7 +230,7 @@ function search(input, page, pageSize) {
       }, 200);
 
       setTimeout(() => {
-        for (let i = 0; i < 20 - data.data.length; i++) {
+        for (let i = 0; i < 20 - data.data.length; i++) { // If less then 20 and empty then add empty quiz
           document.querySelector(".quiz-container").innerHTML += `
                 <div class="quiz-box-empty">
                 Quiz
@@ -239,7 +239,7 @@ function search(input, page, pageSize) {
         }
       }, 100);
     })
-    .catch((error) => {
+    .catch((error) => { // Catch error
       document.querySelector("main").innerHTML += `
             <div class="quiz-container"></div>
             `;
@@ -257,7 +257,7 @@ function search(input, page, pageSize) {
 
 }
 
-export function header() {
+export function header() { // Set header
   document.querySelector("header").innerHTML = `
     <h1 class="title">GUESS RIGHT</h1>
 
@@ -284,7 +284,7 @@ export function header() {
     </div>
     `;
 
-    initTheme();
+    initTheme(); // Theme of the header
   document.querySelector(".color-mode").addEventListener("click", () => {
     transition();
     setTimeout(() => {
@@ -317,6 +317,7 @@ export function header() {
     authPage()});
 
 
+    // If page less than 700
 
   window.addEventListener("resize", () => {
     if (window.innerWidth > 700) {
@@ -327,6 +328,7 @@ export function header() {
     }
   });
 
+  // Burger button for mobile nav 
   document.querySelector(".burger-button").addEventListener("click", () => {
     if (
       document.querySelector(".nav-control-mobile").style.display === "block"
@@ -343,6 +345,7 @@ export function header() {
     }
   });
 
+  // All the mobile buttons
   document
     .querySelector(".leaderboard-mobile")
     .addEventListener("click", () => {
@@ -391,7 +394,7 @@ export function header() {
     });
 }
 
-function footer() {
+function footer() { // Footer
     document.querySelector("footer").innerHTML = `
     © ${new Date().getFullYear()} - Daniel Kertsmik - &nbsp;<div class="footer-links">
     <a href="./static/policy.html">Privacy Policy</a>
@@ -400,7 +403,7 @@ function footer() {
 
 }
 
-export function titleClick() {
+export function titleClick() { // If you click the title
   document.querySelector(".title").addEventListener("click", () => {
     transition();
     setTimeout(() => {
@@ -409,7 +412,7 @@ export function titleClick() {
   });
 }
 
-function logout() {
+function logout() { // Logout to clear local storage
   setTimeout(() => {
     let theme = localStorage.getItem("theme");
     localStorage.clear();
@@ -418,7 +421,7 @@ function logout() {
   }, 100);
 }
 
-export function transition() {
+export function transition() { // Transition from one page to another
   document.querySelector("main").style.opacity = "0";
   document.querySelector("body").style.pointerEvents = "none";
     setTimeout(() => {
@@ -427,7 +430,7 @@ export function transition() {
     }, 800);
 }
 
-export function userID() {
+export function userID() { // Get user ID and email and type
   let username = localStorage.getItem("username");
   fetch(`${window.API}/user/SearchByUsername/${username}`, {
     method: "GET",
@@ -448,7 +451,7 @@ export function userID() {
 }
 
 
-function colorMode() {
+function colorMode() { // Change color mode, light, dark
   var root = document.querySelector(":root");
 
   if (localStorage.getItem("theme") === "light") {
@@ -487,7 +490,7 @@ function colorMode() {
 
 }
 
-function initTheme() {
+function initTheme() { // Initialize theme
   var root = document.querySelector(":root");
 
 

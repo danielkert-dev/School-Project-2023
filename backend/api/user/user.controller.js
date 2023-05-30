@@ -19,7 +19,7 @@ const { sign, verify } = require("jsonwebtoken");
 
 
 module.exports = {
-  userSearchByUsername: (req, res) => {
+  userSearchByUsername: (req, res) => { // Search user by username
     const input = req.params.input;
     if (!input) {
       return error400(res);
@@ -34,7 +34,7 @@ module.exports = {
       return response200(res, results);
     });
   },
-  userSearchById: (req, res) => {
+  userSearchById: (req, res) => { // Search user by id
     const id = req.params.id;
     if (!id) {
       return error400(res);
@@ -50,7 +50,7 @@ module.exports = {
     });
   },
 
-  userCreate: (req, res) => {
+  userCreate: (req, res) => { // Create user
     const body = req.body;
     try {
       const salt = genSaltSync(10);
@@ -72,7 +72,7 @@ module.exports = {
     });
   },
 
-  userAuth: (req, res) => {
+  userAuth: (req, res) => { // Authenticate user
     const body = req.body;
     if (!body.username || !body.password) {
       // Validate input
@@ -110,7 +110,7 @@ module.exports = {
     });
   },
 
-  userUpdate: (req, res) => {
+  userUpdate: (req, res) => { // Update user
     const body = req.body;
     try {
       const salt = genSaltSync(10);
@@ -132,7 +132,7 @@ module.exports = {
     });
   },
 
-  userDelete: (req, res) => {
+  userDelete: (req, res) => { // Delete user
     const body = req.body;
     if (!body.id) {
       return error400(res);
@@ -148,7 +148,7 @@ module.exports = {
     });
   },
 
-  userPointsAdd: (req, res) => {
+  userPointsAdd: (req, res) => { // Add points to user
     const input = req.body;
     if (!input) {
       return error400(res);

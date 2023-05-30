@@ -1,11 +1,12 @@
 import { mainPage } from "../index.js";
 
 function authPage() {
-  window.scrollTo(0, 0);
-  localStorage.setItem("authPage", "auth");
+  window.scrollTo(0, 0); // Scroll to top of page
+  localStorage.setItem("authPage", "auth"); // Set authPage to auth
 
-  document.querySelector(".search").innerHTML = "";
+  document.querySelector(".search").innerHTML = ""; // Clear search
 
+  // Set styling
   document.querySelector(".burger-button").style.opacity = "0";
   document.querySelector(".burger-button").style.pointerEvents = "none";
   document.querySelector(".leaderboard").style.opacity = "0";
@@ -18,6 +19,7 @@ function authPage() {
   document.querySelector("h1").style.pointerEvents = "none";
 
 
+  // Fill the auth page
   document.querySelector("main").innerHTML = `
       <div class="login-signup-container">
         <div class="login">
@@ -39,6 +41,7 @@ function authPage() {
       </div>
     `;
 
+    // Add event listeners for log-in and sign-up
   document.querySelector(".login-button").addEventListener("click", () => {
     const loginUsername = document.querySelector(".login-username").value;
     const loginPassword = document.querySelector(".login-password").value;
@@ -52,13 +55,13 @@ function authPage() {
     signup(signupUsername, signupPassword, signupEmail);
   });
 }
-function login(username, password) {
-  if (username === "" || password === "") {
+function login(username, password) { // Login function
+  if (username === "" || password === "") { // If username or password is empty
     return (document.querySelector(".login-response").innerHTML =
       "All fields are required");
   }
 
-  fetch(`${window.API}/user/Auth`, {
+  fetch(`${window.API}/user/Auth`, { // Authenticate user with username and password in API
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -79,39 +82,39 @@ function login(username, password) {
     })
     .then((data) => {
       console.log(data);
-      let token = data.token;
-      localStorage.setItem("token", token);
-      localStorage.setItem("username", username);
-      localStorage.setItem("password", password);
-      localStorage.setItem("list", "all");
+      let token = data.token; // Get token from response
+      localStorage.setItem("token", token); // Store token
+      localStorage.setItem("username", username); // Store username
+      localStorage.setItem("password", password); // Store password
+      localStorage.setItem("list", "all"); // Default values
       localStorage.setItem("correct", "");
       localStorage.setItem("correctAnswer", "");
 
-      mainPage();
+      mainPage(); // To main page
     });
 }
-function signup(username, password, email) {
+function signup(username, password, email) { // Signup function
   if (username === "" || password === "" || email === "") {
     return (document.querySelector(".signup-response").innerHTML =
       "All fields are required");
   }
 
-  if (username.length < 4) {
+  if (username.length < 4) { // If username is less than 4
     return (document.querySelector(".signup-response").innerHTML =
       "Username must be at least 4 characters long");
   }
 
-  if (password.length < 8) {
+  if (password.length < 8) { // If password is less than 8
     return (document.querySelector(".signup-response").innerHTML =
       "Password must be at least 8 characters long");
   }
 
-  if (!email.includes("@") || !email.includes(".")) {
+  if (!email.includes("@") || !email.includes(".")) { // If email is invalid
     return (document.querySelector(".signup-response").innerHTML =
       "Invalid email");
   }
 
-  fetch(`${window.API}/user/Create`, {
+  fetch(`${window.API}/user/Create`, { // Create user with username and password and email in API
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -126,14 +129,14 @@ function signup(username, password, email) {
       if (response.ok) {
         return response.json();
       } else {
-        document.querySelector(".signup-response").innerHTML =
+        document.querySelector(".signup-response").innerHTML = // If user already exists
           "User already exists";
         throw new Error("Wrong username or password"); // Important
       }
     })
     .then((data) => {
       console.log(data);
-      fetch(`${window.API}/user/Auth`, {
+      fetch(`${window.API}/user/Auth`, { // Authenticate user with username and password in API
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -147,20 +150,20 @@ function signup(username, password, email) {
           if (response.ok) {
             return response.json();
           } else {
-            document.querySelector(".login-response").innerHTML =
+            document.querySelector(".login-response").innerHTML = // If user already exists
               "Wrong username or password";
             throw new Error("Wrong username or password"); // Important
           }
-        })
+        }) 
         .then((data) => {
           console.log(data);
-          let token = data.token;
-          localStorage.setItem("token", token);
-          localStorage.setItem("username", username);
-          localStorage.setItem("password", password);
-          localStorage.setItem("list", "all");
+          let token = data.token; // Get token from response
+          localStorage.setItem("token", token); // Store token
+          localStorage.setItem("username", username); // Store username
+          localStorage.setItem("password", password); // Store password
+          localStorage.setItem("list", "all"); // Default values
 
-          mainPage();
+          mainPage(); // To main page
         });
     });
 }

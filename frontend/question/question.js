@@ -6,6 +6,7 @@ function questionPage(quiz) {
   window.scrollTo(0, 0);
   let question = localStorage.getItem("question");
 
+  // Fill the page
   document.querySelector(".search").innerHTML = ``;
   document.querySelector("main").innerHTML = `
     <div class="question-container">
@@ -15,7 +16,7 @@ function questionPage(quiz) {
   document.querySelector("header").style.display = "none";
   document.querySelector("footer").style.display = "none";
 
-  fetch(`${window.API}/quiz/QuestionSearch/${quiz.quiz_ID}/${question}`, {
+  fetch(`${window.API}/quiz/QuestionSearch/${quiz.quiz_ID}/${question}`, { // Get the question in API
     method: "GET",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -30,7 +31,7 @@ function questionPage(quiz) {
     })
     .then((data) => {
       if (data.data[0].last === 1) {
-        // If last
+        // If last fill the page
         document.querySelector(".question-container").innerHTML = `
         <div class="question-box">
         <div class="question-controls">
@@ -56,6 +57,7 @@ function questionPage(quiz) {
           mainPage();
         });
 
+        // List the choices and then make them buttons
         let choicesList = [];
 
         let choices = data.data[0].choice.split(";");
@@ -69,6 +71,7 @@ function questionPage(quiz) {
         setTimeout(() => {
           for (let i = 0; i < choicesList.length; i++) {
             
+            // Make the button reactive and if it is the correct answer make it green else make it red
             
             let answer = data.data[0].correct_answer.split(";");
             answer = answer.map(Number);
@@ -128,6 +131,7 @@ function questionPage(quiz) {
           mainPage();
         });
 
+        // List the choices and then make them buttons
         let choicesList = [];
 
         let choices = data.data[0].choice.split(";");
@@ -141,6 +145,7 @@ function questionPage(quiz) {
         setTimeout(() => {
           for (let i = 0; i < choicesList.length; i++) {
             
+            // Make the button reactive and if it is the correct answer make it green else make it red
             let answer = data.data[0].correct_answer.split(";");
             answer = answer.map(Number);
             let choice = i + 1;
@@ -174,7 +179,7 @@ function questionPage(quiz) {
 
       }
     })
-    .catch((error) => {
+    .catch((error) => { // If error
       console.log(error);
       document.querySelector("header").style.display = "flex";
       document.querySelector("footer").style.display = "flex";
@@ -182,10 +187,10 @@ function questionPage(quiz) {
     });
 }
 
-function userPointsAdd() {
+function userPointsAdd() { // Add points to user
   let username = localStorage.getItem("username");
 
-  fetch(`${window.API}/user/SearchByUsername/${username}`, {
+  fetch(`${window.API}/user/SearchByUsername/${username}`, { // Get user by username
     method: "GET",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -199,9 +204,9 @@ function userPointsAdd() {
       }
     })
     .then((data) => {
-      let userID = data.data[0].ID;
+      let userID = data.data[0].ID; // This is needed from the fetch
 
-      fetch(`${window.API}/user/PointsAdd`, {
+      fetch(`${window.API}/user/PointsAdd`, { // Add points to the user
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -233,7 +238,7 @@ function userPointsAdd() {
     });
 }
 
-function correct(question, quiz) {
+function correct(question, quiz) { // Correct answer
   localStorage.setItem("correct", localStorage.getItem("correct") + localStorage.getItem("question") + ";");
   localStorage.setItem("question", parseInt(question) + 1);
   localStorage.setItem("score", parseInt(localStorage.getItem("score")) + 1);
@@ -244,7 +249,7 @@ function correct(question, quiz) {
   }, 100);
 }
 
-function wrong(question, quiz) {
+function wrong(question, quiz) { // Wrong answer
   localStorage.setItem("question", parseInt(question) + 1);
   transition();
   setTimeout(() => {
@@ -252,7 +257,7 @@ function wrong(question, quiz) {
   }, 100);
 }
 
-function correctLast(question) {
+function correctLast(question) { // Correct answer last
   localStorage.setItem("correct", localStorage.getItem("correct") + localStorage.getItem("question") + ";");
   localStorage.setItem("question", parseInt(question) + 1);
   localStorage.setItem("score", parseInt(localStorage.getItem("score")) + 1);
@@ -263,7 +268,7 @@ function correctLast(question) {
   }, 100);
 }
 
-function wrongLast(question) {
+function wrongLast(question) { // Wrong answer last
   localStorage.setItem("question", parseInt(question) + 1);
   transition();
   setTimeout(() => {

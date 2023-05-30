@@ -1,9 +1,10 @@
 import { mainPage } from "../index.js";
 
 function leaderboardPage() {
-    window.scrollTo(0, 0);
-    document.querySelector(".search").innerHTML = ``;
-    document.querySelector("main").innerHTML = `
+    window.scrollTo(0, 0); // Scroll to top
+    document.querySelector(".search").innerHTML = ``; // Clear search field
+    // Fill page with leaderboard data
+    document.querySelector("main").innerHTML = ` 
         <div class="leaderboard-container">
         <div class="leaderboard-box">
         <h1 class="leaderboard-title">LEADERBOARD</h1>
@@ -28,13 +29,13 @@ function leaderboardPage() {
         </div>
     `;
 
-    document.querySelector(".back-button").addEventListener("click", () => {
+    document.querySelector(".back-button").addEventListener("click", () => { // Back button
         document.querySelector("header").style.display = "flex";
           document.querySelector("footer").style.display = "flex";
         mainPage();
     })
 
-    fetch(`${window.API}/quiz/LeaderboardSearchAll/10/0`, {
+    fetch(`${window.API}/quiz/LeaderboardSearchAll/10/0`, { // Search top 10 users by points
        method : "GET",
        headers : {
            Authorization : `Bearer ${localStorage.getItem("token")}`
@@ -48,7 +49,7 @@ function leaderboardPage() {
     }).then((data) => {
         console.log(data);
 
-        for (let i = 0; i < data.data.length; i++) {
+        for (let i = 0; i < data.data.length; i++) { // Fill leaderboard table
             document.querySelector("tbody").innerHTML += `
             <tr>
             <td>${i+1}</td>
@@ -59,7 +60,7 @@ function leaderboardPage() {
         }
         
     }).catch((error) => {
-        mainPage();
+        mainPage(); // Redirect to main page
     })
 
 

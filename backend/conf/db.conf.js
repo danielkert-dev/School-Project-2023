@@ -1,5 +1,5 @@
 const { createPool } = require("mysql2");
-
+// Connects to the database
 module.exports = createPool({
     port: process.env.DB_PORT,
     host: process.env.DB_HOST,

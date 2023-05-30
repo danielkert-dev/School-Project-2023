@@ -3,9 +3,9 @@ import { panelPageUpdate } from "./update.panel.js";
 import { authPage } from "../auth/auth.js"; 
 
 function panelPage(){
-    window.scrollTo(0, 0);
-    userID();
-    document.querySelector("footer").style.display = "none";
+    window.scrollTo(0, 0); // Scroll to top
+    userID(); // Get user ID and other data
+    document.querySelector("footer").style.display = "none"; // Style changes
     document.querySelector(".burger-button").style.opacity = "0";
     document.querySelector(".burger-button").style.pointerEvents = "none";
     document.querySelector(".leaderboard").style.opacity = "0";
@@ -17,6 +17,7 @@ function panelPage(){
     document.querySelector(".login-signup").style.opacity = "0";
     document.querySelector(".search").innerHTML = ``;
 
+    // Fill the page
     document.querySelector("main").innerHTML = `
     <div class="panel-container">
 
@@ -29,7 +30,7 @@ function panelPage(){
     `;
 
 
-        document.querySelector(".back-button").addEventListener("click", () => {
+        document.querySelector(".back-button").addEventListener("click", () => { // Back button
             transition();
             setTimeout(() => {
                 document.querySelector("header").style.display = "flex";
@@ -41,18 +42,19 @@ function panelPage(){
     // If admin or user
 
     setTimeout(() => {
-        if (localStorage.getItem("type") == "admin"){ 
+        if (localStorage.getItem("type") == "admin"){ // If admin set to admin panel
             adminPanel();
         } 
     
-        if (localStorage.getItem("type") == "user"){
+        if (localStorage.getItem("type") == "user"){ // If user set to user panel
             userPanel();
         }
     }, 100)
     
 }
 
-function adminPanel(){
+function adminPanel(){ // Admin panel
+    // Fill the page
     document.querySelector(".panel-items").innerHTML = `
     <div class="admin-container">
     <div class="all-users">
@@ -102,7 +104,8 @@ function adminPanel(){
 
 }
 
-function userPanel(){
+function userPanel(){ // User panel
+    // Fill the page
     document.querySelector(".panel-items").innerHTML = `
     <div class="user-quiz">
     <h3>Your Quizzes</h3>
@@ -120,7 +123,7 @@ function userPanel(){
     </div>
     `
 
-    let username = localStorage.getItem("username");
+    let username = localStorage.getItem("username"); // Get from local storage
 
     // All the quizzes you have created (Update or delete)
     fetch(`${window.API}/quiz/Search/${username}/100/0`, { // If anybody make more then 100 quizzes then its worth changing
@@ -137,7 +140,7 @@ function userPanel(){
         }
     }).then(data => {
 
-        for (let i = 0; i < data.data.length; i++){
+        for (let i = 0; i < data.data.length; i++){ // Loop through all the quizzes
             let quizList = document.querySelector(".user-quiz-list");
             let quizListItem = document.createElement("div");
             quizListItem.classList.add("user-quiz-item-" + i);
@@ -155,7 +158,7 @@ function userPanel(){
             let quizDelete = document.querySelector(`.user-quiz-delete-${i}`);
             quizDelete.style.backgroundColor = "var(--red)";
 
-            quizUpdate.addEventListener("click", () => {
+            quizUpdate.addEventListener("click", () => { // Update quiz
                 transition();
                 setTimeout(() => {
                     window.scrollTo(0, 0);
@@ -163,13 +166,13 @@ function userPanel(){
                 }, 100)
             })
 
-            quizDelete.addEventListener("click", () => {
-                if (confirm("Are you sure you want to delete this quiz?")){
+            quizDelete.addEventListener("click", () => { // Delete quiz
+                if (confirm("Are you sure you want to delete this quiz?")){ // Confirm delete
 
 
                     console.log("Delete " + data.data[i].quiz_ID);
 
-                    fetch(`${window.API}/quiz/Delete`, {
+                    fetch(`${window.API}/quiz/Delete`, { // Delete quiz in API
                         method: "DELETE",
                         headers: {
                             "Content-Type": "application/json",
@@ -188,7 +191,7 @@ function userPanel(){
                     transition();
                     setTimeout(() => {
                         window.scrollTo(0, 0);
-                        panelPage();
+                        panelPage(); // Panel page
                     }, 100);
 
                 }
@@ -217,13 +220,14 @@ function userPanel(){
 
 
 
-        if (confirm("Are you sure you want to update your account?")){
+        if (confirm("Are you sure you want to update your account?")){ // If you want to update your account
             let username = document.querySelector(".username-update").value;
             let email = document.querySelector(".email-update").value;
             let password = document.querySelector(".password-update").value;
             let userID = parseInt(localStorage.getItem("user_ID"));
 
 
+            // Filter input
             if (username == "" || email == "" || password == ""){
                 alert("All fields are required!");
                 return;
@@ -244,7 +248,7 @@ function userPanel(){
 
             // Fetch update
 
-                fetch(`${window.API}/user/Update`, {
+                fetch(`${window.API}/user/Update`, { // Update user in API
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
@@ -265,7 +269,7 @@ function userPanel(){
                 })
 
                 transition();
-                setTimeout(() => {
+                setTimeout(() => { // Reload page and clear local storage
                     localStorage.clear();
                     location.reload();
                     window.scrollTo(0, 0);
@@ -274,7 +278,7 @@ function userPanel(){
         
     })
 
-    userDelete.addEventListener("click", () => {
+    userDelete.addEventListener("click", () => { // Delete user
         if (confirm("Are you sure you want to delete your account?")){
 
             // Fetch delete (Update to anonymous account)
@@ -290,7 +294,7 @@ function userPanel(){
             })
 
             transition();
-            setTimeout(() => {
+            setTimeout(() => { // Reload page and clear local storage
                 localStorage.clear();
                 location.reload();
                 window.scrollTo(0, 0);
@@ -303,15 +307,15 @@ function userPanel(){
     // Delete your account.
 }
 
-function adminUserSearchAll (page) {
+function adminUserSearchAll (page) { // Search all users in API
 
-    if (document.querySelector(".admin-page").value === ""){
+    if (document.querySelector(".admin-page").value === ""){ // If page is empty
         page = 0;
     }
 
     console.log(page);
 
-    fetch(`${window.API}/admin/SearchAll/${10}/${page}`, {
+    fetch(`${window.API}/admin/SearchAll/${10}/${page}`, { // Fetch all users by 10 per page
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -326,6 +330,7 @@ function adminUserSearchAll (page) {
     })
     .then(data => {
 
+        // User data and update delete buttons
         document.querySelector(".admin-users-list").innerHTML = "";
 
         for (let i = 0; i < data.data.length; i++){
@@ -353,7 +358,7 @@ function adminUserSearchAll (page) {
 
             if (confirm("Are you sure you want to delete this user?")){
                 
-                fetch(`${window.API}/user/Delete`, {
+                fetch(`${window.API}/user/Delete`, { // Delete user if confirm
                     method: "DELETE",
                     headers: {
                         "Content-Type": "application/json",
@@ -377,20 +382,20 @@ function adminUserSearchAll (page) {
     })
 }
 
-function adminUserSearch (input, page) {
+function adminUserSearch (input, page) { // Search users in API
 
 
     if (page < 0){
         page = 0;
     }
 
-    if (document.querySelector(".admin-search").value === ""){
+    if (document.querySelector(".admin-search").value === ""){ // If page is empty
         page = 0;
         console.log(page);
         adminUserSearchAll(page);
     }
 
-    fetch(`${window.API}/admin/Search/${input}/${10}/${page}`, {
+    fetch(`${window.API}/admin/Search/${input}/${10}/${page}`, { // Fetch all users by 10 per page
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -403,7 +408,7 @@ function adminUserSearch (input, page) {
             throw new Error(response.statusText);
         }
     })
-    .then(data => {
+    .then(data => { // User data and update delete buttons
         document.querySelector(".admin-users-list").innerHTML = "";
         for (let i = 0; i < data.data.length; i++){
             let userList = document.querySelector(".admin-users-list");
@@ -430,7 +435,7 @@ function adminUserSearch (input, page) {
 
                 if (confirm("Are you sure you want to delete this user?")){
                 
-                    fetch(`${window.API}/user/Delete`, {
+                    fetch(`${window.API}/user/Delete`, { // Delete user if confirm
                         method: "DELETE",
                         headers: {
                             "Content-Type": "application/json",
@@ -443,7 +448,7 @@ function adminUserSearch (input, page) {
                         console.log(data);
                         transition();
                         setTimeout(() => {
-                            panelPage();
+                            panelPage(); // Reload page
                         }, 200)
                     })
                 }    
@@ -453,9 +458,9 @@ function adminUserSearch (input, page) {
     })
 }
 
-function adminQuizListAll (page) {
+function adminQuizListAll (page) { // Fetch all quizzes in API
 
-    fetch(`${window.API}/quiz/SearchAll/${10}/${page}`, {
+    fetch(`${window.API}/quiz/SearchAll/${10}/${page}`, { // Fetch all quizzes
         method: "GET",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -470,6 +475,7 @@ function adminQuizListAll (page) {
         })
         .then((data) => {
             console.log(data);
+            // Quiz data list with buttons, update and delete
             document.querySelector(".admin-quiz-list").innerHTML = "";
             for (let i = 0; i < data.data.length; i++) {
                 let quizList = document.querySelector(".admin-quiz-list");
@@ -489,7 +495,7 @@ function adminQuizListAll (page) {
                     transition();
                 setTimeout(() => {
                     window.scrollTo(0, 0);
-                    panelPageUpdate(data.data[i]);
+                    panelPageUpdate(data.data[i]); // Go to update page with quiz data
                 }, 100)
                 })
 
@@ -520,19 +526,19 @@ function adminQuizListAll (page) {
             })
 }
 
-function adminQuizList (input, page) {
+function adminQuizList (input, page) { // Search quizzes in API
 
     if (page < 0){
         page = 0;
     }
 
-    if (document.querySelector(".admin-quiz-search").value === ""){
+    if (document.querySelector(".admin-quiz-search").value === ""){ // If page is empty
         page = 0;
         console.log(page);
         adminQuizListAll(page);
     }
 
-    fetch(`${window.API}/quiz/Search/${input}/${10}/${page}`, {
+    fetch(`${window.API}/quiz/Search/${input}/${10}/${page}`, { // Fetch all quizzes by 10 per page in API
         method: "GET",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -546,7 +552,7 @@ function adminQuizList (input, page) {
           }
         })
         .then((data) => {
-
+            // Quiz data list with buttons, update and delete
             document.querySelector(".admin-quiz-list").innerHTML = "";
             for (let i = 0; i < data.data.length; i++) {
                 let quizList = document.querySelector(".admin-quiz-list");
@@ -566,7 +572,7 @@ function adminQuizList (input, page) {
                     transition();
                 setTimeout(() => {
                     window.scrollTo(0, 0);
-                    panelPageUpdate(data.data[i]);
+                    panelPageUpdate(data.data[i]); // Go to update page with quiz data
                 }, 100)
                 })
 
@@ -574,7 +580,7 @@ function adminQuizList (input, page) {
                     if (confirm("Are you sure you want to delete your account?")){
 
                         // Fetch delete (Update to anonymous account)
-                        fetch (`${window.API}/quiz/Delete`, {
+                        fetch (`${window.API}/quiz/Delete`, { // Fetch delete
                             method: "DELETE",
                             headers: {
                                 "Content-Type": "application/json",

@@ -3,9 +3,9 @@ import { mainPage, transition, userID } from "../index.js";
 // quiz/Create
 
 async function createPage() {
-  window.scrollTo(0, 0);
-  userID();
-  document.querySelector(".burger-button").style.opacity = "0";
+  window.scrollTo(0, 0); // scroll to top
+  userID(); // get user ID and some other values
+  document.querySelector(".burger-button").style.opacity = "0"; // Style changes
   document.querySelector(".burger-button").style.pointerEvents = "none";
   document.querySelector("footer").style.display = "none";
   document.querySelector(".leaderboard").style.opacity = "0";
@@ -17,8 +17,9 @@ async function createPage() {
   document.querySelector(".login-signup").style.opacity = "0";
   document.querySelector(".search").innerHTML = ``;
 
-  localStorage.setItem("createQuestion", 0);
+  localStorage.setItem("createQuestion", 0); // Reset local storage createQuestion
 
+  // Create Quiz Page fill
   document.querySelector("main").innerHTML = `
     <div class="create-quiz-container">
 
@@ -52,15 +53,15 @@ async function createPage() {
     </div>
   `;
 
-  document.querySelector(".add-question-button").addEventListener("click", () => {
+  document.querySelector(".add-question-button").addEventListener("click", () => { // Add Question box
       questionBoxAdd();
     });
 
-  document.querySelector(".remove-question-button").addEventListener("click", () => {
+  document.querySelector(".remove-question-button").addEventListener("click", () => { // Remove Question box
       questionBoxRemove();
   })
 
-  document.querySelector(".create-button").addEventListener("click", () => {
+  document.querySelector(".create-button").addEventListener("click", () => { // Create Quiz button
 
     let title = document.querySelector(".create-form-quiz-title").value;
     let description = document.querySelector(".create-form-quiz-description").value;
@@ -69,30 +70,30 @@ async function createPage() {
 
     let isValid = true;
 
-    if (user_ID === "") {
+    if (user_ID === "") { // If user is not logged in
       alert("Please login again or contact admin for support");
       mainPage();
     }
 
 
-    if (title === "" || description === "" || user_ID === "" || image === "") {
+    if (title === "" || description === "" || user_ID === "" || image === "") { // If all fields are empty
         document.querySelector(".create-alert").innerHTML = "All fields are required";
         isValid = false;
     } else {
       document.querySelector(".create-alert").innerHTML = "";
     }
 
-    if (localStorage.getItem("createQuestion") < 1) {
+    if (localStorage.getItem("createQuestion") < 1) { // If no questions
       document.querySelector(".create-alert").innerHTML = "You must add at least one question";
       isValid = false;
     }
 
-    for (let i = 1; i <= localStorage.getItem("createQuestion"); i++) {
+    for (let i = 1; i <= localStorage.getItem("createQuestion"); i++) {  // For each question
       let question = document.querySelector(`.question-title-${i}`).value;
       let QuestionImage = document.querySelector(`.question-image-${i}`).value;
       let choiceItems = document.querySelectorAll(`.choices-container-${i} .choice-item`);
 
-          if (choiceItems.length < 1 || question === "" || QuestionImage === "") {
+          if (choiceItems.length < 1 || question === "" || QuestionImage === "") { // If all fields are empty
             document.querySelector(`.create-alert-question-${i}`).innerHTML = "All fields are required and one choice";
             isValid = false;
           } else {
@@ -101,11 +102,11 @@ async function createPage() {
       
     }
 
-    if (!isValid) {
+    if (!isValid) { // If not valid
       return;
     }
 
-    quizAdd();
+    quizAdd(); // Create Quiz
     document.querySelector("body").style.opacity = "0";
     setTimeout(() => {
       transition();
@@ -113,18 +114,18 @@ async function createPage() {
       setTimeout(() => {
         document.querySelector("header").style.display = "flex";
         document.querySelector("footer").style.display = "flex";
-        mainPage();
+        mainPage(); // Go to main page
       },100)
     }, 2000);
     });
 
 
-  document.querySelector(".back-button").addEventListener("click", () => {
+  document.querySelector(".back-button").addEventListener("click", () => { // Back button
     transition();
     setTimeout(() => {
       document.querySelector("header").style.display = "flex";
       document.querySelector("footer").style.display = "flex";
-      mainPage();
+      mainPage(); // Go to main page
     }, 100);
   });
 
@@ -133,27 +134,26 @@ async function createPage() {
    const imagePreview = document.querySelector(`.quiz-image-preview`);
 
 
-   imageInput.addEventListener("input", () => {
+   imageInput.addEventListener("input", () => { // Quiz image
      imagePreview.src = imageInput.value;
    });
  
-   imagePreview.onerror = () => {
+   imagePreview.onerror = () => { // Quiz image error
      console.log("Error");
      imagePreview.style.display = "none";
    };
    
-   imagePreview.onload = () => {
+   imagePreview.onload = () => { // Quiz image loaded
      console.log("Image loaded successfully");
      imagePreview.style.display = "block";
    };
 
 }
 
-function questionBoxAdd() {
-  localStorage.setItem("createQuestion", parseInt(localStorage.getItem("createQuestion")) + 1);
-  let questionNumber = localStorage.getItem("createQuestion");
+function questionBoxAdd() { // Add Question box
+  localStorage.setItem("createQuestion", parseInt(localStorage.getItem("createQuestion")) + 1); // Increment question number
 
-  const questionBox = document.createElement('div');
+  const questionBox = document.createElement('div');  // Create question box
   questionBox.className = 'create-question-box';
   questionBox.id = `create-question-${localStorage.getItem("createQuestion")}`;
   questionBox.innerHTML = `
@@ -212,21 +212,21 @@ function questionBoxAdd() {
   const imageInput = questionBox.querySelector(`.question-image-${localStorage.getItem("createQuestion")}`);
   const imagePreview = questionBox.querySelector(`.question-image-preview-${localStorage.getItem("createQuestion")}`);
 
-  imageInput.addEventListener("input", () => {
+  imageInput.addEventListener("input", () => { // Quiz image input
     imagePreview.src = imageInput.value;
   });
 
-  imagePreview.onerror = () => {
+  imagePreview.onerror = () => { // Quiz image error
     imagePreview.style.display = "none";
   };
   
-  imagePreview.onload = () => {
+  imagePreview.onload = () => { // Quiz image loaded
     console.log("Image loaded successfully");
     imagePreview.style.display = "block";
   };
 }
 
-function questionBoxRemove() {
+function questionBoxRemove() { // Remove Question box
   const createFormQuestion = document.querySelector(".create-form-question");
   const createQuestionBoxes = createFormQuestion.querySelectorAll(".create-question-box");
   
@@ -269,7 +269,7 @@ function questionBoxRemove() {
 }*/
 
 
-async function quizAdd() {
+async function quizAdd() { // Add Quiz
     // All the inputs for the quiz : title, description, user_ID, image
     let title = document.querySelector(".create-form-quiz-title").value;
     let description = document.querySelector(".create-form-quiz-description").value;
@@ -279,7 +279,7 @@ async function quizAdd() {
     console.log("Quiz_Title: '" +title+ "' Quiz_Description: '"+ description + "' User_ID: '"+ user_ID + "' Image: '"+ image + "'");
 
     // Fetch quiz post
-    await fetch(`${window.API}/quiz/Create`, {
+    await fetch(`${window.API}/quiz/Create`, { // Create quiz in API
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -298,8 +298,8 @@ async function quizAdd() {
 
     // All the inputs from questions : quiz_ID, question, image, question_num, description, choice, correct_answer, last
 
-    setTimeout(() => {
-        fetch(`${window.API}/quiz/SearchByTitle/${title}`, {
+    setTimeout(() => { // Wait for the page to load
+        fetch(`${window.API}/quiz/SearchByTitle/${title}`, { // Search quiz in API
             method: "GET",
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -344,8 +344,8 @@ async function quizAdd() {
           choiceNumber.push(j + 1);
           }
     }
-    choices = choices.join(";");
-    choiceNumber = choiceNumber.join(";"); 
+    choices = choices.join(";"); // Join the choices 
+    choiceNumber = choiceNumber.join(";");  // Join the choice answers
 
     // console.log(`Question ${i} - Choices: ${choices}, Choice Number: ${choiceNumber}`);
 
@@ -353,7 +353,7 @@ async function quizAdd() {
     console.log("Quiz ID; '"+ quiz_ID+"' Question_Title: '" +question+ "' Image: '"+ image + "' Question number: '"+ question_num + "' Question_Description: '"+ description + "' Question_Choices: '"+ choices + "' Correct_Answer: '"+ choiceNumber + "' Last: '"+ last);
 
     // Fetch questions post
-    await fetch(`${window.API}/quiz/QuestionCreate`, {
+    await fetch(`${window.API}/quiz/QuestionCreate`, { // Create question in API
         method : "POST",
         headers: {
             "Content-Type": "application/json",

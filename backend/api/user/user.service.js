@@ -1,5 +1,5 @@
 const pool = require("../../conf/db.conf");
-
+// All the comments are in the controller
 module.exports = {
   userSearchByUsername: (input, callBack) => {
     pool.query(

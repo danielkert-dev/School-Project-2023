@@ -2,8 +2,9 @@ import { panelPage } from "./panel.js";
 import { mainPage, transition, userID } from "../index.js";
 
 
-async function panelPageUpdate(panelData) {
+async function panelPageUpdate(panelData) { // Update panel
     console.log(panelData);
+    // Fill panel
     document.querySelector("main").innerHTML = `
     <div class="panel-update-container">
 
@@ -31,18 +32,18 @@ async function panelPageUpdate(panelData) {
         
          questionBox(panelData.quiz_ID);
             
-        document.querySelector(".back-button-panel").addEventListener("click", () => {
+        document.querySelector(".back-button-panel").addEventListener("click", () => { // Back button
             transition();
             setTimeout(() => {
                 panelPage();
             }, 100)
         })
 
-        document.querySelector(".remove-question-button").addEventListener("click", () => {
+        document.querySelector(".remove-question-button").addEventListener("click", () => { // Remove question
             questionBoxRemove();
         })
 
-        document.querySelector(".add-question-update-button").addEventListener("click", () => {
+        document.querySelector(".add-question-update-button").addEventListener("click", () => { // Add question
             questionUpdateBoxAdd(panelData.quiz_ID);
         })
 
@@ -124,11 +125,11 @@ async function panelPageUpdate(panelData) {
 }
 
 
-async function questionBox (quiz_ID){
+async function questionBox (quiz_ID){ // Question box if there are any
 
     for (let i = 1; i <= parseInt(localStorage.getItem("questionAmount")); i++){
 
-    await fetch(window.API+`/quiz/QuestionSearch/${quiz_ID}/${i}`, {
+    await fetch(window.API+`/quiz/QuestionSearch/${quiz_ID}/${i}`, { // Get question in API
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -136,7 +137,7 @@ async function questionBox (quiz_ID){
         }
     }).then((res) => res.json())
     .then((data) => {
-
+        // Create div and add question box and inputs
     const questionBox = document.createElement("div");
     questionBox.className = "question-box-update";
     questionBox.id = `question-box-${i}`;
@@ -165,7 +166,7 @@ async function questionBox (quiz_ID){
     const correctAnswer = data.data[0].correct_answer.split(";");
     const choices = data.data[0].choice.split(";");
 
-    for (let j = 0; j < choices.length; j++) {
+    for (let j = 0; j < choices.length; j++) { // Add choices to question box
         const choiceItem = document.createElement("div");
         choiceItem.className = "choice-item";
 
@@ -248,10 +249,10 @@ async function questionBox (quiz_ID){
     }
  }
 
-function questionUpdateBoxAdd(quiz_ID) {
-    localStorage.setItem("questionAmount", parseInt(localStorage.getItem("questionAmount")) + 1);
+function questionUpdateBoxAdd(quiz_ID) { // Question box if you want to add
+    localStorage.setItem("questionAmount", parseInt(localStorage.getItem("questionAmount")) + 1); // Increment question amount
 
-    const questionBox = document.createElement("div");
+    const questionBox = document.createElement("div");  // Create div question box
     questionBox.className = "question-box-update";
     questionBox.id = `question-box-${parseInt(localStorage.getItem("questionAmount"))}`;
     questionBox.innerHTML += `
@@ -323,7 +324,7 @@ function questionUpdateBoxAdd(quiz_ID) {
   };
 }
 
-function questionAmount(panelData) {
+function questionAmount(panelData) { // Get question amount
     
     fetch(window.API+`/quiz/QuestionAmountByQuizID/${panelData.quiz_ID}`, {
         method: "GET",
@@ -338,10 +339,10 @@ function questionAmount(panelData) {
 
 }
 
-async function quizUpdate(amountDone, originalQuizID) {
+async function quizUpdate(amountDone, originalQuizID) { // Update quiz
 
     // Delete quiz and questions
-    await fetch(`${window.API}/quiz/Delete`, {
+    await fetch(`${window.API}/quiz/Delete`, { // Delete quiz
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
@@ -367,7 +368,7 @@ async function quizUpdate(amountDone, originalQuizID) {
         console.log("Quiz_Title: '" +title+ "' Quiz_Description: '"+ description + "' User_ID: '"+ user_ID + "' Image: '"+ image + "'");
     
     // Fetch quiz post
-    await fetch(`${window.API}/quiz/Create`, {
+    await fetch(`${window.API}/quiz/Create`, { // Create new quiz
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -386,7 +387,7 @@ async function quizUpdate(amountDone, originalQuizID) {
 
         // Amount done add
         setTimeout(() => {
-            fetch(`${window.API}/quiz/SearchByTitle/${title}`, {
+            fetch(`${window.API}/quiz/SearchByTitle/${title}`, { // Search by title
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -422,7 +423,7 @@ async function quizUpdate(amountDone, originalQuizID) {
         let choices = [];
         let choiceNumber = [];
     
-            for (let j = 0; j < choiceItems.length; j++) {
+            for (let j = 0; j < choiceItems.length; j++) { // Add choice
             const checkbox = choiceItems[j].querySelector("input[type='checkbox']");
             choices.push(checkbox.nextElementSibling.textContent);
             if (checkbox.checked) {
@@ -434,7 +435,7 @@ async function quizUpdate(amountDone, originalQuizID) {
 
         console.log("Quiz ID; '"+ quiz_ID+"' Question_Title: '" +question+ "' Image: '"+ questionImage + "' Question number: '"+ question_num + "' Question_Description: '"+ questionDescription + "' Question_Choices: '"+ choices + "' Correct_Answer: '"+ choiceNumber + "' Last: '"+ last);
     
-        fetch(`${window.API}/quiz/QuestionCreate`, {
+        fetch(`${window.API}/quiz/QuestionCreate`, { // Create questions
             method : "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -466,7 +467,7 @@ async function quizUpdate(amountDone, originalQuizID) {
     console.log(parseInt(localStorage.getItem("newQuizID")));
     
     setTimeout(() => {
-        fetch(`${window.API}/quiz/AmountDone`, {
+        fetch(`${window.API}/quiz/AmountDone`, { // Add amount done
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -491,7 +492,7 @@ async function quizUpdate(amountDone, originalQuizID) {
 
 }
 
-function questionBoxRemove() {
+function questionBoxRemove() { // Remove question boxes
     const createFormQuestion = document.querySelector(".panel-update-container");
     const createQuestionBoxes = createFormQuestion.querySelectorAll(".question-box-update");
     

@@ -8,6 +8,8 @@ const path = require("path"); // import path
 app.use(express.json()); // Middleware parse
 app.use(cors()); // Middleware cors
 
+//! These are routers from api folder
+
 //? Documentation
 app.use(express.static(path.join(__dirname, "public/doc")));
 app.get("/", (req, res) => {
@@ -25,12 +27,12 @@ app.use("/admin", require("./api/admin/admin.router"));
 
 //? Default
 app.get("*", function (req, res) {
-  res.redirect("/");
+  res.redirect("/"); // Redirect to home page if not found
 });
 
-const server =app.listen(process.env.APP_PORT, () => {
+const server =app.listen(process.env.APP_PORT, () => { // Creates the server and listens on port
 var os = require('os');
-var networkInterfaces = os.networkInterfaces();
+var networkInterfaces = os.networkInterfaces(); // Returns server data for dev
 console.log(networkInterfaces);
   console.log(`Listening `, server.address());
 });

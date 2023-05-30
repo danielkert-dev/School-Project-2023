@@ -7,7 +7,7 @@ const {
 } = require("../../conf/response");
 
 module.exports = {
-  adminSearchAll: (req, res) => {
+  adminSearchAll: (req, res) => { // Search all users by admin
     const page = req.params.page;
     const pageSize = req.params.pageSize;
     if (!page || !pageSize) {
@@ -24,7 +24,7 @@ module.exports = {
     });
   },
 
-  adminSearch: (req, res) => {
+  adminSearch: (req, res) => { // Search users by input
     const input = req.params.input;
     const page = req.params.page;
     const pageSize = req.params.pageSize;
@@ -42,7 +42,7 @@ module.exports = {
     })
   },
 
-  adminDelete: (req, res) => {
+  adminDelete: (req, res) => { // Delete user by admin
     const body = req.body;
     if (!body.id) {
       return error400(res);
