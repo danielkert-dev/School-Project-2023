@@ -2,7 +2,7 @@ import { mainPage, transition, userID } from "../index.js";
 
 // quiz/Create
 
-function createPage() {
+async function createPage() {
   window.scrollTo(0, 0);
   userID();
   document.querySelector(".burger-button").style.opacity = "0";
@@ -353,7 +353,7 @@ async function quizAdd() {
     console.log("Quiz ID; '"+ quiz_ID+"' Question_Title: '" +question+ "' Image: '"+ image + "' Question number: '"+ question_num + "' Question_Description: '"+ description + "' Question_Choices: '"+ choices + "' Correct_Answer: '"+ choiceNumber + "' Last: '"+ last);
 
     // Fetch questions post
-    fetch(`${window.API}/quiz/QuestionCreate`, {
+    await fetch(`${window.API}/quiz/QuestionCreate`, {
         method : "POST",
         headers: {
             "Content-Type": "application/json",
