@@ -5,6 +5,8 @@ const {
   quizSearch,
   quizAmountAdd,
   questionSearch,
+  questionSearchResult,
+  questionCheck,
   questionAmountByQuizID,
   leaderboardSearchAll,
   quizCreate,
@@ -140,6 +142,42 @@ questionSearch: (req, res) => { // Search question by quiz id and question numbe
       }
       return response200(res, results);
     });
+  },
+
+  questionSearchResult: (req, res) => { // Search question by quiz id and question number
+    const quiz_id = req.params.quiz_id;
+    const question_num = req.params.question_num;
+
+    if (!quiz_id || !question_num) {
+      return error400(res);
+    }
+    questionSearchResult(quiz_id, question_num, (error, results) => {
+      if (error) {
+        return error500(res, error);
+      }
+      if (!results || results.length === 0) {
+        return error404(res, results);
+      }
+      return response200(res, results);
+    })
+  },
+
+  questionCheck: (req, res) => { // Check question
+    const quiz_id = req.params.quiz_id;
+    const question_num = req.params.question_num;
+
+    if (!quiz_id || !question_num) {
+      return error400(res);
+    }
+    questionCheck(quiz_id, question_num, (error, results) => {
+      if (error) {
+        return error500(res, error);
+      }
+      if (!results || results.length === 0) {
+        return error404(res, results);
+      }
+      return response200(res, results);
+    })
   },
 
   questionAmountByQuizID: (req, res) => { // Get amount of questions by quiz id

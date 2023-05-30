@@ -107,9 +107,45 @@ module.exports = {
   // questionById
   questionSearch: (quiz_id, question_num, callBack) => {
     pool.query(
-      `SELECT *
+      `SELECT ID, quiz_ID, question, image, question_num, description, choice, last
         FROM questions
         WHERE quiz_ID = ? AND question_num = ?`,
+      [quiz_id, question_num],
+      (error, results) => {
+        if (error) {
+          console.error(error);
+          callBack(error, null);
+        } else {
+          callBack(null, results);
+        }
+      }
+    );
+  },
+
+  questionSearchResult : (quiz_id, question_num, callBack) => {
+    pool.query(
+      `SELECT ID, quiz_ID, question, image, question_num, description, choice, correct_answer, last
+        FROM questions
+        WHERE quiz_ID = ? AND question_num = ?`,
+      [quiz_id, question_num],
+      (error, results) => {
+        if (error) {
+          console.error(error);
+          callBack(error, null);
+        } else {
+          callBack(null, results);
+        }
+      }
+    );
+  },
+
+  // questionCheck
+  questionCheck: (quiz_id, question_num, callBack) => {
+    pool.query(
+      `SELECT correct_answer
+      FROM questions 
+      WHERE quiz_id = ? AND question_num = ?
+      `,
       [quiz_id, question_num],
       (error, results) => {
         if (error) {

@@ -72,13 +72,29 @@ function questionPage(quiz) {
           for (let i = 0; i < choicesList.length; i++) {
             
             // Make the button reactive and if it is the correct answer make it green else make it red
-            
-            let answer = data.data[0].correct_answer.split(";");
-            answer = answer.map(Number);
-            let choice = i + 1;
+        
            
             document.querySelector(`#choice-${i}`).addEventListener("click", () => {
 
+              fetch(`${window.API}/quiz/questionCheck/${quiz.quiz_ID}/${question}`, { // Get the question in API
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+              }).then((response) => {
+                if (response.ok) {
+                  return response.json();
+                } else {
+                  throw new Error("Something went wrong");
+                }
+              }).then((data) => {
+                
+                console.log(data);
+  
+                let answer = data.data[0].correct_answer.split(";");
+              answer = answer.map(Number);
+              let choice = i + 1;
                 
                 if (answer.includes(choice)) {
 
@@ -101,6 +117,7 @@ function questionPage(quiz) {
                   })
                 }
               });
+            });
           }
         }, 100);
       
@@ -142,17 +159,36 @@ function questionPage(quiz) {
           choicesList.push(choices[i]);
         }
 
+
         setTimeout(() => {
           for (let i = 0; i < choicesList.length; i++) {
             
             // Make the button reactive and if it is the correct answer make it green else make it red
-            let answer = data.data[0].correct_answer.split(";");
-            answer = answer.map(Number);
-            let choice = i + 1;
+
            
             document.querySelector(`#choice-${i}`).addEventListener("click", () => {
 
+              fetch(`${window.API}/quiz/questionCheck/${quiz.quiz_ID}/${question}`, { // Get the question in API
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+              }).then((response) => {
+                if (response.ok) {
+                  return response.json();
+                } else {
+                  throw new Error("Something went wrong");
+                }
+              }).then((data) => {
                 
+                console.log(data);
+  
+                let answer = data.data[0].correct_answer.split(";");
+  
+              answer = answer.map(Number);
+              let choice = i + 1;  
+
                 if (answer.includes(choice)) {
 
                   document.querySelector(`#choice-${i}`).classList = "correct";
@@ -174,9 +210,9 @@ function questionPage(quiz) {
                   })
                 }
               });
+            });
           }
         }, 100);
-
       }
     })
     .catch((error) => { // If error

@@ -5,6 +5,8 @@ const {
     quizSearch,
     quizAmountAdd,
     questionSearch,
+    questionSearchResult,
+    questionCheck,
     questionAmountByQuizID,
     leaderboardSearchAll,
     quizCreate,
@@ -26,6 +28,8 @@ router.get("/SearchByTitle/:title", checkToken, quizSearchByTitle);
 router.get("/Search/:input/:page/:pageSize", checkToken, quizSearch); // Works
 router.post("/AmountAdd", checkToken, quizAmountAdd); // Request body, Works
 router.get("/QuestionSearch/:quiz_id/:question_num", checkToken, questionSearch); // Works
+router.get("/QuestionSearchResult/:quiz_id/:question_num", checkToken, questionSearchResult);
+router.get("/QuestionCheck/:quiz_id/:question_num", checkToken, questionCheck);
 router.get("/QuestionAmountByQuizID/:quiz_id", checkToken, questionAmountByQuizID); // Works
 router.get("/LeaderboardSearchAll/:page/:pageSize", checkToken, leaderboardSearchAll); // Works
 

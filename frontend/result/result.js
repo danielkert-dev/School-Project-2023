@@ -29,7 +29,7 @@ async function resultPage() { // Result page after questions
 
     for (let i = 0; i < localStorage.getItem("question")-1; i++) {
    
-    await fetch(`${window.API}/quiz/QuestionSearch/${localStorage.getItem("quizID")}/${i+1}`, { // Get the question in API
+    await fetch(`${window.API}/quiz/QuestionSearchResult/${localStorage.getItem("quizID")}/${i+1}`, { // Get the question in API
         method: "GET",
         headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -49,6 +49,7 @@ async function resultPage() { // Result page after questions
             correctAnswers = correctAnswers.map(Number);
 
             let choices = data.data[0].choice.split(";");
+            
             let answer = data.data[0].correct_answer.split(";");
             let correct = choices[answer-1];
 

@@ -1,1 +1,1 @@
-window.API = "https://guessrightapi-production.up.railway.app"; // API URL
+window.API = "http://localhost:6791"; // API URL
