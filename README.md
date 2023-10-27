@@ -2,4 +2,4 @@
 My school project 2023
 
 ---
-*Documentation kommer snart*
+Skit dålig använding av js men lärde mig bra xd.
